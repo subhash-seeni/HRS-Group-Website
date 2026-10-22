@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Container, Breadcrumbs, ImageSlot, InteractiveBackground } from '@/components/ui';
+import { SplitHeading } from '@/components/motion';
 import { brands } from '@/content/brands';
 import { entities } from '@/content/entities';
 
@@ -75,13 +76,11 @@ export default async function BrandDetailPage({ params }: Props) {
 
           <div className="grid grid-cols-12 gap-8 items-start mb-16 md:mb-24">
             <div className="col-span-12 lg:col-span-8 space-y-6">
-              <span className="text-[14px] text-[var(--muted)] font-sans uppercase tracking-wider block">
-                {brand.category} &bull; {brand.status === 'active' ? 'Active Brand' : 'Upcoming Portfolio'}
+              <span className="text-[14px] text-[var(--muted)] font-sans block">
+                {brand.category} &bull; {brand.status === 'active' ? 'Active brand' : 'Upcoming portfolio'}
               </span>
 
-              <h1 className="text-display-1 text-[var(--ink)] font-normal tracking-tight m-0">
-                {brand.name}
-              </h1>
+              <SplitHeading as="h1" className="text-display-1 text-[var(--ink)] font-normal tracking-tight m-0" text={brand.name} />
 
               <p className="text-[19px] md:text-[21px] leading-[1.65] text-[var(--muted)] font-sans max-w-[58ch] m-0">
                 {brand.description}
@@ -105,7 +104,7 @@ export default async function BrandDetailPage({ params }: Props) {
 
               <dl className="space-y-4 m-0">
                 <div className="border-b border-[var(--rule)] pb-3">
-                  <dt className="text-[13px] text-[var(--muted)] uppercase tracking-wider">
+                  <dt className="text-[13px] text-[var(--muted)]">
                     Category
                   </dt>
                   <dd className="text-[15.5px] text-[var(--ink)] mt-0.5 m-0">
@@ -114,7 +113,7 @@ export default async function BrandDetailPage({ params }: Props) {
                 </div>
 
                 <div className="border-b border-[var(--rule)] pb-3">
-                  <dt className="text-[13px] text-[var(--muted)] uppercase tracking-wider">
+                  <dt className="text-[13px] text-[var(--muted)]">
                     Status
                   </dt>
                   <dd className="text-[15.5px] text-[var(--ink)] mt-0.5 m-0 flex items-center gap-2">
@@ -125,7 +124,7 @@ export default async function BrandDetailPage({ params }: Props) {
 
                 {brand.location ? (
                   <div className="border-b border-[var(--rule)] pb-3">
-                    <dt className="text-[13px] text-[var(--muted)] uppercase tracking-wider">
+                    <dt className="text-[13px] text-[var(--muted)]">
                       Location / Distribution
                     </dt>
                     <dd className="text-[15.5px] text-[var(--ink)] mt-0.5 m-0">
@@ -136,8 +135,8 @@ export default async function BrandDetailPage({ params }: Props) {
 
                 {parentEntity ? (
                   <div className="border-b border-[var(--rule)] pb-3">
-                    <dt className="text-[13px] text-[var(--muted)] uppercase tracking-wider">
-                      Parent Operating Entity
+                    <dt className="text-[13px] text-[var(--muted)]">
+                      Parent operating entity
                     </dt>
                     <dd className="text-[15.5px] text-[var(--ink)] mt-0.5 m-0">
                       <Link href={`/businesses/${parentEntity.slug}`} className="link-editorial">

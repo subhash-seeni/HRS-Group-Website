@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import { Container, InteractiveBackground } from '@/components/ui';
+import { SplitHeading } from '@/components/motion';
 import { heroContent } from '@/content/heroContent';
 
 export const metadata: Metadata = {
@@ -20,9 +21,11 @@ export default function PrivacyPage() {
                 <span className="w-1.5 h-1.5 bg-[var(--orange)] inline-block flex-shrink-0" />
                 <span>{heroContent.privacy.markerLabel}</span>
               </div>
-              <h1 className="text-display-1 text-[var(--ink)] font-normal tracking-tight m-0">
-                {heroContent.privacy.headline}
-              </h1>
+              <SplitHeading
+                as="h1"
+                className="text-display-1 text-[var(--ink)] font-normal tracking-tight m-0"
+                text={heroContent.privacy.headline}
+              />
               <p className="text-[20px] md:text-[23px] leading-[1.5] text-[var(--muted)] font-sans max-w-[58ch] m-0">
                 {heroContent.privacy.curiosityHook}
               </p>

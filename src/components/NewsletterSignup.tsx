@@ -23,7 +23,7 @@ export const NewsletterSignup: React.FC = () => {
     <div className="border border-[var(--rule)] bg-[var(--paper)] p-8 md:p-12 font-sans my-16">
       <div className="grid grid-cols-12 gap-8 items-center">
         <div className="col-span-12 md:col-span-6 space-y-2">
-          <span className="text-[12px] uppercase tracking-wider text-[var(--muted)] block">
+          <span className="text-[13px] text-[var(--muted)] block">
             Institutional bulletin
           </span>
           <h3 className="text-[22px] md:text-[26px] font-serif font-normal text-[var(--ink)] m-0">

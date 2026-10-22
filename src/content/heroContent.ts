@@ -13,49 +13,49 @@ export interface PageHeroCopy {
 
 export const heroContent: Record<string, PageHeroCopy> = {
   home: {
-    headline: 'Eight companies. Built to endure.',
+    headline: 'Eight companies. Built to <em>endure</em>.',
     curiosityHook: 'Where patient capital meets structural discipline.',
     tagline: 'Western India parent enterprise',
     markerLabel: 'Headquartered in Bodakdev, Ahmedabad',
   },
   about: {
-    headline: 'Sixteen years of patient building.',
+    headline: 'Sixteen years of <em>patient</em> building.',
     curiosityHook: 'How eight independent companies grew from a single discipline in Ahmedabad.',
     tagline: 'The HRS enterprise',
     markerLabel: 'Founded 2008 &bull; Operating across Gujarat and South India',
   },
   businesses: {
-    headline: 'Our businesses',
+    headline: 'Our <em>businesses</em>',
     curiosityHook: 'Eight operating companies. One standard of permanence.',
     tagline: 'Corporate portfolio',
     markerLabel: 'Decentralized operational leadership',
   },
   careers: {
-    headline: 'Careers at HRS Group',
+    headline: '<em>Careers</em> at HRS Group',
     curiosityHook: 'Serious industrial backing. Complete operational autonomy.',
     tagline: 'Work with us',
     markerLabel: 'Engineering, production, and corporate offices',
   },
   news: {
-    headline: 'News & announcements',
+    headline: 'News & <em>announcements</em>',
     curiosityHook: 'Milestones, site handovers, and dispatches from the field.',
     tagline: 'Corporate record',
     markerLabel: 'Verified operational updates',
   },
   contact: {
-    headline: 'Contact us',
+    headline: 'Contact <em>us</em>',
     curiosityHook: 'Every conversation begins with the desk that builds it.',
     tagline: 'Direct enquiries',
     markerLabel: 'Headquarters and regional desks',
   },
   privacy: {
-    headline: 'Privacy policy',
+    headline: '<em>Privacy</em> policy',
     curiosityHook: 'Clear principles on commercial discretion and operational data.',
     tagline: 'Governance',
     markerLabel: 'Parent group data standards',
   },
   terms: {
-    headline: 'Terms of use',
+    headline: '<em>Terms</em> of use',
     curiosityHook: 'Standards governing parent documentation and proprietary assets.',
     tagline: 'Legal notice',
     markerLabel: 'Official corporate repository',

@@ -1,7 +1,8 @@
 import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { Container, InteractiveBackground } from '@/components/ui';
-import { BusinessesDirectory } from './BusinessesDirectory';
+import { SplitHeading } from '@/components/motion/SplitHeading';
+import { BusinessesFilter } from '@/components/sections/BusinessesFilter';
 import { heroContent } from '@/content/heroContent';
 
 export const metadata: Metadata = {
@@ -104,18 +105,18 @@ export default function BusinessesPage() {
                   <span className="w-1.5 h-1.5 bg-[var(--orange)] inline-block flex-shrink-0" />
                   <span>{heroContent.businesses.markerLabel}</span>
                 </div>
-                <h1 className="text-display-1 text-[var(--ink)] font-normal tracking-tight">
+                <SplitHeading as="h1" className="text-display-1 text-[var(--ink)] font-normal tracking-tight">
                   {heroContent.businesses.headline}
-                </h1>
+                </SplitHeading>
                 <p className="text-[20px] md:text-[23px] leading-[1.5] text-[var(--muted)] font-sans max-w-[58ch] m-0">
                   {heroContent.businesses.curiosityHook}
                 </p>
               </div>
             </div>
 
-            {/* Filter and List Directory with URL Query updates */}
+            {/* Filter and List Directory with animated reordering and hover previews */}
             <Suspense fallback={<div className="h-40" />}>
-              <BusinessesDirectory />
+              <BusinessesFilter />
             </Suspense>
           </Container>
         </section>

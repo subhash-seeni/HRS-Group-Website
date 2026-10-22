@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Newsreader, Hanken_Grotesk } from 'next/font/google';
 import { Shell } from '@/components/layout';
 import { CookieNotice } from '@/components/CookieNotice';
+import { SmoothScroll } from '@/components/motion/SmoothScroll';
 import './globals.css';
 
 const newsreader = Newsreader({
@@ -62,8 +63,10 @@ export default function RootLayout({
       className={`${newsreader.variable} ${hankenGrotesk.variable} antialiased`}
     >
       <body className="min-h-screen bg-[var(--white)] text-[var(--ink)] font-sans antialiased selection:bg-[var(--orange)] selection:text-[var(--ink)]">
-        <Shell>{children}</Shell>
-        <CookieNotice />
+        <SmoothScroll>
+          <Shell>{children}</Shell>
+          <CookieNotice />
+        </SmoothScroll>
       </body>
     </html>
   );

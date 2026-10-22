@@ -21,7 +21,7 @@ export interface AboutContent {
 }
 
 export const aboutContent: AboutContent = {
-  statement: 'Sixteen years of patient building.',
+  statement: 'Sixteen years of <em>patient</em> building.',
   curiosityHook: 'How eight independent companies grew from a single discipline in Ahmedabad.',
   story: [
     'HRS Group began operations in Ahmedabad in 2008 with the establishment of Hrishikesh Ventures. Grounded in the commercial discipline of western Gujarat, the business concentrated on residential and commercial developments along expanding transport corridors including SG Highway, Ambli Road, and Science City.',

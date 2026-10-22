@@ -3,27 +3,54 @@ import Image from 'next/image';
 import { WideLogoSlot } from './WideLogoSlot';
 
 export interface LogoProps {
-  entity: string;
+  entity?: string;
   className?: string;
   height?: number;
   width?: number;
-  variant?: 'auto' | 'svg' | 'tile' | 'placeholder';
+  variant?: 'auto' | 'svg' | 'tile' | 'placeholder' | 'light';
   alt?: string;
 }
 
 export const Logo: React.FC<LogoProps> = ({
-  entity,
+  entity = 'hrs-group',
   className = '',
   height = 32,
   width,
   variant = 'auto',
   alt,
 }) => {
-  const normalizedSlug = entity.toLowerCase().trim().replace(/_/g, '-');
+  const normalizedSlug = (entity || 'hrs-group').toLowerCase().trim().replace(/_/g, '-');
   const accessibleAlt = alt || `${normalizedSlug.replace(/-/g, ' ')} logo`;
 
   if (variant === 'placeholder') {
     return <WideLogoSlot title={accessibleAlt} className={className} />;
+  }
+
+  // Light variant for use on dark/ink surfaces (#F5F2EC text + #F58220 micro-marker)
+  if (variant === 'light') {
+    const displayName =
+      normalizedSlug === 'hrs-group'
+        ? 'HRS Group'
+        : normalizedSlug === 'hrs-aluglaze'
+        ? 'HRS Aluglaze'
+        : normalizedSlug === 'soft' || normalizedSlug === 'school-of-facade-technologies'
+        ? 'School of Facade Technologies'
+        : normalizedSlug
+            .split('-')
+            .map((w) => (w === 'hrs' || w === 'soft' ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1)))
+            .join(' ');
+
+    return (
+      <span className={`inline-flex items-center gap-2.5 ${className}`} aria-label={accessibleAlt}>
+        <span className="w-[7px] h-[7px] bg-[var(--orange)] flex-shrink-0" aria-hidden="true" />
+        <span
+          className="font-serif text-[18.5px] text-[#F5F2EC] tracking-[-0.01em] whitespace-nowrap"
+          style={{ lineHeight: 1 }}
+        >
+          {displayName}
+        </span>
+      </span>
+    );
   }
 
   // HRS Aluglaze special requirement:

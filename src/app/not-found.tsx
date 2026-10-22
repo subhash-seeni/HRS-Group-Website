@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Container } from '@/components/ui/Container';
+import { SplitHeading } from '@/components/motion';
 
 export default function NotFound() {
   return (
@@ -13,9 +14,11 @@ export default function NotFound() {
               Error 404
             </span>
           </div>
-          <h1 className="text-display-2 text-[var(--ink)]">
-            Page not found
-          </h1>
+          <SplitHeading
+            as="h1"
+            className="text-display-2 text-[var(--ink)]"
+            text="Page not found"
+          />
           <p className="text-[17.5px] leading-relaxed text-[var(--muted)] font-sans">
             The requested page does not exist or has been moved to another location within the group site.
           </p>

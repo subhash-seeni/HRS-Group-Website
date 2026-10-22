@@ -2,134 +2,140 @@
 
 ## 1. Business Context
 HRS Group brings together eight entities across facade engineering, real estate, food manufacturing, consumer brands, hospitality, education, brand communications and retail.
-Headquarters: Ahmedabad, Gujarat.
-Core Values: Faith, Trust, Foundation, People, Process, Service.
+- **Headquarters**: Bodakdev, SG Highway, Ahmedabad, Gujarat.
+- **Southern Regional Hub**: Kadubeesanahalli, Outer Ring Road, Bengaluru, Karnataka.
+- **Manufacturing Facilities**: Sanand (Aluminium & Facades), Bavla (Spices & Milling).
+- **Core Values**: Faith, Trust, Foundation, People, Process, Service.
 
-The site is a PARENT site: it presents one calm group identity and routes visitors to each business within two clicks.
+The site is an official **parent website**: it presents one calm group identity and routes visitors to each business within two clicks.
 
 ### Sectors and Entities (Use Exactly These Names)
-- **BUILT ENVIRONMENT**
+- **Built Environment**
   - **Hrishikesh Ventures**: Real estate developer. 13 live developments: H1, H2, H3, H4, H6, H7, H10, W1, Kishor Park, Hrishikesh Villa, and commercial projects Hrishikesh 1, Hrishikesh 2, Hrishikesh 3; plus one joint venture, H9. (Redevelopment arm is on hold).
-  - **HRS Aluglaze Ltd**: Facade and fenestration company. Aluminium and glazing systems, windows and doors. B2B specialist supplier for construction projects. Its logo is `/public/brand/hrs-aluglaze-logo.png` (white wordmark and orange arrow on black).
-  - **Geotrix Pvt. Ltd.**: South India facade company, acquired by HRS Aluglaze; operates as Aluglaze's South India arm. Has its own page.
-  - **School of Facade Technologies (SoFT)**: Education venture teaching facade and fenestration. Three audiences: students and fresh entrants (diploma, certificate), site installers and fabricators (skilling, certification), architects and engineers (professional upskilling). Draws on Aluglaze's expertise.
-- **FOOD AND CONSUMER**
+  - **HRS Aluglaze Ltd**: Facade and fenestration company. Aluminium and glazing systems, windows and doors. B2B specialist supplier for construction projects.
+  - **Geotrix Pvt. Ltd.**: South India facade company, acquired by HRS Aluglaze; operates as Aluglaze's South India arm.
+  - **School of Facade Technologies (SoFT)**: Education venture teaching facade and fenestration. Three audiences: students and fresh entrants (diploma, certificate), site installers and fabricators (skilling, certification), architects and engineers (professional upskilling).
+- **Food and Consumer**
   - **Hrishikesh Food Products**: Spices and masalas manufacturer. Three models: job work, white labelling, own product ranges.
   - **Hrishikesh Consumer Products**: 13 brands.
-    - Active / In Development: Manpras (neighbourhood grocery store AND packaged brand), Snackshot (snacks and namkeen), Antrah (mouth freshener), Basic Essentials (tissue), Gush (packaged drinking water), Daily Pump (beverage and energy drink).
+    - Active / In Development: Manpras (neighbourhood grocery store and packaged brand), Snackshot (snacks and namkeen), Antrah (mouth freshener), Basic Essentials (tissue), Gush (packaged drinking water), Daily Pump (beverage and energy drink).
     - Upcoming Brands (reserved names): Biscbite, Mood Beans, The Frozen Palette, The Nut Tribe, Purple Cow, Defumes, Raspberry Rhinoceros.
-- **HOSPITALITY, LEASING AND RETAIL**
+- **Hospitality, Leasing and Retail**
   - **FirstGen Pvt. Ltd.**: Umbrella entity for the divisions below. Not a consumer brand; its divisions trade under their own names.
   - **FirstGen Assets**: Leasing of commercial and office space, retail space, warehousing and industrial property, equipment and machinery.
-  - **FirstGen Hotels**: Flight Stays (service apartments, Bengaluru) and Amuktamalyada (Telugu tiffin and meals restaurant on Outer Ring Road, Bengaluru; gare, upma, rava idli, pesarattu, dosa; affordable vegetarian meals).
-  - **FirstGen Enterprises**: The Bluprint by Builders Cafe (cafe for the building trade, also co-working space and material experience centre) and ShubhVista (building materials and fittings retail).
-- **SERVICES**
+  - **FirstGen Hotels**: Flight Stays (service apartments, Bengaluru) and Amuktamalyada (Telugu vegetarian dining on Outer Ring Road, Bengaluru).
+  - **FirstGen Enterprises**: The Bluprint by Builders Cafe (cafe, co-working space, and material experience centre) and ShubhVista (building materials and fittings retail).
+- **Services**
   - **Indian Brand House**: Brand communications agency serving group companies and outside clients. Brand strategy and identity, creative and content production, digital and performance marketing.
 
 **Explicit Exclusions**: Do NOT include FirstGen QSR, Quantum Build or any redevelopment arm.
 
 ---
 
-## 2. Audiences
-- Builders, architects and contractors
-- Homebuyers and tenants
-- Shoppers and diners
-- Brands and buyers (white label, job work, marketing)
-- Investors, partners and job seekers
-
----
-
-## 3. Tech Stack
-- Next.js (latest stable, App Router)
+## 2. Tech Stack
+- Next.js (latest App Router with Turbopack)
 - TypeScript strict
-- Tailwind CSS
-- lucide-react (thin line icons, used sparingly and never inside coloured shapes)
-- next/font (`Newsreader` and `Hanken Grotesk`)
-- react-hook-form + zod
-- No animation library: CSS transitions only
-- No database yet: forms post to a Next.js route handler that validates and logs
-- Static-first, deployable on Vercel
-- Subdirectory routing, no subdomains
+- Tailwind CSS (vanilla utility tokens, no ad-hoc arbitrary blobs)
+- `motion` (modern lightweight Motion library) and `lenis` (smooth scrolling on non-touch devices)
+- `next/font/google`: `Newsreader` (optical sizing enabled) and `Hanken Grotesk`
+- `react-hook-form` + `zod`
+- All copy strictly stored in `/src/content/*.ts`
 
 ---
 
-## 4. Design Direction
-The site is MINIMAL, with a LOT of white space, led by typography. Think architecture practice or a well-made annual report. It must not look like an AI-generated or SaaS template.
+## 3. Design System & Surfaces
 
-### Colour Tokens
-- `--white`: `#FFFFFF` (page background)
-- `--paper`: `#F7F6F3` (rare alternate band)
-- `--ink`: `#141414` (primary text and solid accents)
-- `--muted`: `#6B6B66` (subtle captions, secondary text)
-- `--rule`: `#E6E4DF` (1px hairlines)
-- `--slot`: `#ECEAE5` (empty image blocks)
-- `--orange`: `#F58220` (micro-accent only)
+### Surface Rhythm
+Pages use deliberate surface alternation via `<Section surface="white|stone|ink|orange">`.
+- **Rhythm**: No two identical surfaces touch. At most one `ink` section in a row.
+- **Orange Surface**: Used at most once per page as a single deliberate block (e.g. Careers/Contact block on homepage, Spontaneous Profile on careers, Regional Facilities on contact).
+- **Edges**: Hard, straight, hairline-separated. No wave borders, no angled cuts, no blurred edges.
 
-### Orange Usage Rules
-Orange is a tiny accent only: a small dot or square marker, 2px link underline on hover, focus ring, active nav indicator. Never as body text colour, never as a large fill, never in gradients.
-Primary button: solid ink with white text; on hover it turns orange with ink text.
+### Token Palette
+- `--white`: `#FFFFFF`
+- `--paper`: `#F7F6F3`
+- `--stone`: `#EDEAE3`
+- `--stone-deep`: `#DDD8CE`
+- `--ink`: `#141414`
+- `--ink-deep`: `#0C0C0C`
+- `--muted`: `#6B6B66`
+- `--rule`: `#E6E4DF`
+- `--slot`: `#ECEAE5`
+- `--orange`: `#F58220` (accent dots, 2px hover underlines, focus rings, single orange surface)
+- `--orange-deep`: `#C2410C` (italic emphasis words on light surfaces, accessible contrast >= 5.3:1)
+- `--orange-wash`: `#FFF1E3` (subtle row hover tint on light surfaces)
 
-### Typography
-- Headings: `Newsreader` (regular weight, large, generous leading). Fluid heading scale; the largest heading up to about 6rem.
-- Body and interface: `Hanken Grotesk`. Body size 17-18px, line height 1.6, max line length about 62ch.
-- Sentence case everywhere.
-- No monospace, no uppercase tracked eyebrow labels.
-
-### Layout & Grid
-- 12-column grid, max width 1280px, left-aligned and asymmetric.
-- Text blocks occupy cols 1-6 or 4-10 and the remaining space stays empty on purpose.
-- Vertical gaps between sections: 160-240px desktop, 80px mobile.
-- No centred hero. No full-width coloured bands.
+### Typography Rules
+- **Page Titles & Hero Headings**: `Newsreader` regular, clamp(3rem, 8.5vw, 9rem), line-height 0.98–1.1, tracking -0.025em.
+- **Section Headings**: `Newsreader`, clamp(2rem, 4.5vw, 4.5rem).
+- **Emphasis**: At most ONE italic word or phrase per major heading (`Newsreader` italic), set in `var(--orange-deep)` on light surfaces and `var(--orange)` on ink.
+- **Body Text**: `Hanken Grotesk`, 17–18px, line-height 1.6, max line length 62ch.
+- **Numerals**: Tabular lining numerals for years, facts, and financial figures.
+- **Casing**: Sentence case everywhere. Uppercase tracked eyebrows and monospace are strictly banned.
 
 ### Lists, Not Cards
-- Businesses, brands, news and jobs are typographic rows separated by 1px rules (name, one line of description, small arrow).
-- No box shadows, no rounded cards, no icons in circles or squares.
-
-### Imagery
-- Large, true aspect ratios (3:2 or 4:5), square corners, no overlays, filters or duotone, small muted captions.
-- `<ImageSlot>` renders a flat `--slot` block at the right aspect ratio with no text and no icon, and accepts a real image path later.
-
-### Logos
-- Placeholder wordmarks via `<Logo entity="slug" />` component loading `/public/logos/<slug>.svg`.
-- Simple wordmark SVG per entity (name set in Newsreader styling, ink colour, small orange square before it) and one for HRS Group.
-- HRS Aluglaze uses `/public/brand/hrs-aluglaze-logo.png` placed on an ink-coloured tile because it is white on black.
-
-### Motion & Performance
-- Only 150-200ms colour and underline transitions and a 150ms page fade.
-- No parallax, scroll-jacking, sticky stacking, count-up numbers, marquees, typewriter text, or fade-ins on every element.
-- Respect `prefers-reduced-motion`.
-
-### Accessibility
-- WCAG AA compliant.
-- Visible focus states.
-- Semantic HTML landmarks (`<header>`, `<main>`, `<nav>`, `<article>`, `<footer>`, `<section>`).
-- Keyboard-navigable menus.
-- Proper alt text on images.
-
-### Forbidden Patterns (NEVER Use)
-- Dark hero with glow or gradient
-- Purple or blue gradients
-- Glassmorphism, blurred blobs, bento grids
-- Pill badges above headings
-- Gradient text
-- Floating device mockups
-- 'Trusted by' logo strips
-- Three-column feature-card rows
-- Count-up stat bars
-- Testimonial carousels
-- Emoji
-- Inter or Space Grotesk fonts
+- Directory listings, related businesses, news announcements, and career roles are rendered as **typographic rows separated by 1px hairlines**, never as cards.
+- Box shadows, glassmorphism, rounded corners, and icon pills are forbidden.
 
 ---
 
-## 5. Content Rules
-- All copy lives in `/src/content/*.ts` (entities, brands, projects, news, jobs, facts, leadership, milestones, site settings). Components never hard-code copy.
-- Write specific, realistic dummy copy: real-sounding Ahmedabad and Bengaluru localities, dates, quantities, names. Never write 'lorem ipsum', 'placeholder', 'TBD' or 'sample' in the UI.
-- Voice: plain, factual, short declarative sentences of varied length. Headings say what something is ('Facade systems for commercial buildings'), not a slogan. Buttons and links say what happens: 'Send an enquiry', 'See projects', 'Read the story'.
-- Banned words and patterns: unlock, elevate, empower, seamless, cutting-edge, state-of-the-art, innovative, leverage, robust, holistic, synergy, journey, tapestry, landscape, delve, world-class, next-generation, end-to-end, passionate, 'we pride ourselves', 'at the heart of', 'not just X but Y', 'where X meets Y', 'in today's fast-paced world'. No em dashes. No exclamation marks. No rhetorical-question headings. Avoid grouping everything in threes.
+## 4. Motion Foundation & Primitives
+
+### Motion Tokens
+- **Easings**:
+  - `cssEaseOut`: `cubic-bezier(0.22, 1, 0.36, 1)`
+  - `cssEaseInOut`: `cubic-bezier(0.65, 0, 0.35, 1)`
+- **Durations**:
+  - Fast: `200ms` (row hover, title shift, arrow slide)
+  - Base: `500ms` (fades, standard reveals)
+  - Slow: `800ms` (line-by-line SplitHeading, smooth zoom)
+  - Cinematic: `1200ms` (numeral count-up, ImageReveal)
+- **Distances**:
+  - Rise: `24px`
+  - Large rise: `60px`
+
+### Core Primitives (`/src/components/motion/`)
+- `SmoothScroll`: Lenis smooth scroll provider in root layout. Disabled for reduced motion and native on touch devices.
+- `SplitHeading`: Splits headings into lines, sliding up from an overflow-hidden mask with 80ms stagger. SSR-safe and preserves screen-reader `aria-label`.
+- `Reveal`: Fades in and rises 24px once when 15% in view.
+- `ImageReveal`: Clip-path and scale reveal over 1200ms for photography.
+- `LineLink`: Editorial link with animated 2px underline drawing left-to-right.
+- `FillButton`: Solid button with sliding orange fill from bottom on hover.
+- `ReadingProgress`: Fixed top 2px orange progress bar tracking article scroll progress.
+
+### Accessibility & Reduced Motion
+- When `prefers-reduced-motion` is detected:
+  - All reveals become instant.
+  - No parallax or scroll-scrubbed expansions.
+  - Cursor-following previews are disabled.
+  - Smooth scrolling is disabled (native instant scrolling).
 
 ---
 
-## 6. Phase Progression
-- **Phase 0 (Current)**: Foundation only. Project scaffolding, typed content model, design system tokens, font setup, logo generation, brief and rules. No page UI.
-- **Phase 1+**: Shell and navigation, entity routing, sector pages, detail views, contact/enquiry route handlers.
+## 5. Editorial Photography
+- Photography follows a real 35mm architectural and industrial aesthetic.
+- Natural golden-hour or diffuse daylight, authentic materials (sandstone, unitised aluminium curtain walls, slate stone spices, travertine).
+- No saturated neon hues, no stock photo business handshakes, no artificial glow.
+
+---
+
+## 6. How to Add New Pages in This Style
+
+When adding a new inner route (e.g. `/facilities/[slug]` or `/sustainability`):
+
+1. **Copy First**: Add all text, metadata, and data arrays to `/src/content/*.ts`. Never hardcode strings in components.
+2. **Surface Planning**: Plan the section sequence so no two identical surfaces touch:
+   - Example: Opening (`white`) → Key Data (`stone`) → Narrative / Case Study (`white`) → Selected Images (`ink`) → Related Links (`stone`) → Enquiry Closing (`ink`).
+3. **Opening Section**:
+   - Use `SplitHeading` for the page title.
+   - Fade up the introductory sentence and metadata.
+   - If imagery is present, use `ImageReveal` with a 16:9 or 16:10 aspect ratio and a caption with `Fig.` notation.
+4. **Content Lists**:
+   - Render lists as 1px hairline rows (`border-b border-[var(--rule)]`).
+   - On hover: unhovered rows dim to 40%, hovered title shifts 8px (`transform 200ms cubic-bezier(0.22, 1, 0.36, 1)`), and the arrow turns orange and slides right.
+5. **One Signature Behavior**:
+   - Choose exactly ONE signature interaction for the page (e.g. an interactive switcher, horizontal pinned strip, or drawn timeline). Keep the rest of the page quiet.
+6. **Accessibility & SSR**:
+   - Ensure interactive links support `:focus-visible` rings.
+   - Ensure all content renders visible when JavaScript is disabled (using `isHydrated` checks in motion components).
+   - Use sentence case for every heading, label, and button.

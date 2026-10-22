@@ -1,6 +1,8 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import { Container, InteractiveBackground } from '@/components/ui';
+import { Section } from '@/components/layout/Section';
+import { SplitHeading } from '@/components/motion';
 import { news } from '@/content/news';
 import { heroContent } from '@/content/heroContent';
 import { NewsClient } from './NewsClient';
@@ -30,7 +32,7 @@ export const metadata: Metadata = {
 export default function NewsPage() {
   return (
     <div className="bg-[var(--white)] text-[var(--ink)] font-sans">
-      <section className="relative pt-[16vh] md:pt-[20vh] pb-24 md:pb-36 overflow-hidden">
+      <Section surface="white" className="relative pt-[16vh] md:pt-[20vh] pb-24 md:pb-36 overflow-hidden">
         <InteractiveBackground variant="inner" />
         <Container className="relative z-10">
           <div className="grid grid-cols-12 gap-8 mb-16 md:mb-20">
@@ -39,9 +41,11 @@ export default function NewsPage() {
                 <span className="w-1.5 h-1.5 bg-[var(--orange)] inline-block flex-shrink-0" />
                 <span>{heroContent.news.markerLabel}</span>
               </div>
-              <h1 className="text-display-1 text-[var(--ink)] font-normal tracking-tight m-0">
-                {heroContent.news.headline}
-              </h1>
+              <SplitHeading
+                as="h1"
+                className="text-display-1 text-[var(--ink)] font-normal tracking-tight m-0"
+                text={heroContent.news.headline}
+              />
               <p className="text-[20px] md:text-[23px] leading-[1.5] text-[var(--muted)] font-sans max-w-[58ch] m-0">
                 {heroContent.news.curiosityHook}
               </p>
@@ -54,7 +58,7 @@ export default function NewsPage() {
           {/* Newsletter Signup Strip */}
           <NewsletterSignup />
         </Container>
-      </section>
+      </Section>
     </div>
   );
 }

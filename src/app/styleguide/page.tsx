@@ -16,6 +16,7 @@ import {
   ImageSlot,
   Logo,
 } from '@/components/ui';
+import { SplitHeading } from '@/components/motion';
 
 export default function StyleguidePage() {
   const [activeTab, setActiveTab] = useState('overview');
@@ -100,9 +101,7 @@ export default function StyleguidePage() {
                   Internal design system &bull; Phase 1 specification
                 </span>
               </div>
-              <h1 className="text-display-1 text-[var(--ink)]">
-                Design system & global layout
-              </h1>
+              <SplitHeading as="h1" className="text-display-1 text-[var(--ink)]" text="Design system & global layout" />
             </div>
             <div className="col-span-12 md:col-span-5">
               <p className="text-[17px] leading-relaxed text-[var(--muted)] font-sans">

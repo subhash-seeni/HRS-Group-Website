@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Container, Breadcrumbs, InteractiveBackground } from '@/components/ui';
+import { SplitHeading } from '@/components/motion';
 import { jobOpenings } from '@/content/jobs';
 import { entities } from '@/content/entities';
 import { JobApplyForm } from './JobApplyForm';
@@ -105,26 +106,24 @@ export default async function JobDetailPage({ params }: Props) {
                 <span>{job.location}</span>
               </div>
 
-              <h1 className="text-display-1 text-[var(--ink)] font-normal tracking-tight m-0">
-                {job.title}
-              </h1>
+              <SplitHeading as="h1" className="text-display-1 text-[var(--ink)] font-normal tracking-tight m-0" text={job.title} />
 
               <div className="flex flex-wrap items-center gap-6 pt-2 text-[14px] text-[var(--muted)]">
                 <div>
-                  <span className="text-[11px] uppercase tracking-wider block text-[var(--muted)]">
+                  <span className="text-[12px] block text-[var(--muted)]">
                     Employment
                   </span>
                   <span className="text-[var(--ink)] font-medium">{job.employmentType}</span>
                 </div>
                 <div>
-                  <span className="text-[11px] uppercase tracking-wider block text-[var(--muted)]">
+                  <span className="text-[12px] block text-[var(--muted)]">
                     Experience
                   </span>
                   <span className="text-[var(--ink)] font-medium">{job.experienceLevel || 'Not specified'}</span>
                 </div>
                 <div>
-                  <span className="text-[11px] uppercase tracking-wider block text-[var(--muted)]">
-                    Base Facility
+                  <span className="text-[12px] block text-[var(--muted)]">
+                    Base facility
                   </span>
                   <span className="text-[var(--ink)] font-medium">{job.location}</span>
                 </div>
@@ -168,7 +167,7 @@ export default async function JobDetailPage({ params }: Props) {
 
               {entity && (
                 <div className="p-6 border border-[var(--rule)] bg-[var(--paper)] space-y-2">
-                  <span className="text-[12px] uppercase tracking-wider text-[var(--muted)] block">
+                  <span className="text-[13px] text-[var(--muted)] block">
                     Operating company
                   </span>
                   <h3 className="text-[18px] font-medium text-[var(--ink)] m-0">
@@ -192,7 +191,7 @@ export default async function JobDetailPage({ params }: Props) {
             {/* Right: Application Form */}
             <div className="col-span-12 lg:col-span-5 border border-[var(--rule)] bg-[var(--paper)] p-6 md:p-8">
               <div className="mb-6">
-                <span className="text-[12px] uppercase tracking-wider text-[var(--muted)] block mb-1">
+                <span className="text-[13px] text-[var(--muted)] block mb-1">
                   Direct submission
                 </span>
                 <h2 className="text-[22px] font-normal text-[var(--ink)] m-0">

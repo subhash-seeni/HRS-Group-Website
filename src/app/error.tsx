@@ -3,6 +3,7 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { Container } from '@/components/ui';
+import { SplitHeading } from '@/components/motion';
 
 interface ErrorProps {
   error: Error & { digest?: string };
@@ -24,9 +25,7 @@ export default function ErrorPage({ error, reset }: ErrorProps) {
               System notice
             </span>
           </div>
-          <h1 className="text-display-2 text-[var(--ink)] font-serif font-normal m-0">
-            An unexpected error occurred
-          </h1>
+          <SplitHeading as="h1" className="text-display-2 text-[var(--ink)] font-serif font-normal m-0" text="An unexpected error occurred" />
           <p className="text-[17.5px] leading-relaxed text-[var(--muted)] font-sans m-0">
             The page could not be displayed due to an internal rendering interruption. Our technical team has been notified.
           </p>

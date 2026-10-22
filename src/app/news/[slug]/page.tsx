@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Container, Breadcrumbs, InteractiveBackground } from '@/components/ui';
+import { ReadingProgress } from '@/components/ui/ReadingProgress';
+import { SplitHeading } from '@/components/motion';
 import { news } from '@/content/news';
 import { entities } from '@/content/entities';
 import { NewsletterSignup } from '@/components/NewsletterSignup';
@@ -82,6 +84,8 @@ export default async function NewsDetailPage({ params }: PageProps) {
 
   return (
     <div className="bg-[var(--white)] text-[var(--ink)] font-sans">
+      <ReadingProgress />
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -104,7 +108,7 @@ export default async function NewsDetailPage({ params }: PageProps) {
           <div className="grid grid-cols-12 gap-8 mb-12">
             <div className="col-span-12 lg:col-span-10 space-y-5">
               <div className="flex flex-wrap items-center gap-3 text-[13px] text-[var(--muted)]">
-                <span className="uppercase tracking-wider font-medium text-[var(--ink)]">
+                <span className="font-medium text-[var(--ink)]">
                   {item.category}
                 </span>
                 <span className="text-[var(--rule)]">/</span>
@@ -124,11 +128,13 @@ export default async function NewsDetailPage({ params }: PageProps) {
                 )}
               </div>
 
-              <h1 className="text-display-1 text-[var(--ink)] font-normal leading-[1.2] tracking-tight m-0">
-                {item.title}
-              </h1>
+              <SplitHeading
+                as="h1"
+                className="text-display-1 text-[var(--ink)] font-normal leading-[1.1] tracking-tight m-0"
+                text={item.title}
+              />
 
-              <p className="text-[19px] md:text-[22px] leading-[1.55] text-[var(--muted)] font-serif max-w-[62ch] m-0">
+              <p className="text-[19px] md:text-[23px] leading-[1.5] text-[var(--muted)] font-serif max-w-[62ch] m-0">
                 {item.summary}
               </p>
             </div>
@@ -146,13 +152,13 @@ export default async function NewsDetailPage({ params }: PageProps) {
                 )}
               </div>
 
-              {/* Pull Quote */}
+              {/* Large Pull Quote style */}
               {item.pullQuote && (
-                <div className="my-10 p-8 border-l-2 border-[var(--orange)] bg-[var(--paper)] space-y-3">
-                  <p className="font-serif text-[20px] md:text-[24px] font-normal leading-[1.4] text-[var(--ink)] italic m-0">
+                <div className="my-12 py-8 px-6 md:px-10 border-l-2 border-[var(--orange)] bg-[var(--paper)] space-y-4">
+                  <p className="font-serif text-[24px] md:text-[32px] font-normal leading-[1.3] text-[var(--ink)] italic m-0">
                     &ldquo;{item.pullQuote.text}&rdquo;
                   </p>
-                  <span className="text-[13px] text-[var(--muted)] block font-sans">
+                  <span className="text-[14px] text-[var(--muted)] block font-sans">
                     — {item.pullQuote.author}
                   </span>
                 </div>
@@ -160,7 +166,7 @@ export default async function NewsDetailPage({ params }: PageProps) {
 
               {/* Share links */}
               <div className="pt-8 border-t border-[var(--rule)]">
-                <span className="text-[12px] uppercase tracking-wider text-[var(--muted)] block mb-3">
+                <span className="text-[13px] text-[var(--muted)] block mb-3">
                   Share this release
                 </span>
                 <div className="flex flex-wrap items-center gap-4 text-[14px]">
@@ -195,8 +201,8 @@ export default async function NewsDetailPage({ params }: PageProps) {
             {/* Sidebar Details (cols 9-12) */}
             <div className="col-span-12 lg:col-span-4 border-t lg:border-t-0 lg:border-l border-[var(--rule)] lg:pl-10 pt-8 lg:pt-0 space-y-8">
               <div className="space-y-1">
-                <span className="text-[11px] uppercase tracking-wider text-[var(--muted)] block">
-                  Publishing Entity
+                <span className="text-[12px] text-[var(--muted)] block">
+                  Publishing entity
                 </span>
                 <span className="text-[15px] text-[var(--ink)] font-medium block">
                   {entity ? entity.name : 'HRS Group Corporate'}
@@ -209,7 +215,7 @@ export default async function NewsDetailPage({ params }: PageProps) {
               </div>
 
               <div className="space-y-1">
-                <span className="text-[11px] uppercase tracking-wider text-[var(--muted)] block">
+                <span className="text-[12px] text-[var(--muted)] block">
                   Category
                 </span>
                 <span className="text-[15px] text-[var(--ink)] block">
@@ -218,8 +224,8 @@ export default async function NewsDetailPage({ params }: PageProps) {
               </div>
 
               <div className="pt-4 border-t border-[var(--rule)]">
-                <span className="text-[11px] uppercase tracking-wider text-[var(--muted)] block mb-2">
-                  Media & Press Inquiries
+                <span className="text-[12px] text-[var(--muted)] block mb-2">
+                  Media & press inquiries
                 </span>
                 <p className="text-[13px] text-[var(--muted)] leading-[1.5] m-0 mb-3">
                   For official statements, interviews or high-resolution architectural documentation:
@@ -235,40 +241,46 @@ export default async function NewsDetailPage({ params }: PageProps) {
             </div>
           </div>
 
-          {/* Related Stories */}
+          {/* Related Stories: Hairline-separated rows (NOT cards) */}
           {relatedStories.length > 0 && (
             <div className="mt-20 pt-16 border-t border-[var(--rule)]">
               <div className="mb-8">
-                <span className="text-[12px] uppercase tracking-wider text-[var(--muted)] block mb-1">
+                <span className="text-[13px] text-[var(--muted)] block mb-1">
                   Related announcements
                 </span>
-                <h2 className="text-[24px] md:text-[28px] font-serif font-normal text-[var(--ink)] m-0">
-                  Further group statements
-                </h2>
+                <SplitHeading
+                  as="h2"
+                  className="text-heading-2 font-serif font-normal text-[var(--ink)] m-0"
+                  text="Further group statements"
+                />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="border-t border-[var(--rule)]">
                 {relatedStories.map((rel) => (
                   <article
                     key={rel.slug}
-                    className="p-6 border border-[var(--rule)] bg-[var(--white)] hover:bg-[var(--paper)] transition-colors flex flex-col justify-between space-y-4"
+                    className="group py-6 border-b border-[var(--rule)] flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-[var(--paper)] px-3 -mx-3 transition-colors"
                   >
-                    <div className="space-y-2">
-                      <span className="text-[11px] uppercase tracking-wider text-[var(--muted)]">
-                        {rel.category}
+                    <div className="space-y-1">
+                      <span className="text-[12px] text-[var(--muted)] block">
+                        {rel.category} · {rel.date}
                       </span>
-                      <h3 className="text-[18px] font-normal leading-[1.35] text-[var(--ink)] m-0">
+                      <h3 className="text-[18px] md:text-[19px] font-normal leading-[1.35] text-[var(--ink)] m-0 transition-transform duration-200 group-hover:translate-x-1.5">
                         <Link
                           href={`/news/${rel.slug}`}
-                          className="hover:text-[var(--orange)] transition-colors"
+                          className="hover:text-[var(--orange-deep)] transition-colors"
                         >
                           {rel.title}
                         </Link>
                       </h3>
                     </div>
-                    <time dateTime={rel.date} className="text-[13px] text-[var(--muted)]">
-                      {rel.date}
-                    </time>
+                    <Link
+                      href={`/news/${rel.slug}`}
+                      className="text-[13px] font-medium text-[var(--ink)] group-hover:text-[var(--orange-deep)] transition-colors inline-flex items-center gap-1.5 shrink-0"
+                    >
+                      <span>Read release</span>
+                      <span className="group-hover:translate-x-1 transition-transform" aria-hidden="true">→</span>
+                    </Link>
                   </article>
                 ))}
               </div>

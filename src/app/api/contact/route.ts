@@ -10,7 +10,7 @@ const contactServerSchema = z.object({
   enquiryType: z.string().min(1, 'Please select an enquiry type'),
   message: z.string().min(10, 'Message must be at least 10 characters'),
   consent: z.literal(true, {
-    errorMap: () => ({ message: 'You must consent to proceed with your enquiry' }),
+    message: 'You must consent to proceed with your enquiry',
   }),
   botField: z.string().max(0, 'Spam detected').optional(),
 });

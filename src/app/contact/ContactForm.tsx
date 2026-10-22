@@ -4,7 +4,9 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Button } from '@/components/ui';
+import { motion, AnimatePresence } from 'motion/react';
+import { SplitHeading } from '@/components/motion/SplitHeading';
+import { FillButton } from '@/components/motion/FillButton';
 import { trackContactSubmit } from '@/lib/analytics';
 
 const contactFormSchema = z.object({
@@ -15,8 +17,8 @@ const contactFormSchema = z.object({
   entity: z.string().min(1, 'Please select the operating business'),
   enquiryType: z.string().min(1, 'Please select an enquiry category'),
   message: z.string().min(10, 'Please provide message details (minimum 10 characters)'),
-  consent: z.literal(true, {
-    errorMap: () => ({ message: 'You must consent to proceed with your enquiry' }),
+  consent: z.boolean().refine((val) => val === true, {
+    message: 'You must consent to proceed with your enquiry',
   }),
   botField: z.string().max(0, 'Spam detected').optional(),
 });
@@ -136,7 +138,7 @@ export const ContactForm: React.FC = () => {
     }
   }, [paramEntity, setValue]);
 
-  // Set default enquiry type whenever entity changes if not already set or invalid
+  // Set default enquiry type whenever entity changes
   useEffect(() => {
     if (activeEnquiryOptions.length > 0) {
       setValue('enquiryType', activeEnquiryOptions[0]);
@@ -177,32 +179,32 @@ export const ContactForm: React.FC = () => {
         id="contact-form-success"
         role="status"
         aria-live="polite"
-        className="p-8 md:p-12 border border-[var(--rule)] bg-[var(--paper)] font-sans space-y-6"
+        className="py-10 font-sans space-y-6"
       >
         <div className="flex items-center gap-3">
-          <span className="w-2.5 h-2.5 bg-[var(--orange)]" aria-hidden="true" />
-          <h2 className="font-serif text-[24px] md:text-[28px] font-normal text-[var(--ink)] m-0">
-            Enquiry registered
-          </h2>
+          <span className="w-2.5 h-2.5 bg-[var(--orange)] inline-block flex-shrink-0" aria-hidden="true" />
+          <span className="text-[14px] text-[var(--muted)]">Enquiry confirmation</span>
         </div>
 
-        <p className="text-[17px] leading-[1.6] text-[var(--ink)] max-w-[54ch] m-0">
+        <SplitHeading
+          as="h2"
+          className="text-[32px] md:text-[44px] leading-[1.1] font-normal text-[var(--ink)] m-0 font-serif"
+          text="Enquiry registered. We will respond within one working day."
+        />
+
+        <p className="text-[17px] leading-[1.6] text-[var(--muted)] max-w-[54ch] m-0">
           Thank you for reaching out. Your communication has been dispatched to the designated commercial desk.
         </p>
 
-        <p className="text-[15px] font-medium text-[var(--ink)] m-0">
-          We will respond within one working day.
-        </p>
-
-        <div className="pt-4 border-t border-[var(--rule)] text-[13px] text-[var(--muted)]">
-          Reference tracking code: <span className="font-mono text-[var(--ink)]">{referenceNumber}</span>
+        <div className="pt-4 border-t border-[var(--rule)] text-[14px] text-[var(--muted)]">
+          Reference tracking code: <span className="font-mono text-[var(--ink)] font-medium">{referenceNumber}</span>
         </div>
 
         <div className="pt-2">
           <button
             type="button"
             onClick={() => setSubmissionStatus('idle')}
-            className="text-[14px] text-[var(--ink)] underline hover:text-[var(--orange)] transition-colors"
+            className="text-[14px] text-[var(--ink)] underline hover:text-[var(--orange)] transition-colors cursor-pointer"
           >
             Submit another enquiry
           </button>
@@ -216,7 +218,7 @@ export const ContactForm: React.FC = () => {
       id="contact-enquiry-form"
       onSubmit={handleSubmit(onSubmit)}
       noValidate
-      className="space-y-6 font-sans"
+      className="space-y-8 font-sans"
     >
       {/* Honeypot field for bot protection */}
       <div className="hidden" aria-hidden="true">
@@ -233,54 +235,64 @@ export const ContactForm: React.FC = () => {
       {submissionStatus === 'error' && (
         <div
           role="alert"
-          className="p-4 border border-[var(--orange)] bg-[#FFF5EE] text-[14px] text-[var(--ink)]"
+          className="p-4 border-b-2 border-[var(--orange)] bg-[#FFF5EE] text-[14px] text-[var(--ink)]"
         >
           {errorMessage || 'Submission failed. Please check form fields below.'}
         </div>
       )}
 
-      {/* Row 1: Full name and Work email */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label htmlFor="fullName" className="block text-[14px] font-medium text-[var(--ink)] mb-2">
-            Full name <span className="text-[var(--orange)]" aria-hidden="true">*</span>
-          </label>
+      {/* Row 1: Full name & Work email */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="relative pt-6">
           <input
             id="fullName"
             type="text"
             autoComplete="name"
+            placeholder=" "
             aria-invalid={errors.fullName ? 'true' : 'false'}
             aria-describedby={errors.fullName ? 'fullName-error' : undefined}
-            className={`w-full h-12 px-3.5 bg-[var(--white)] border text-[16px] text-[var(--ink)] font-sans focus:outline-none focus:ring-2 focus:ring-[var(--orange)] transition-colors rounded-[2px] ${
-              errors.fullName ? 'border-[var(--orange)]' : 'border-[var(--rule)]'
+            className={`peer w-full h-11 bg-transparent border-0 border-b pb-2 pt-1 text-[16px] text-[var(--ink)] placeholder-transparent focus:outline-none focus:border-b-2 focus:border-[var(--orange)] transition-colors rounded-none ${
+              errors.fullName ? 'border-b-2 border-[var(--orange-deep)]' : 'border-[var(--rule)]'
             }`}
-            placeholder="e.g. Subhash Mehta"
             {...register('fullName', {
               required: 'Please enter your full name',
               minLength: { value: 2, message: 'Minimum 2 characters' },
             })}
           />
-          {errors.fullName && (
-            <span id="fullName-error" className="block text-[13px] text-[var(--orange)] mt-1.5" role="alert">
-              {errors.fullName.message}
-            </span>
-          )}
+          <label
+            htmlFor="fullName"
+            className="absolute left-0 top-0 text-[13px] text-[var(--muted)] pointer-events-none transition-all duration-200 peer-placeholder-shown:top-7 peer-placeholder-shown:text-[15px] peer-placeholder-shown:text-[var(--muted)] peer-focus:top-0 peer-focus:text-[13px] peer-focus:text-[var(--ink)]"
+          >
+            Full name <span className="text-[var(--orange)]" aria-hidden="true">*</span>
+          </label>
+          <AnimatePresence>
+            {errors.fullName && (
+              <motion.span
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.2 }}
+                id="fullName-error"
+                className="block text-[13px] text-[var(--orange-deep)] mt-1.5"
+                role="alert"
+              >
+                {errors.fullName.message}
+              </motion.span>
+            )}
+          </AnimatePresence>
         </div>
 
-        <div>
-          <label htmlFor="workEmail" className="block text-[14px] font-medium text-[var(--ink)] mb-2">
-            Work email <span className="text-[var(--orange)]" aria-hidden="true">*</span>
-          </label>
+        <div className="relative pt-6">
           <input
             id="workEmail"
             type="email"
             autoComplete="email"
+            placeholder=" "
             aria-invalid={errors.workEmail ? 'true' : 'false'}
             aria-describedby={errors.workEmail ? 'workEmail-error' : undefined}
-            className={`w-full h-12 px-3.5 bg-[var(--white)] border text-[16px] text-[var(--ink)] font-sans focus:outline-none focus:ring-2 focus:ring-[var(--orange)] transition-colors rounded-[2px] ${
-              errors.workEmail ? 'border-[var(--orange)]' : 'border-[var(--rule)]'
+            className={`peer w-full h-11 bg-transparent border-0 border-b pb-2 pt-1 text-[16px] text-[var(--ink)] placeholder-transparent focus:outline-none focus:border-b-2 focus:border-[var(--orange)] transition-colors rounded-none ${
+              errors.workEmail ? 'border-b-2 border-[var(--orange-deep)]' : 'border-[var(--rule)]'
             }`}
-            placeholder="name@company.com"
             {...register('workEmail', {
               required: 'Please enter your work email',
               pattern: {
@@ -289,60 +301,92 @@ export const ContactForm: React.FC = () => {
               },
             })}
           />
-          {errors.workEmail && (
-            <span id="workEmail-error" className="block text-[13px] text-[var(--orange)] mt-1.5" role="alert">
-              {errors.workEmail.message}
-            </span>
-          )}
+          <label
+            htmlFor="workEmail"
+            className="absolute left-0 top-0 text-[13px] text-[var(--muted)] pointer-events-none transition-all duration-200 peer-placeholder-shown:top-7 peer-placeholder-shown:text-[15px] peer-placeholder-shown:text-[var(--muted)] peer-focus:top-0 peer-focus:text-[13px] peer-focus:text-[var(--ink)]"
+          >
+            Work email <span className="text-[var(--orange)]" aria-hidden="true">*</span>
+          </label>
+          <AnimatePresence>
+            {errors.workEmail && (
+              <motion.span
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.2 }}
+                id="workEmail-error"
+                className="block text-[13px] text-[var(--orange-deep)] mt-1.5"
+                role="alert"
+              >
+                {errors.workEmail.message}
+              </motion.span>
+            )}
+          </AnimatePresence>
         </div>
       </div>
 
-      {/* Row 2: Phone and Company */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label htmlFor="phone" className="block text-[14px] font-medium text-[var(--ink)] mb-2">
-            Phone <span className="text-[var(--orange)]" aria-hidden="true">*</span>
-          </label>
+      {/* Row 2: Phone & Company */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="relative pt-6">
           <input
             id="phone"
             type="tel"
             autoComplete="tel"
+            placeholder=" "
             aria-invalid={errors.phone ? 'true' : 'false'}
             aria-describedby={errors.phone ? 'phone-error' : undefined}
-            className={`w-full h-12 px-3.5 bg-[var(--white)] border text-[16px] text-[var(--ink)] font-sans focus:outline-none focus:ring-2 focus:ring-[var(--orange)] transition-colors rounded-[2px] ${
-              errors.phone ? 'border-[var(--orange)]' : 'border-[var(--rule)]'
+            className={`peer w-full h-11 bg-transparent border-0 border-b pb-2 pt-1 text-[16px] text-[var(--ink)] placeholder-transparent focus:outline-none focus:border-b-2 focus:border-[var(--orange)] transition-colors rounded-none ${
+              errors.phone ? 'border-b-2 border-[var(--orange-deep)]' : 'border-[var(--rule)]'
             }`}
-            placeholder="+91 98765 43210"
             {...register('phone', {
               required: 'Please enter your phone number',
               minLength: { value: 8, message: 'Please enter a valid telephone number' },
             })}
           />
-          {errors.phone && (
-            <span id="phone-error" className="block text-[13px] text-[var(--orange)] mt-1.5" role="alert">
-              {errors.phone.message}
-            </span>
-          )}
+          <label
+            htmlFor="phone"
+            className="absolute left-0 top-0 text-[13px] text-[var(--muted)] pointer-events-none transition-all duration-200 peer-placeholder-shown:top-7 peer-placeholder-shown:text-[15px] peer-placeholder-shown:text-[var(--muted)] peer-focus:top-0 peer-focus:text-[13px] peer-focus:text-[var(--ink)]"
+          >
+            Phone <span className="text-[var(--orange)]" aria-hidden="true">*</span>
+          </label>
+          <AnimatePresence>
+            {errors.phone && (
+              <motion.span
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.2 }}
+                id="phone-error"
+                className="block text-[13px] text-[var(--orange-deep)] mt-1.5"
+                role="alert"
+              >
+                {errors.phone.message}
+              </motion.span>
+            )}
+          </AnimatePresence>
         </div>
 
-        <div>
-          <label htmlFor="company" className="block text-[14px] font-medium text-[var(--ink)] mb-2">
-            Company <span className="text-[var(--muted)] font-normal">(optional)</span>
-          </label>
+        <div className="relative pt-6">
           <input
             id="company"
             type="text"
             autoComplete="organization"
-            className="w-full h-12 px-3.5 bg-[var(--white)] border border-[var(--rule)] text-[16px] text-[var(--ink)] font-sans focus:outline-none focus:ring-2 focus:ring-[var(--orange)] transition-colors rounded-[2px]"
-            placeholder="Organization or firm name"
+            placeholder=" "
+            className="peer w-full h-11 bg-transparent border-0 border-b border-[var(--rule)] pb-2 pt-1 text-[16px] text-[var(--ink)] placeholder-transparent focus:outline-none focus:border-b-2 focus:border-[var(--orange)] transition-colors rounded-none"
             {...register('company')}
           />
+          <label
+            htmlFor="company"
+            className="absolute left-0 top-0 text-[13px] text-[var(--muted)] pointer-events-none transition-all duration-200 peer-placeholder-shown:top-7 peer-placeholder-shown:text-[15px] peer-placeholder-shown:text-[var(--muted)] peer-focus:top-0 peer-focus:text-[13px] peer-focus:text-[var(--ink)]"
+          >
+            Company (optional)
+          </label>
         </div>
       </div>
 
-      {/* Row 3: Which business are you contacting? (grouped with optgroups) */}
-      <div>
-        <label htmlFor="entity" className="block text-[14px] font-medium text-[var(--ink)] mb-2">
+      {/* Row 3: Operating business dropdown */}
+      <div className="space-y-1.5">
+        <label htmlFor="entity" className="block text-[13px] text-[var(--muted)]">
           Which business are you contacting? <span className="text-[var(--orange)]" aria-hidden="true">*</span>
         </label>
         <div className="relative">
@@ -350,8 +394,8 @@ export const ContactForm: React.FC = () => {
             id="entity"
             aria-invalid={errors.entity ? 'true' : 'false'}
             aria-describedby={errors.entity ? 'entity-error' : undefined}
-            className={`w-full h-12 px-3.5 bg-[var(--white)] border text-[16px] text-[var(--ink)] font-sans focus:outline-none focus:ring-2 focus:ring-[var(--orange)] transition-colors appearance-none cursor-pointer rounded-[2px] ${
-              errors.entity ? 'border-[var(--orange)]' : 'border-[var(--rule)]'
+            className={`w-full h-11 bg-transparent border-0 border-b pb-2 pt-1 text-[16px] text-[var(--ink)] focus:outline-none focus:border-b-2 focus:border-[var(--orange)] transition-colors appearance-none cursor-pointer rounded-none pr-8 ${
+              errors.entity ? 'border-b-2 border-[var(--orange-deep)]' : 'border-[var(--rule)]'
             }`}
             {...register('entity', { required: 'Please select an entity' })}
           >
@@ -376,20 +420,30 @@ export const ContactForm: React.FC = () => {
               <option value="indian-brand-house">Indian Brand House (Strategy & Creative)</option>
             </optgroup>
           </select>
-          <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[var(--muted)] text-[12px]">
+          <div className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[var(--muted)] text-[12px]">
             ▼
           </div>
         </div>
-        {errors.entity && (
-          <span id="entity-error" className="block text-[13px] text-[var(--orange)] mt-1.5" role="alert">
-            {errors.entity.message}
-          </span>
-        )}
+        <AnimatePresence>
+          {errors.entity && (
+            <motion.span
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.2 }}
+              id="entity-error"
+              className="block text-[13px] text-[var(--orange-deep)] mt-1.5"
+              role="alert"
+            >
+              {errors.entity.message}
+            </motion.span>
+          )}
+        </AnimatePresence>
       </div>
 
-      {/* Row 4: Enquiry type (dynamically adapting) */}
-      <div>
-        <label htmlFor="enquiryType" className="block text-[14px] font-medium text-[var(--ink)] mb-2">
+      {/* Row 4: Enquiry type dropdown */}
+      <div className="space-y-1.5">
+        <label htmlFor="enquiryType" className="block text-[13px] text-[var(--muted)]">
           Enquiry type <span className="text-[var(--orange)]" aria-hidden="true">*</span>
         </label>
         <div className="relative">
@@ -397,8 +451,8 @@ export const ContactForm: React.FC = () => {
             id="enquiryType"
             aria-invalid={errors.enquiryType ? 'true' : 'false'}
             aria-describedby={errors.enquiryType ? 'enquiryType-error' : undefined}
-            className={`w-full h-12 px-3.5 bg-[var(--white)] border text-[16px] text-[var(--ink)] font-sans focus:outline-none focus:ring-2 focus:ring-[var(--orange)] transition-colors appearance-none cursor-pointer rounded-[2px] ${
-              errors.enquiryType ? 'border-[var(--orange)]' : 'border-[var(--rule)]'
+            className={`w-full h-11 bg-transparent border-0 border-b pb-2 pt-1 text-[16px] text-[var(--ink)] focus:outline-none focus:border-b-2 focus:border-[var(--orange)] transition-colors appearance-none cursor-pointer rounded-none pr-8 ${
+              errors.enquiryType ? 'border-b-2 border-[var(--orange-deep)]' : 'border-[var(--rule)]'
             }`}
             {...register('enquiryType', { required: 'Please select an enquiry type' })}
           >
@@ -408,41 +462,64 @@ export const ContactForm: React.FC = () => {
               </option>
             ))}
           </select>
-          <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[var(--muted)] text-[12px]">
+          <div className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[var(--muted)] text-[12px]">
             ▼
           </div>
         </div>
-        {errors.enquiryType && (
-          <span id="enquiryType-error" className="block text-[13px] text-[var(--orange)] mt-1.5" role="alert">
-            {errors.enquiryType.message}
-          </span>
-        )}
+        <AnimatePresence>
+          {errors.enquiryType && (
+            <motion.span
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.2 }}
+              id="enquiryType-error"
+              className="block text-[13px] text-[var(--orange-deep)] mt-1.5"
+              role="alert"
+            >
+              {errors.enquiryType.message}
+            </motion.span>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Row 5: Message */}
-      <div>
-        <label htmlFor="message" className="block text-[14px] font-medium text-[var(--ink)] mb-2">
-          Message <span className="text-[var(--orange)]" aria-hidden="true">*</span>
-        </label>
+      <div className="relative pt-6">
         <textarea
           id="message"
-          rows={5}
+          rows={4}
+          placeholder=" "
           aria-invalid={errors.message ? 'true' : 'false'}
           aria-describedby={errors.message ? 'message-error' : undefined}
-          className={`w-full p-3.5 bg-[var(--white)] border text-[16px] text-[var(--ink)] font-sans focus:outline-none focus:ring-2 focus:ring-[var(--orange)] transition-colors resize-y rounded-[2px] ${
-            errors.message ? 'border-[var(--orange)]' : 'border-[var(--rule)]'
+          className={`peer w-full bg-transparent border-0 border-b pb-2 pt-1 text-[16px] text-[var(--ink)] placeholder-transparent focus:outline-none focus:border-b-2 focus:border-[var(--orange)] transition-colors resize-y rounded-none ${
+            errors.message ? 'border-b-2 border-[var(--orange-deep)]' : 'border-[var(--rule)]'
           }`}
-          placeholder="Please describe project scope, requirements, or specific requests."
           {...register('message', {
             required: 'Please provide message details',
             minLength: { value: 10, message: 'Message must be at least 10 characters' },
           })}
         />
-        {errors.message && (
-          <span id="message-error" className="block text-[13px] text-[var(--orange)] mt-1.5" role="alert">
-            {errors.message.message}
-          </span>
-        )}
+        <label
+          htmlFor="message"
+          className="absolute left-0 top-0 text-[13px] text-[var(--muted)] pointer-events-none transition-all duration-200 peer-placeholder-shown:top-7 peer-placeholder-shown:text-[15px] peer-placeholder-shown:text-[var(--muted)] peer-focus:top-0 peer-focus:text-[13px] peer-focus:text-[var(--ink)]"
+        >
+          Message scope & requirements <span className="text-[var(--orange)]" aria-hidden="true">*</span>
+        </label>
+        <AnimatePresence>
+          {errors.message && (
+            <motion.span
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.2 }}
+              id="message-error"
+              className="block text-[13px] text-[var(--orange-deep)] mt-1.5"
+              role="alert"
+            >
+              {errors.message.message}
+            </motion.span>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Row 6: Consent Checkbox */}
@@ -451,7 +528,7 @@ export const ContactForm: React.FC = () => {
           <input
             id="consent"
             type="checkbox"
-            className="mt-1 w-4 h-4 text-[var(--ink)] rounded-[2px] border-[var(--rule)] focus:ring-[var(--orange)] accent-[var(--ink)]"
+            className="mt-1 w-4 h-4 text-[var(--ink)] rounded-none border-[var(--rule)] focus:ring-[var(--orange)] accent-[var(--ink)]"
             {...register('consent', {
               required: 'You must consent to proceed with your enquiry',
             })}
@@ -460,23 +537,32 @@ export const ContactForm: React.FC = () => {
             I consent to HRS Group and its operating companies storing and processing these details to respond to my enquiry.
           </span>
         </label>
-        {errors.consent && (
-          <span id="consent-error" className="block text-[13px] text-[var(--orange)] mt-1.5" role="alert">
-            {errors.consent.message}
-          </span>
-        )}
+        <AnimatePresence>
+          {errors.consent && (
+            <motion.span
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.2 }}
+              id="consent-error"
+              className="block text-[13px] text-[var(--orange-deep)] mt-1.5"
+              role="alert"
+            >
+              {errors.consent.message}
+            </motion.span>
+          )}
+        </AnimatePresence>
       </div>
 
-      {/* Submit Button */}
+      {/* Submit Button using FillButton */}
       <div className="pt-4">
-        <Button
+        <FillButton
           type="submit"
-          variant="primary"
           disabled={submissionStatus === 'submitting'}
-          className="w-full sm:w-auto min-w-[200px]"
+          className="w-full sm:w-auto min-w-[220px]"
         >
           {submissionStatus === 'submitting' ? 'Submitting enquiry...' : 'Submit enquiry'}
-        </Button>
+        </FillButton>
       </div>
     </form>
   );
