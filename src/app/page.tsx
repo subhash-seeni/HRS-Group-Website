@@ -13,11 +13,11 @@ import { NewsThumbnailRows } from '@/components/sections/homepage/NewsThumbnailR
 import { CareersContactBlock } from '@/components/sections/homepage/CareersContactBlock';
 
 export const metadata: Metadata = {
-  title: 'HRS Group — Parent Website, Ahmedabad',
+  title: 'HRS Group',
   description:
     'HRS Group is an Ahmedabad-based parent enterprise bringing together eight businesses across facade engineering, real estate, food manufacturing, consumer brands, hospitality, education, brand communications and retail.',
   openGraph: {
-    title: 'HRS Group — Parent Website, Ahmedabad',
+    title: 'HRS Group',
     description:
       'Eight operating entities across facade engineering, real estate, food manufacturing, consumer brands, hospitality, education, brand communications and retail.',
     url: 'https://hrsgroup.in',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'HRS Group — Parent Website, Ahmedabad',
+    title: 'HRS Group',
     description:
       'Eight operating entities across facade engineering, real estate, food manufacturing, consumer brands, hospitality, education, brand communications and retail.',
   },

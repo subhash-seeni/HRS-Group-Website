@@ -23,8 +23,8 @@ const hankenGrotesk = Hanken_Grotesk({
 export const metadata: Metadata = {
   metadataBase: new URL('https://hrsgroup.in'),
   title: {
-    default: 'HRS Group — Diversified Business Group, Ahmedabad',
-    template: '%s — HRS Group',
+    default: 'HRS Group',
+    template: '%s | HRS Group',
   },
   description:
     'Parent corporate portal of HRS Group, Ahmedabad. Eight operating entities across facade engineering, property developments, food processing, consumer goods, hospitality, and trade education.',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'HRS Group — Diversified Business Group, Ahmedabad',
+    title: 'HRS Group',
     description:
       'Coordinating eight operating businesses across Gujarat and Karnataka anchored in engineering, manufacturing, property, and trade education.',
     url: 'https://hrsgroup.in',
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'HRS Group — Diversified Business Group, Ahmedabad',
+    title: 'HRS Group',
     description:
       'Coordinating eight operating businesses across Gujarat and Karnataka anchored in engineering, manufacturing, property, and trade education.',
   },
