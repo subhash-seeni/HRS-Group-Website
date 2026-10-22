@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { MotionLabClient } from './MotionLabClient';
 
 export const metadata: Metadata = {
-  title: 'Motion Laboratory — HRS Group (Internal)',
+  title: 'Motion Laboratory',
   description: 'Isolated testing bench for all HRS Group motion primitives and Lenis integration.',
   robots: {
     index: false,

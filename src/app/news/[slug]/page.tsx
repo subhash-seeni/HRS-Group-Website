@@ -22,13 +22,13 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const item = news.find((n) => n.slug === slug);
-  if (!item) return { title: 'Announcement Not Found — HRS Group' };
+  if (!item) return { title: 'Announcement Not Found' };
 
   return {
-    title: `${item.title} — HRS Group`,
+    title: item.title,
     description: item.summary,
     openGraph: {
-      title: `${item.title} — HRS Group`,
+      title: `${item.title} | HRS Group`,
       description: item.summary,
       url: `https://hrsgroup.in/news/${item.slug}`,
       siteName: 'HRS Group',
@@ -159,7 +159,7 @@ export default async function NewsDetailPage({ params }: PageProps) {
                     &ldquo;{item.pullQuote.text}&rdquo;
                   </p>
                   <span className="text-[14px] text-[var(--muted)] block font-sans">
-                    — {item.pullQuote.author}
+                    · {item.pullQuote.author}
                   </span>
                 </div>
               )}

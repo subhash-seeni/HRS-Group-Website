@@ -22,17 +22,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const brand = brands.find((b) => b.slug === slug);
 
   if (!brand) {
-    return { title: 'Brand Not Found — HRS Group' };
+    return { title: 'Brand Not Found' };
   }
 
-  const title = `${brand.name} — ${brand.category} — HRS Group`;
+  const title = `${brand.name} | ${brand.category}`;
   const description = brand.description;
 
   return {
     title,
     description,
     openGraph: {
-      title,
+      title: `${title} | HRS Group`,
       description,
       url: `https://hrsgroup.in/brands/${brand.slug}`,
       siteName: 'HRS Group',
@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: `${title} | HRS Group`,
       description,
     },
   };

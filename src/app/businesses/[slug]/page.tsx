@@ -39,18 +39,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!entity) {
     return {
-      title: 'Business Not Found — HRS Group',
+      title: 'Business Not Found',
     };
   }
 
-  const title = `${entity.name} — HRS Group, Ahmedabad`;
+  const title = entity.name;
   const description = entity.summary;
 
   return {
     title,
     description,
     openGraph: {
-      title,
+      title: `${entity.name} | HRS Group`,
       description,
       url: `https://hrsgroup.in/businesses/${entity.slug}`,
       siteName: 'HRS Group',
@@ -59,7 +59,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: `${entity.name} | HRS Group`,
       description,
     },
   };

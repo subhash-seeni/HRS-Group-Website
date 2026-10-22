@@ -6,11 +6,11 @@ import { BusinessesFilter } from '@/components/sections/BusinessesFilter';
 import { heroContent } from '@/content/heroContent';
 
 export const metadata: Metadata = {
-  title: 'Our Businesses — HRS Group, Ahmedabad',
+  title: 'Our Businesses',
   description:
     'Overview of eight autonomous operating entities across architectural facades, residential real estate, contract food processing, hospitality, technical education, and brand communications.',
   openGraph: {
-    title: 'Our Businesses — HRS Group, Ahmedabad',
+    title: 'Our Businesses | HRS Group',
     description:
       'Eight operating entities across architectural facades, residential real estate, food processing, hospitality, technical education, and brand communications.',
     url: 'https://hrsgroup.in/businesses',
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Our Businesses — HRS Group, Ahmedabad',
+    title: 'Our Businesses | HRS Group',
     description:
       'Eight operating entities across architectural facades, residential real estate, food processing, hospitality, technical education, and brand communications.',
   },

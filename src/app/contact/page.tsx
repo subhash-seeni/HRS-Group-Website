@@ -7,11 +7,11 @@ import { ContactForm } from './ContactForm';
 import { heroContent } from '@/content/heroContent';
 
 export const metadata: Metadata = {
-  title: 'Contact us — HRS Group, Ahmedabad',
+  title: 'Contact',
   description:
     'Contact HRS Group headquarters in Bodakdev, Ahmedabad, or submit an operational enquiry directly to one of our operating entities.',
   openGraph: {
-    title: 'Contact us — HRS Group, Ahmedabad',
+    title: 'Contact | HRS Group',
     description:
       'Direct enquiry channel to HRS Group businesses across facade engineering, property developments, food processing, hospitality, and brand services.',
     url: 'https://hrsgroup.in/contact',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Contact us — HRS Group, Ahmedabad',
+    title: 'Contact | HRS Group',
     description:
       'Direct enquiry channel to HRS Group businesses across facade engineering, property developments, food processing, hospitality, and brand services.',
   },

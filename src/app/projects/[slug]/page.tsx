@@ -24,17 +24,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project = projects.find((p) => p.slug === slug);
 
   if (!project) {
-    return { title: 'Project Not Found — HRS Group' };
+    return { title: 'Project Not Found' };
   }
 
-  const title = `${project.name} — ${project.location} — HRS Group`;
+  const title = `${project.name} | ${project.location}`;
   const description = project.description;
 
   return {
     title,
     description,
     openGraph: {
-      title,
+      title: `${title} | HRS Group`,
       description,
       url: `https://hrsgroup.in/projects/${project.slug}`,
       siteName: 'HRS Group',
@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: `${title} | HRS Group`,
       description,
     },
   };

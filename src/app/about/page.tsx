@@ -12,11 +12,11 @@ import { MilestonesTimeline } from '@/components/sections/about/MilestonesTimeli
 import { LeadershipGrid } from '@/components/sections/about/LeadershipGrid';
 
 export const metadata: Metadata = {
-  title: 'About — HRS Group, Ahmedabad',
+  title: 'About',
   description:
     'Founded in Ahmedabad in 2008, HRS Group coordinates eight operating businesses across facade engineering, property development, food manufacturing, hospitality, education, and brand communications.',
   openGraph: {
-    title: 'About — HRS Group, Ahmedabad',
+    title: 'About | HRS Group',
     description:
       'Grounded in Ahmedabad: sixteen years of industrial manufacturing, real estate development, consumer brands, and technical trade education.',
     url: 'https://hrsgroup.in/about',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'About — HRS Group, Ahmedabad',
+    title: 'About | HRS Group',
     description:
       'Grounded in Ahmedabad: sixteen years of industrial manufacturing, real estate development, consumer brands, and technical trade education.',
   },

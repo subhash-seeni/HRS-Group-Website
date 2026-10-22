@@ -5,7 +5,7 @@ import { SplitHeading } from '@/components/motion';
 import { heroContent } from '@/content/heroContent';
 
 export const metadata: Metadata = {
-  title: 'Terms of Use — HRS Group',
+  title: 'Terms of Use',
   description: 'Terms and legal conditions governing use of the HRS Group parent corporate website and subsidiary documentation.',
 };
 

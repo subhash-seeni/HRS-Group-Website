@@ -5,7 +5,7 @@ import { SplitHeading } from '@/components/motion';
 import { heroContent } from '@/content/heroContent';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy — HRS Group',
+  title: 'Privacy Policy',
   description: 'Data protection and privacy guidelines governing inquiries, transactions, and site usage across HRS Group companies.',
 };
 

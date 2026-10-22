@@ -9,11 +9,11 @@ import { heroContent } from '@/content/heroContent';
 import { CareersClient } from './CareersClient';
 
 export const metadata: Metadata = {
-  title: 'Careers at HRS Group — Ahmedabad & Bengaluru',
+  title: 'Careers',
   description:
     'Engineering, manufacturing, culinary, and creative career opportunities across HRS Group companies in Gujarat and Karnataka.',
   openGraph: {
-    title: 'Careers at HRS Group — Ahmedabad & Bengaluru',
+    title: 'Careers | HRS Group',
     description:
       'Join our teams in facade engineering, food processing, real estate development, hospitality, and brand communications.',
     url: 'https://hrsgroup.in/careers',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Careers at HRS Group — Ahmedabad & Bengaluru',
+    title: 'Careers | HRS Group',
     description:
       'Join our teams in facade engineering, food processing, real estate development, hospitality, and brand communications.',
   },

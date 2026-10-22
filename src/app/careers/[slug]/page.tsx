@@ -21,10 +21,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const job = jobOpenings.find((j) => j.slug === slug);
-  if (!job) return { title: 'Position Not Found — HRS Group' };
+  if (!job) return { title: 'Position Not Found' };
 
   return {
-    title: `${job.title} — Careers at HRS Group`,
+    title: job.title,
     description: job.description,
   };
 }

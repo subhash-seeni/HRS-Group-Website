@@ -219,21 +219,21 @@ export function MotionLabClient() {
             <ImageReveal delay={0}>
               <ImageSlot
                 aspectRatio="16:9"
-                caption="42,000 SQ.M UNITIZED GLAZING — SG HIGHWAY, AHMEDABAD"
+                caption="42,000 SQ.M UNITIZED GLAZING, SG HIGHWAY, AHMEDABAD"
                 className="w-full"
               />
             </ImageReveal>
-            <span className="block text-xs font-mono text-[var(--muted)] mt-3">Primary View — 0s delay</span>
+            <span className="block text-xs font-mono text-[var(--muted)] mt-3">Primary View: 0s delay</span>
           </div>
           <div>
             <ImageReveal delay={0.2}>
               <ImageSlot
                 aspectRatio="16:9"
-                caption="5-AXIS CNC MACHINING BAY — SANAND FACILITY, GUJARAT"
+                caption="5-AXIS CNC MACHINING BAY, SANAND FACILITY, GUJARAT"
                 className="w-full"
               />
             </ImageReveal>
-            <span className="block text-xs font-mono text-[var(--muted)] mt-3">Secondary Bay — 0.2s delay</span>
+            <span className="block text-xs font-mono text-[var(--muted)] mt-3">Secondary Bay: 0.2s delay</span>
           </div>
         </div>
       </section>
@@ -383,7 +383,7 @@ export function MotionLabClient() {
         <div className="p-10 border border-[var(--rule)] bg-[var(--paper)]">
           <div key={pageTransitionKey} className="page-enter p-8 bg-white border border-[var(--rule)]">
             <span className="text-xs font-mono text-[var(--muted)] uppercase block mb-1">Simulated Incoming Page</span>
-            <h3 className="font-serif text-2xl text-[var(--ink)] mb-2">About HRS Group — Heritage &amp; Governance</h3>
+            <h3 className="font-serif text-2xl text-[var(--ink)] mb-2">About HRS Group: Heritage &amp; Governance</h3>
             <p className="text-sm text-[var(--muted)] max-w-[65ch]">
               Founded in Ahmedabad, Gujarat, coordinating multi-disciplinary operations with uncompromising architectural rigor.
             </p>

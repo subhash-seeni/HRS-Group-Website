@@ -9,11 +9,11 @@ import { NewsClient } from './NewsClient';
 import { NewsletterSignup } from '@/components/NewsletterSignup';
 
 export const metadata: Metadata = {
-  title: 'News & Announcements — HRS Group, Ahmedabad',
+  title: 'News & Announcements',
   description:
     'Official operational notices, facility handovers, and curriculum announcements across HRS Group companies.',
   openGraph: {
-    title: 'News & Announcements — HRS Group, Ahmedabad',
+    title: 'News & Announcements | HRS Group',
     description:
       'Official operational notices, facility handovers, and curriculum announcements across HRS Group companies.',
     url: 'https://hrsgroup.in/news',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'News & Announcements — HRS Group, Ahmedabad',
+    title: 'News & Announcements | HRS Group',
     description:
       'Official operational notices, facility handovers, and curriculum announcements across HRS Group companies.',
   },
