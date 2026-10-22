@@ -1,6 +1,8 @@
 import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { Container, InteractiveBackground } from '@/components/ui';
+import { Section } from '@/components/layout/Section';
+import { SplitHeading } from '@/components/motion';
 import { ContactForm } from './ContactForm';
 import { heroContent } from '@/content/heroContent';
 
@@ -71,21 +73,23 @@ export default function ContactPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-      <section className="relative pt-[16vh] md:pt-[20vh] pb-24 md:pb-36 overflow-hidden">
+      <Section surface="white" className="relative pt-[16vh] md:pt-[20vh] pb-24 md:pb-36 overflow-hidden">
         <InteractiveBackground variant="inner" />
         <Container className="relative z-10">
           {/* Two-Column Grid */}
-          <div className="grid grid-cols-12 gap-10 md:gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-16 items-start">
             {/* Left Column: Office Details & Greyscale Map */}
-            <div className="col-span-12 lg:col-span-5 space-y-10">
+            <div className="col-span-1 lg:col-span-5 space-y-10">
               <div className="space-y-4">
                 <div className="flex items-center gap-2.5 text-[14.5px] text-[var(--muted)] font-sans">
                   <span className="w-1.5 h-1.5 bg-[var(--orange)] inline-block flex-shrink-0" />
                   <span>{heroContent.contact.markerLabel}</span>
                 </div>
-                <h1 className="text-display-1 text-[var(--ink)] font-normal tracking-tight m-0">
-                  {heroContent.contact.headline}
-                </h1>
+                <SplitHeading
+                  as="h1"
+                  className="text-display-1 text-[var(--ink)] font-normal tracking-tight m-0"
+                  text={heroContent.contact.headline}
+                />
                 <p className="text-[18px] md:text-[20px] leading-[1.55] text-[var(--muted)] font-sans m-0">
                   {heroContent.contact.curiosityHook}
                 </p>
@@ -94,7 +98,7 @@ export default function ContactPage() {
               {/* Head Office Information */}
               <div className="border-t border-[var(--rule)] pt-8 space-y-6">
                 <div>
-                  <span className="text-[12px] uppercase tracking-wider text-[var(--muted)] block mb-1.5">
+                  <span className="text-[13px] text-[var(--muted)] block mb-1.5">
                     Head office (Ahmedabad)
                   </span>
                   <p className="text-[16px] leading-[1.6] text-[var(--ink)] m-0 font-medium">
@@ -108,7 +112,7 @@ export default function ContactPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
                   <div>
-                    <span className="text-[12px] uppercase tracking-wider text-[var(--muted)] block mb-1">
+                    <span className="text-[13px] text-[var(--muted)] block mb-1">
                       Telephone
                     </span>
                     <a
@@ -120,8 +124,8 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <span className="text-[12px] uppercase tracking-wider text-[var(--muted)] block mb-1">
-                      Commercial Email
+                    <span className="text-[13px] text-[var(--muted)] block mb-1">
+                      Commercial email
                     </span>
                     <a
                       href="mailto:info@hrsgroup.in"
@@ -133,7 +137,7 @@ export default function ContactPage() {
                 </div>
 
                 <div className="pt-2">
-                  <span className="text-[12px] uppercase tracking-wider text-[var(--muted)] block mb-1">
+                  <span className="text-[13px] text-[var(--muted)] block mb-1">
                     Office hours
                   </span>
                   <p className="text-[15px] text-[var(--ink)] m-0">
@@ -159,12 +163,14 @@ export default function ContactPage() {
             </div>
 
             {/* Right Column: Enquiry Form */}
-            <div className="col-span-12 lg:col-span-7">
+            <div className="col-span-1 lg:col-span-7">
               <div className="bg-[var(--white)] lg:pl-6">
                 <div className="mb-6">
-                  <h2 className="text-[22px] font-normal text-[var(--ink)] m-0">
-                    Commercial enquiry form
-                  </h2>
+                  <SplitHeading
+                    as="h2"
+                    className="text-heading-2 font-normal text-[var(--ink)] m-0"
+                    text="Commercial enquiry form"
+                  />
                   <p className="text-[14px] text-[var(--muted)] mt-1 mb-0">
                     Please provide project specifications or inquiry scope.
                   </p>
@@ -180,17 +186,17 @@ export default function ContactPage() {
                   <ContactForm />
                 </Suspense>
 
-                {/* Short list of regional offices below the form */}
-                <div className="mt-16 pt-8 border-t border-[var(--rule)]">
-                  <span className="text-[12px] uppercase tracking-wider text-[var(--muted)] block mb-4">
-                    Regional offices & manufacturing facilities
+                {/* Short list of regional offices below the form (Single deliberate orange block on Contact page) */}
+                <div className="mt-16 p-8 md:p-10 bg-[var(--orange)] text-[var(--ink)]">
+                  <span className="text-[13px] text-[var(--ink)]/80 block mb-4">
+                    Regional offices and manufacturing facilities
                   </span>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <span className="text-[14px] font-medium text-[var(--ink)] block">
                         Bengaluru (Southern Regional Office)
                       </span>
-                      <p className="text-[13px] text-[var(--muted)] leading-[1.5] mt-1 m-0">
+                      <p className="text-[13px] text-[var(--ink)]/80 leading-[1.5] mt-1 m-0">
                         Geotrix Facade Hub, Kadubeesanahalli, Outer Ring Road, Bengaluru 560103, Karnataka
                       </p>
                     </div>
@@ -199,7 +205,7 @@ export default function ContactPage() {
                       <span className="text-[14px] font-medium text-[var(--ink)] block">
                         Sanand (Facade Fabrication Works)
                       </span>
-                      <p className="text-[13px] text-[var(--muted)] leading-[1.5] mt-1 m-0">
+                      <p className="text-[13px] text-[var(--ink)]/80 leading-[1.5] mt-1 m-0">
                         HRS Aluglaze Engineering Bay, GIDC Phase II, Sanand Industrial Area, Gujarat 382110
                       </p>
                     </div>
@@ -208,7 +214,7 @@ export default function ContactPage() {
                       <span className="text-[14px] font-medium text-[var(--ink)] block">
                         Bavla (Spice Processing Plant)
                       </span>
-                      <p className="text-[13px] text-[var(--muted)] leading-[1.5] mt-1 m-0">
+                      <p className="text-[13px] text-[var(--ink)]/80 leading-[1.5] mt-1 m-0">
                         Hrishikesh Food Works, National Highway 8A, Bavla Industrial Belt, Gujarat 382220
                       </p>
                     </div>
@@ -217,7 +223,7 @@ export default function ContactPage() {
                       <span className="text-[14px] font-medium text-[var(--ink)] block">
                         Ahmedabad Central Office
                       </span>
-                      <p className="text-[13px] text-[var(--muted)] leading-[1.5] mt-1 m-0">
+                      <p className="text-[13px] text-[var(--ink)]/80 leading-[1.5] mt-1 m-0">
                         Bodakdev SG Highway Corporate Wing, Ahmedabad 380054
                       </p>
                     </div>
@@ -227,7 +233,7 @@ export default function ContactPage() {
             </div>
           </div>
         </Container>
-      </section>
+      </Section>
     </div>
   );
 }

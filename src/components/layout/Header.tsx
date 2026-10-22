@@ -322,7 +322,7 @@ export const Header: React.FC = () => {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-expanded={mobileMenuOpen}
             aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-            className={`md:hidden inline-flex items-center justify-center p-2 ${
+            className={`md:hidden inline-flex items-center justify-center min-w-[44px] min-h-[44px] p-2.5 ${
               isLightText ? 'text-[#F5F2EC]' : 'text-[var(--ink)]'
             } bg-transparent border-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--orange)] rounded-[2px]`}
           >

@@ -44,9 +44,9 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Below: Hairline-separated link columns */}
-        <div className="grid grid-cols-12 gap-8 border-t border-[rgba(255,255,255,0.14)] pt-12 pb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 border-t border-[rgba(255,255,255,0.14)] pt-12 pb-16">
           {/* Column 1: Businesses by Sector */}
-          <div className="col-span-12 sm:col-span-6 lg:col-span-3 space-y-4">
+          <div className="space-y-4">
             <h3 className="text-[13px] font-sans font-medium uppercase tracking-wider text-[rgba(245,242,236,0.78)] m-0">
               Businesses
             </h3>
@@ -87,7 +87,7 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Column 2: Company */}
-          <div className="col-span-12 sm:col-span-6 lg:col-span-3 space-y-4">
+          <div className="space-y-4">
             <h3 className="text-[13px] font-sans font-medium uppercase tracking-wider text-[rgba(245,242,236,0.78)] m-0">
               Company
             </h3>
@@ -136,7 +136,7 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Column 3: Ahmedabad Head Office */}
-          <div className="col-span-12 sm:col-span-6 lg:col-span-3 space-y-4">
+          <div className="space-y-4">
             <h3 className="text-[13px] font-sans font-medium uppercase tracking-wider text-[rgba(245,242,236,0.78)] m-0">
               Ahmedabad head office
             </h3>
@@ -156,7 +156,7 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Column 4: Contact & Channels */}
-          <div className="col-span-12 sm:col-span-6 lg:col-span-3 space-y-4">
+          <div className="space-y-4">
             <h3 className="text-[13px] font-sans font-medium uppercase tracking-wider text-[rgba(245,242,236,0.78)] m-0">
               Contact & details
             </h3>

@@ -35,9 +35,9 @@ export const SelectedWorkParallax: React.FC = () => {
           />
         </div>
 
-        <div className="grid grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Image 1: 3:2 aspect ratio in columns 1-7 with parallax speed 1 */}
-          <div className="col-span-12 lg:col-span-7">
+          <div className="col-span-1 lg:col-span-7">
             <Parallax offset={35}>
               <div
                 onMouseEnter={() => setHoveredProject('h2')}
@@ -63,7 +63,7 @@ export const SelectedWorkParallax: React.FC = () => {
                 </ImageReveal>
 
                 {/* Caption with appearing arrow on hover */}
-                <div className="mt-4 text-[14.5px] font-sans flex items-baseline justify-between gap-4">
+                <div className="mt-4 text-[14.5px] font-sans flex flex-wrap items-baseline justify-between gap-4">
                   <div>
                     <span className="font-serif text-[17.5px] text-[#F5F2EC] mr-2">
                       H2 Residential Development
@@ -99,7 +99,7 @@ export const SelectedWorkParallax: React.FC = () => {
           </div>
 
           {/* Image 2: 4:5 aspect ratio in columns 9-12 with different parallax speed starting lower */}
-          <div className="col-span-12 lg:col-span-4 lg:col-start-9 mt-8 lg:mt-28">
+          <div className="col-span-1 lg:col-span-4 lg:col-start-9 mt-8 lg:mt-28">
             <Parallax offset={65} reverse>
               <div
                 onMouseEnter={() => setHoveredProject('sanand')}
@@ -125,7 +125,7 @@ export const SelectedWorkParallax: React.FC = () => {
                 </ImageReveal>
 
                 {/* Caption with appearing arrow on hover */}
-                <div className="mt-4 text-[14.5px] font-sans flex items-baseline justify-between gap-4">
+                <div className="mt-4 text-[14.5px] font-sans flex flex-wrap items-baseline justify-between gap-4">
                   <div>
                     <span className="font-serif text-[17.5px] text-[#F5F2EC] mr-2">
                       Sanand Industrial Campus

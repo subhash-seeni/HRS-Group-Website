@@ -16,7 +16,7 @@ export const Container: React.FC<ContainerProps> = ({
   return (
     <Component
       className={`max-w-[1280px] mx-auto w-full ${
-        noPadding ? '' : 'px-6 sm:px-8 md:px-12'
+        noPadding ? '' : 'px-4 sm:px-8 md:px-12'
       } ${className}`}
     >
       {children}
