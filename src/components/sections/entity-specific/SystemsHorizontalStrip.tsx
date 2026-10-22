@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Container } from '@/components/ui';
 import { SplitHeading } from '@/components/motion/SplitHeading';
+import { getAssetPath } from '@/lib/assets';
 
 interface SystemItem {
   name: string;
@@ -61,7 +62,7 @@ export const SystemsHorizontalStrip: React.FC<SystemsHorizontalStripProps> = ({
 
           <div className="space-y-12 border-t border-[var(--rule)] pt-8">
             {systems.map((sys, idx) => {
-              const imgSrc = sys.imageSrc || systemImages[sys.name] || '/images/hrs-aluglaze/curtain-wall-detail.webp';
+              const imgSrc = getAssetPath(sys.imageSrc || systemImages[sys.name] || '/images/hrs-aluglaze/curtain-wall-detail.webp');
               return (
                 <div key={sys.name} className="space-y-4 border-b border-[var(--rule)] pb-10">
                   <div className="relative w-full aspect-[16/9] bg-[var(--slot)] overflow-hidden rounded-[2px]">
@@ -113,7 +114,7 @@ export const SystemsHorizontalStrip: React.FC<SystemsHorizontalStripProps> = ({
               className="flex gap-10 items-stretch"
             >
               {systems.map((sys, idx) => {
-                const imgSrc = sys.imageSrc || systemImages[sys.name] || '/images/hrs-aluglaze/curtain-wall-detail.webp';
+                const imgSrc = getAssetPath(sys.imageSrc || systemImages[sys.name] || '/images/hrs-aluglaze/curtain-wall-detail.webp');
                 return (
                   <div
                     key={sys.name}

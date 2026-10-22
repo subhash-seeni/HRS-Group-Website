@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Container } from '@/components/ui';
 import { Section } from '@/components/layout';
 import { SplitHeading } from '@/components/motion';
+import { getAssetPath } from '@/lib/assets';
 
 interface FoodProductsSectionsProps {
   data: {
@@ -78,10 +79,10 @@ export const FoodProductsSections: React.FC<FoodProductsSectionsProps> = ({ data
                       <Image
                         src={
                           currentModel.id === 'job-work'
-                            ? '/images/hrishikesh-food-products/whole-spices-stone.webp'
+                            ? getAssetPath('/images/hrishikesh-food-products/whole-spices-stone.webp')
                             : currentModel.id === 'white-label'
-                            ? '/images/hrishikesh-consumer-products/manpras-store.webp'
-                            : '/images/firstgen/south-indian-breakfast.webp'
+                            ? getAssetPath('/images/hrishikesh-consumer-products/manpras-store.webp')
+                            : getAssetPath('/images/firstgen/south-indian-breakfast.webp')
                         }
                         alt={currentModel.name}
                         fill

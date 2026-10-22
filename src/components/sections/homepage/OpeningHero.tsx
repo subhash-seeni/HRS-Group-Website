@@ -9,6 +9,7 @@ import { Section } from '@/components/layout/Section';
 import { SplitHeading } from '@/components/motion/SplitHeading';
 import { heroContent } from '@/content/heroContent';
 import { resolveImage } from '@/content/images';
+import { getAssetPath } from '@/lib/assets';
 
 export const OpeningHero: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -41,7 +42,7 @@ export const OpeningHero: React.FC = () => {
   const captionText =
     'Ahmedabad headquarters on SG Highway and regional manufacturing facilities in Sanand, Bavla, and Bengaluru.';
   const resolved = resolveImage(undefined, captionText);
-  const imageSrc = resolved?.src || '/images/group/ahmedabad-skyline.webp';
+  const imageSrc = resolved?.src || getAssetPath('/images/group/ahmedabad-skyline.webp');
   const imageAlt = resolved?.alt || captionText;
 
   return (

@@ -8,6 +8,7 @@ import { ArrowRight } from 'lucide-react';
 import { Entity } from '@/content/types';
 import { imageRegistry } from '@/content/images';
 import { WideLogoSlot } from '@/components/ui/WideLogoSlot';
+import { getAssetPath } from '@/lib/assets';
 
 interface EntityRelatedRowsProps {
   relatedList: Entity[];
@@ -66,7 +67,7 @@ export const EntityRelatedRows: React.FC<EntityRelatedRowsProps> = ({ relatedLis
 
   const hoveredEntity = relatedList.find((e) => e.slug === hoveredSlug);
   const hoveredImageSrc = hoveredEntity
-    ? imageRegistry[hoveredEntity.slug]?.src || '/images/group/ahmedabad-skyline.webp'
+    ? imageRegistry[hoveredEntity.slug]?.src || getAssetPath('/images/group/ahmedabad-skyline.webp')
     : '';
 
   return (

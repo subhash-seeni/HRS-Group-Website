@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { ImageReveal } from '@/components/motion/ImageReveal';
 import { resolveImage } from '@/content/images';
+import { getAssetPath } from '@/lib/assets';
 
 interface EntityHeroImageProps {
   slug: string;
@@ -45,7 +46,7 @@ export const EntityHeroImage: React.FC<EntityHeroImageProps> = ({
   const fallbackCaption = `${name} operating facility and project installations.`;
   const displayCaption = caption || fallbackCaption;
   const resolved = resolveImage(undefined, displayCaption, slug);
-  const imageSrc = resolved?.src || '/images/group/ahmedabad-skyline.webp';
+  const imageSrc = resolved?.src || getAssetPath('/images/group/ahmedabad-skyline.webp');
   const imageAlt = resolved?.alt || displayCaption;
 
   return (

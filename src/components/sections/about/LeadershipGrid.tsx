@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import { Leader } from '@/content/types';
 import { ImageReveal } from '@/components/motion/ImageReveal';
+import { getAssetPath } from '@/lib/assets';
 
 interface LeadershipGridProps {
   leaders: Leader[];
@@ -23,7 +24,7 @@ export const LeadershipGrid: React.FC<LeadershipGridProps> = ({ leaders }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
       {leaders.map((leader, idx) => {
-        const imgSrc = leaderImages[leader.name] || '/images/group/corporate-lobby.webp';
+        const imgSrc = getAssetPath(leaderImages[leader.name] || '/images/group/corporate-lobby.webp');
 
         return (
           <div key={leader.name} className="space-y-4 group">

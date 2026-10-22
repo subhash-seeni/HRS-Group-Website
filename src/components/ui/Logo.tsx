@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { WideLogoSlot } from './WideLogoSlot';
+import { getAssetPath } from '@/lib/assets';
 
 export interface LogoProps {
   entity?: string;
@@ -62,7 +63,7 @@ export const Logo: React.FC<LogoProps> = ({
         style={{ minHeight: height ? `${height}px` : '36px' }}
       >
         <Image
-          src="/brand/hrs-aluglaze-logo.png"
+          src={getAssetPath('/brand/hrs-aluglaze-logo.png')}
           alt={accessibleAlt}
           width={width || 120}
           height={height || 32}
@@ -79,7 +80,7 @@ export const Logo: React.FC<LogoProps> = ({
     <span className={`inline-flex items-center ${className}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={`/logos/${normalizedSlug}.svg`}
+        src={getAssetPath(`/logos/${normalizedSlug}.svg`)}
         alt={accessibleAlt}
         height={height}
         width={width}

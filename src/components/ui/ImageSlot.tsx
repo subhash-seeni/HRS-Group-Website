@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { resolveImage } from '@/content/images';
+import { getAssetPath } from '@/lib/assets';
 
 export interface ImageSlotProps {
   aspectRatio?: '3:2' | '4:5' | '16:9' | '1:1';
@@ -52,7 +53,7 @@ export const ImageSlot: React.FC<ImageSlotProps> = ({
     }
   }
 
-  const finalSrc = resolved?.src || src;
+  const finalSrc = getAssetPath(resolved?.src || src);
   const finalAlt = alt || resolved?.alt || caption || 'HRS Group photographic view';
 
   return (

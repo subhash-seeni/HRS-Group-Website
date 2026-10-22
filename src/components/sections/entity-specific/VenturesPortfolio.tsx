@@ -8,6 +8,7 @@ import { Container } from '@/components/ui';
 import { Section } from '@/components/layout';
 import { SplitHeading } from '@/components/motion';
 import { projects } from '@/content/projects';
+import { getAssetPath } from '@/lib/assets';
 
 export const VenturesPortfolio: React.FC = () => {
   const [filter, setFilter] = useState<'All' | 'residential' | 'villa' | 'commercial' | 'joint-venture'>('All');
@@ -86,7 +87,7 @@ export const VenturesPortfolio: React.FC = () => {
 
   const hoveredProj = venturesProjects.find((p) => p.slug === hoveredSlug);
   const hoveredImageSrc = hoveredProj
-    ? projectImages[hoveredProj.slug] || '/images/hrishikesh-ventures/residential-tower.webp'
+    ? getAssetPath(projectImages[hoveredProj.slug] || '/images/hrishikesh-ventures/residential-tower.webp')
     : '';
 
   return (

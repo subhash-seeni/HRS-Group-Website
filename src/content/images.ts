@@ -4,12 +4,14 @@
  * Maps entity slugs, projects, and contextual captions to real 35mm editorial WebP imagery.
  */
 
+import { getAssetPath } from '@/lib/assets';
+
 export interface ImageMeta {
   src: string;
   alt: string;
 }
 
-export const imageRegistry: Record<string, ImageMeta> = {
+const rawImageRegistry: Record<string, ImageMeta> = {
   // Group & Corporate
   'group-skyline': {
     src: '/images/group/ahmedabad-skyline.webp',
@@ -85,13 +87,20 @@ export const imageRegistry: Record<string, ImageMeta> = {
   },
 };
 
+export const imageRegistry: Record<string, ImageMeta> = Object.fromEntries(
+  Object.entries(rawImageRegistry).map(([key, meta]) => [
+    key,
+    { ...meta, src: getAssetPath(meta.src) },
+  ])
+);
+
 /**
  * Resolve image source and alt text from explicit props or contextual caption/keywords
  */
 export function resolveImage(explicitSrc?: string, caption?: string, altProp?: string): ImageMeta | null {
   if (explicitSrc) {
     return {
-      src: explicitSrc,
+      src: getAssetPath(explicitSrc),
       alt: altProp || caption || 'HRS Group photography representation',
     };
   }

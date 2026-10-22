@@ -10,6 +10,7 @@ import { SplitHeading } from '@/components/motion/SplitHeading';
 import { ImageReveal } from '@/components/motion/ImageReveal';
 import { Parallax } from '@/components/motion/Parallax';
 import { resolveImage } from '@/content/images';
+import { getAssetPath } from '@/lib/assets';
 
 export const SelectedWorkParallax: React.FC = () => {
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
@@ -47,7 +48,7 @@ export const SelectedWorkParallax: React.FC = () => {
                 <ImageReveal delay={150}>
                   <div className="relative w-full aspect-[3/2] overflow-hidden bg-[#1E1E1E] rounded-[2px]">
                     <Image
-                      src={img1?.src || '/images/hrishikesh-ventures/h2-residential.webp'}
+                      src={img1?.src || getAssetPath('/images/hrishikesh-ventures/h2-residential.webp')}
                       alt="H2 Residential Development in Shela, Ahmedabad"
                       fill
                       sizes="(max-width: 1024px) 100vw, 720px"
@@ -109,7 +110,7 @@ export const SelectedWorkParallax: React.FC = () => {
                 <ImageReveal delay={300}>
                   <div className="relative w-full aspect-[4/5] overflow-hidden bg-[#1E1E1E] rounded-[2px]">
                     <Image
-                      src={img2?.src || '/images/hrs-aluglaze/sanand-campus.webp'}
+                      src={img2?.src || getAssetPath('/images/hrs-aluglaze/sanand-campus.webp')}
                       alt="Sanand Industrial Engineering Campus in Sanand, Gujarat"
                       fill
                       sizes="(max-width: 1024px) 100vw, 420px"

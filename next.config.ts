@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   basePath: basePath || undefined,
+  assetPrefix: basePath || undefined,
+  env: {
+    NEXT_PUBLIC_BASE_PATH: basePath,
+  },
   turbopack: {
     rules: {
       "*.css": {

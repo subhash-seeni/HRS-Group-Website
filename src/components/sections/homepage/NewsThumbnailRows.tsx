@@ -9,6 +9,7 @@ import { Section } from '@/components/layout/Section';
 import { SplitHeading } from '@/components/motion/SplitHeading';
 import { news } from '@/content/news';
 import { imageRegistry } from '@/content/images';
+import { getAssetPath } from '@/lib/assets';
 
 export const NewsThumbnailRows: React.FC = () => {
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
@@ -29,8 +30,8 @@ export const NewsThumbnailRows: React.FC = () => {
   const items = news.slice(0, 3);
 
   const getEntityThumbnail = (entitySlug?: string) => {
-    if (!entitySlug) return '/images/group/ahmedabad-skyline.webp';
-    return imageRegistry[entitySlug]?.src || '/images/group/ahmedabad-skyline.webp';
+    if (!entitySlug) return getAssetPath('/images/group/ahmedabad-skyline.webp');
+    return imageRegistry[entitySlug]?.src || getAssetPath('/images/group/ahmedabad-skyline.webp');
   };
 
   const getEntityName = (entitySlug?: string) => {
