@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { Container } from '@/components/ui';
+import { Section } from '@/components/layout';
+import { SplitHeading } from '@/components/motion';
 
 interface BrandHouseSectionsProps {
   data: {
@@ -11,15 +13,13 @@ interface BrandHouseSectionsProps {
 
 export const BrandHouseSections: React.FC<BrandHouseSectionsProps> = ({ data }) => {
   return (
-    <div id="service-pillars" className="space-y-24 md:space-y-36">
+    <Section surface="stone" id="service-pillars" className="space-y-24 md:space-y-36">
       {/* 1. Three Service Pillars */}
       <section className="py-20 md:py-28 border-t border-[var(--rule)]">
         <Container>
           <div className="grid grid-cols-12 gap-6 items-start mb-12">
             <div className="col-span-12 md:col-span-3">
-              <h2 className="font-serif text-[22px] md:text-[24px] text-[var(--ink)] font-normal m-0">
-                Service pillars
-              </h2>
+              <SplitHeading as="h2" className="font-serif text-[22px] md:text-[24px] text-[var(--ink)] font-normal m-0" text="Service pillars" />
               <p className="text-[13.5px] text-[var(--muted)] font-sans mt-1.5 m-0 max-w-[26ch]">
                 Enduring commercial communications engineered for corporate longevity.
               </p>
@@ -65,9 +65,7 @@ export const BrandHouseSections: React.FC<BrandHouseSectionsProps> = ({ data }) 
         <Container>
           <div className="grid grid-cols-12 gap-6 items-start mb-12">
             <div className="col-span-12 md:col-span-3">
-              <h2 className="font-serif text-[22px] md:text-[24px] text-[var(--ink)] font-normal m-0">
-                Selected work
-              </h2>
+              <SplitHeading as="h2" className="font-serif text-[22px] md:text-[24px] text-[var(--ink)] font-normal m-0" text="Selected work" />
               <p className="text-[13.5px] text-[var(--muted)] font-sans mt-1.5 m-0 max-w-[26ch]">
                 Identity systems, retail packaging, and corporate publishing.
               </p>
@@ -123,6 +121,6 @@ export const BrandHouseSections: React.FC<BrandHouseSectionsProps> = ({ data }) 
           </div>
         </Container>
       </section>
-    </div>
+    </Section>
   );
 };

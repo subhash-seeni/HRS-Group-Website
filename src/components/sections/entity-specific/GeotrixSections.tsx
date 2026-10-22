@@ -2,6 +2,9 @@ import React from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { Container } from '@/components/ui';
+import { Section } from '@/components/layout';
+import { SplitHeading } from '@/components/motion';
+import { SystemsHorizontalStrip } from './SystemsHorizontalStrip';
 
 interface GeotrixSectionsProps {
   data: {
@@ -12,8 +15,35 @@ interface GeotrixSectionsProps {
 }
 
 export const GeotrixSections: React.FC<GeotrixSectionsProps> = ({ data }) => {
+  const geotrixSystems = [
+    {
+      name: 'Unitised Curtain Wall Systems',
+      description: 'Pre-assembled facade modules fabricated at Sanand, erected on high-rise commercial structures across Bengaluru and Hyderabad.',
+      specifications: ['Modular unitised construction', 'Integrated thermal breaks', 'Seismic movement joints'],
+      imageSrc: '/images/hrs-aluglaze/curtain-wall-detail.webp',
+    },
+    {
+      name: 'Structural Architectural Glazing',
+      description: 'Point-fixed spider glazing and semi-unitised curtain walls installed across tech parks on Outer Ring Road and Whitefield.',
+      specifications: ['High-performance solar low-E glass', 'Flush silicone structural seals', 'Engineered wind-load resistance'],
+      imageSrc: '/images/hrs-aluglaze/sanand-campus.webp',
+    },
+    {
+      name: 'Acoustic Fenestration & Windows',
+      description: 'Acoustic-rated aluminium windows engineered to block urban noise corridors in luxury residential towers.',
+      specifications: ['Multi-point European hardware', 'Sound transmission class up to STC 42', 'Powder-coated anodised finishes'],
+      imageSrc: '/images/geotrix/window-frames-section.webp',
+    },
+    {
+      name: 'Architectural Sliding & Swing Doors',
+      description: 'Heavy-duty commercial sliding systems and entrance swing assemblies with automated security access integration.',
+      specifications: ['Concealed threshold track profiles', 'Reinforced corner junctions', 'Panic-bar emergency exits'],
+      imageSrc: '/images/school-of-facade-technologies/workshop-benches.webp',
+    },
+  ];
+
   return (
-    <div className="space-y-24 md:space-y-36">
+    <Section surface="white" className="space-y-24 md:space-y-36">
       {/* 1. Aluglaze South India Arm Callout */}
       <section className="py-20 md:py-28 border-t border-[var(--rule)]">
         <Container>
@@ -43,14 +73,19 @@ export const GeotrixSections: React.FC<GeotrixSectionsProps> = ({ data }) => {
         </Container>
       </section>
 
-      {/* 2. South India Reach Map (Typographic regional operating nodes) */}
+      {/* 2. Horizontal Scroll-Pinned Strip for the Four Product Systems */}
+      <SystemsHorizontalStrip
+        systems={geotrixSystems}
+        title="South India installation systems"
+        subtitle="Assemblies engineered at Sanand and site-erected by Geotrix crews."
+      />
+
+      {/* 3. South India Reach Map (Typographic regional operating nodes) */}
       <section className="py-20 md:py-28 border-t border-[var(--rule)]">
         <Container>
           <div className="grid grid-cols-12 gap-6 items-start mb-12">
             <div className="col-span-12 md:col-span-3">
-              <h2 className="font-serif text-[22px] md:text-[24px] text-[var(--ink)] font-normal m-0">
-                South India reach
-              </h2>
+              <SplitHeading as="h2" className="font-serif text-[22px] md:text-[24px] text-[var(--ink)] font-normal m-0" text="South India reach" />
               <p className="text-[13.5px] text-[var(--muted)] font-sans mt-1.5 m-0 max-w-[26ch]">
                 Regional execution offices, equipment yards, and active installation corridors.
               </p>
@@ -86,46 +121,6 @@ export const GeotrixSections: React.FC<GeotrixSectionsProps> = ({ data }) => {
           </div>
         </Container>
       </section>
-
-      {/* 3. Linked Product Systems with Aluglaze */}
-      <section className="py-20 md:py-28 border-t border-[var(--rule)]">
-        <Container>
-          <div className="grid grid-cols-12 gap-6 items-start">
-            <div className="col-span-12 md:col-span-3">
-              <h2 className="font-serif text-[22px] md:text-[24px] text-[var(--ink)] font-normal m-0">
-                Installed systems
-              </h2>
-              <p className="text-[13.5px] text-[var(--muted)] font-sans mt-1.5 m-0 max-w-[26ch]">
-                Assemblies engineered at Sanand and site-erected by Geotrix crews.
-              </p>
-            </div>
-
-            <div className="col-span-12 md:col-span-9 border-t border-[var(--rule)]">
-              {data.linkedSystems.map((item) => (
-                <div
-                  key={item.name}
-                  className="py-6 border-b border-[var(--rule)] flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 font-sans"
-                >
-                  <div className="space-y-1">
-                    <h3 className="font-serif text-[19px] text-[var(--ink)] font-normal m-0">
-                      {item.name}
-                    </h3>
-                    <p className="text-[14.5px] text-[var(--muted)] m-0 max-w-[54ch]">
-                      {item.description}
-                    </p>
-                  </div>
-                  <Link
-                    href="/businesses/hrs-aluglaze#showcase"
-                    className="link-editorial text-[14px] flex-shrink-0"
-                  >
-                    System specifications
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-        </Container>
-      </section>
-    </div>
+    </Section>
   );
 };

@@ -4,6 +4,9 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { Container } from '@/components/ui';
+import { Section } from '@/components/layout';
+import { SplitHeading } from '@/components/motion';
+import { SystemsHorizontalStrip } from './SystemsHorizontalStrip';
 import { projects } from '@/content/projects';
 
 interface AluglazeSectionsProps {
@@ -60,63 +63,20 @@ export const AluglazeSections: React.FC<AluglazeSectionsProps> = ({ data }) => {
   );
 
   return (
-    <div className="space-y-24 md:space-y-36">
-      {/* 1. Systems Grid (Facade systems, Glazing, Windows, Doors) */}
-      <section className="py-20 md:py-28 border-t border-[var(--rule)]">
-        <Container>
-          <div className="grid grid-cols-12 gap-6 items-start mb-12">
-            <div className="col-span-12 md:col-span-3">
-              <h2 className="font-serif text-[22px] md:text-[24px] text-[var(--ink)] font-normal m-0">
-                Architectural systems
-              </h2>
-              <p className="text-[13.5px] text-[var(--muted)] font-sans mt-1.5 m-0 max-w-[26ch]">
-                Engineered aluminium envelope systems manufactured in Sanand.
-              </p>
-            </div>
-
-            <div className="col-span-12 md:col-span-9 border-t border-[var(--rule)]">
-              {data.systems.map((sys) => (
-                <div
-                  key={sys.name}
-                  className="py-8 border-b border-[var(--rule)] grid grid-cols-1 md:grid-cols-12 gap-6 items-baseline"
-                >
-                  <div className="md:col-span-4">
-                    <h3 className="font-serif text-[20px] text-[var(--ink)] font-normal m-0">
-                      {sys.name}
-                    </h3>
-                    <p className="text-[14.5px] text-[var(--muted)] font-sans mt-2 m-0 leading-relaxed">
-                      {sys.description}
-                    </p>
-                  </div>
-
-                  <div className="md:col-span-8 space-y-2 font-sans text-[13.5px]">
-                    <span className="text-[12px] uppercase tracking-wider text-[var(--muted)] block">
-                      Engineering tolerances & specifications
-                    </span>
-                    <ul className="m-0 p-0 list-none space-y-1.5 text-[var(--ink)]">
-                      {sys.specifications.map((spec) => (
-                        <li key={spec} className="flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 bg-[var(--orange)] inline-block mt-2 flex-shrink-0" />
-                          <span>{spec}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </Container>
-      </section>
+    <Section surface="white" className="space-y-24 md:space-y-36">
+      {/* 1. Systems Horizontal Scroll-Pinned Strip (Facade, Glazing, Windows, Doors) */}
+      <SystemsHorizontalStrip
+        systems={data.systems}
+        title="Architectural product systems"
+        subtitle="Engineered aluminium envelope systems manufactured in Sanand."
+      />
 
       {/* 2. Manufacturing Capabilities */}
       <section className="py-20 md:py-28 border-t border-[var(--rule)]">
         <Container>
           <div className="grid grid-cols-12 gap-6 items-start">
             <div className="col-span-12 md:col-span-3">
-              <h2 className="font-serif text-[22px] md:text-[24px] text-[var(--ink)] font-normal m-0">
-                Sanand plant capabilities
-              </h2>
+              <SplitHeading as="h2" className="font-serif text-[22px] md:text-[24px] text-[var(--ink)] font-normal m-0" text="Sanand plant capabilities" />
               <p className="text-[13.5px] text-[var(--muted)] font-sans mt-1.5 m-0 max-w-[26ch]">
                 120,000 sq ft production setup with multi-axis automated lines.
               </p>
@@ -146,9 +106,7 @@ export const AluglazeSections: React.FC<AluglazeSectionsProps> = ({ data }) => {
         <Container>
           <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 mb-8">
             <div>
-              <h2 className="font-serif text-[22px] md:text-[24px] text-[var(--ink)] font-normal m-0">
-                Project showcase
-              </h2>
+              <SplitHeading as="h2" className="font-serif text-[22px] md:text-[24px] text-[var(--ink)] font-normal m-0" text="Project showcase" />
               <p className="text-[13.5px] text-[var(--muted)] font-sans mt-1.5 m-0">
                 Selected facade and fenestration installations across Gujarat.
               </p>
@@ -213,8 +171,8 @@ export const AluglazeSections: React.FC<AluglazeSectionsProps> = ({ data }) => {
         <Container>
           <div className="grid grid-cols-12 gap-6 items-baseline">
             <div className="col-span-12 sm:col-span-3">
-              <span className="text-[13px] uppercase tracking-wider text-[var(--muted)] font-sans">
-                Certifications & compliance
+              <span className="text-[13.5px] text-[var(--muted)] font-sans">
+                Certifications &amp; compliance
               </span>
             </div>
             <div className="col-span-12 sm:col-span-9 flex flex-wrap gap-x-8 gap-y-3 font-sans text-[14.5px] text-[var(--ink)]">
@@ -257,6 +215,6 @@ export const AluglazeSections: React.FC<AluglazeSectionsProps> = ({ data }) => {
           </div>
         </Container>
       </section>
-    </div>
+    </Section>
   );
 };

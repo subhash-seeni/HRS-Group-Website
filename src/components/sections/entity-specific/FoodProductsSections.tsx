@@ -2,7 +2,11 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import { motion, AnimatePresence } from 'motion/react';
 import { Container } from '@/components/ui';
+import { Section } from '@/components/layout';
+import { SplitHeading } from '@/components/motion';
 
 interface FoodProductsSectionsProps {
   data: {
@@ -18,76 +22,98 @@ export const FoodProductsSections: React.FC<FoodProductsSectionsProps> = ({ data
   const currentModel = data.models.find((m) => m.id === activeModel) || data.models[0];
 
   return (
-    <div id="manufacturing-models" className="space-y-24 md:space-y-36">
-      {/* 1. Three-Model Switcher (Job work, White labelling, Own ranges) */}
+    <Section surface="stone" id="manufacturing-models" className="space-y-24 md:space-y-36">
+      {/* 1. Signature Large Text Switcher for the Three Operating Models */}
       <section className="py-20 md:py-28 border-t border-[var(--rule)]">
         <Container>
-          <div className="space-y-10">
+          <div className="space-y-12">
             <div>
-              <h2 className="font-serif text-[22px] md:text-[24px] text-[var(--ink)] font-normal m-0">
-                Manufacturing operating models
-              </h2>
+              <SplitHeading as="h2" className="font-serif text-[22px] md:text-[24px] text-[var(--ink)] font-normal m-0" text="Manufacturing operating models" />
               <p className="text-[14px] text-[var(--muted)] font-sans mt-1.5 m-0">
                 Flexible processing partnerships adapted to FMCG brand owners, private labels, and food service.
               </p>
             </div>
 
-            {/* Plain text switcher tabs */}
-            <div
-              role="tablist"
-              aria-label="Operating models"
-              className="flex flex-wrap items-center gap-x-8 gap-y-3 border-b border-[var(--rule)] pb-4 text-[15.5px] font-sans"
-            >
-              {data.models.map((m) => {
-                const isActive = activeModel === m.id;
-                return (
-                  <button
-                    key={m.id}
-                    type="button"
-                    role="tab"
-                    aria-selected={isActive}
-                    onClick={() => setActiveModel(m.id)}
-                    className={`inline-flex items-center gap-2 bg-transparent border-0 p-0 cursor-pointer transition-colors duration-150 ${
-                      isActive ? 'text-[var(--ink)] font-medium' : 'text-[var(--muted)] hover:text-[var(--ink)]'
-                    }`}
-                  >
-                    {isActive ? (
-                      <span className="w-1.5 h-1.5 bg-[var(--orange)] inline-block" />
-                    ) : (
-                      <span className="w-1.5 h-1.5 bg-transparent inline-block" />
-                    )}
-                    <span>{m.name}</span>
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Active Model Content */}
-            <div className="grid grid-cols-12 gap-8 items-start font-sans">
-              <div className="col-span-12 md:col-span-4 space-y-3">
-                <span className="text-[12px] uppercase tracking-wider text-[var(--muted)]">
-                  Operating Protocol
-                </span>
-                <h3 className="font-serif text-[22px] text-[var(--ink)] font-normal m-0">
-                  {currentModel.name}
-                </h3>
-                <p className="text-[15.5px] leading-relaxed text-[var(--muted)] m-0">
-                  {currentModel.summary}
-                </p>
+            <div className="grid grid-cols-12 gap-8 lg:gap-14 items-start">
+              {/* Left Column: Large Newsreader Text Switcher */}
+              <div className="col-span-12 lg:col-span-5 space-y-6 pt-2">
+                {data.models.map((m) => {
+                  const isSelected = activeModel === m.id;
+                  return (
+                    <button
+                      key={m.id}
+                      type="button"
+                      onClick={() => setActiveModel(m.id)}
+                      className={`block w-full text-left bg-transparent border-0 p-0 cursor-pointer transition-all duration-300 ${
+                        isSelected
+                          ? 'opacity-100 text-[var(--ink)]'
+                          : 'opacity-35 hover:opacity-75 text-[var(--ink)]'
+                      }`}
+                    >
+                      <div className="flex items-baseline gap-3">
+                        <span className={`w-2 h-2 rounded-full inline-block shrink-0 transition-opacity ${
+                          isSelected ? 'bg-[var(--orange)] opacity-100' : 'bg-transparent opacity-0'
+                        }`} />
+                        <span className="font-serif text-[28px] md:text-[36px] font-normal leading-[1.2] block">
+                          {m.name}
+                        </span>
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
 
-              <div className="col-span-12 md:col-span-8 border-t md:border-t-0 md:border-l border-[var(--rule)] md:pl-10 space-y-4">
-                <span className="text-[12px] uppercase tracking-wider text-[var(--muted)] block">
-                  Process points & contractual guarantees
-                </span>
-                <ul className="m-0 p-0 list-none space-y-3 text-[15px] text-[var(--ink)]">
-                  {currentModel.points.map((pt) => (
-                    <li key={pt} className="flex items-start gap-2.5">
-                      <span className="w-1.5 h-1.5 bg-[var(--orange)] inline-block mt-2 flex-shrink-0" />
-                      <span>{pt}</span>
-                    </li>
-                  ))}
-                </ul>
+              {/* Right Column: Description & Image Crossfade Beside It */}
+              <div className="col-span-12 lg:col-span-7 border-t lg:border-t-0 lg:border-l border-[var(--rule)] lg:pl-12">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentModel.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                    className="space-y-6 font-sans"
+                  >
+                    <div className="relative w-full aspect-[16/9] bg-[var(--slot)] overflow-hidden rounded-[2px]">
+                      <Image
+                        src={
+                          currentModel.id === 'job-work'
+                            ? '/images/hrishikesh-food-products/whole-spices-stone.webp'
+                            : currentModel.id === 'white-label'
+                            ? '/images/hrishikesh-consumer-products/manpras-store.webp'
+                            : '/images/firstgen/south-indian-breakfast.webp'
+                        }
+                        alt={currentModel.name}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 680px"
+                        className="object-cover"
+                      />
+                    </div>
+
+                    <div className="space-y-3">
+                      <span className="text-[13px] text-[var(--muted)] font-sans block">
+                        Operating protocol
+                      </span>
+                      <p className="text-[17px] leading-relaxed text-[var(--ink)] m-0">
+                        {currentModel.summary}
+                      </p>
+                    </div>
+
+                    <div className="pt-2 border-t border-[var(--rule)] space-y-2">
+                      <span className="text-[12.5px] text-[var(--muted)] font-sans block">
+                        Process points and contractual guarantees
+                      </span>
+                      <ul className="m-0 p-0 list-none space-y-2.5 text-[14.5px] text-[var(--ink)]">
+                        {currentModel.points.map((pt) => (
+                          <li key={pt} className="flex items-start gap-2.5">
+                            <span className="w-1.5 h-1.5 bg-[var(--orange)] inline-block mt-2 flex-shrink-0" />
+                            <span>{pt}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
               </div>
             </div>
           </div>
@@ -99,9 +125,7 @@ export const FoodProductsSections: React.FC<FoodProductsSectionsProps> = ({ data
         <Container>
           <div className="grid grid-cols-12 gap-6 items-start mb-12">
             <div className="col-span-12 md:col-span-3">
-              <h2 className="font-serif text-[22px] md:text-[24px] text-[var(--ink)] font-normal m-0">
-                Product range showcase
-              </h2>
+              <SplitHeading as="h2" className="font-serif text-[22px] md:text-[24px] text-[var(--ink)] font-normal m-0" text="Product range showcase" />
               <p className="text-[13.5px] text-[var(--muted)] font-sans mt-1.5 m-0 max-w-[26ch]">
                 Single-origin ground staples and regional blended spice formulations.
               </p>
@@ -136,8 +160,8 @@ export const FoodProductsSections: React.FC<FoodProductsSectionsProps> = ({ data
         <Container>
           <div className="grid grid-cols-12 gap-6 items-baseline font-sans">
             <div className="col-span-12 sm:col-span-3">
-              <span className="text-[13px] uppercase tracking-wider text-[var(--muted)]">
-                Audited Food Safety & Compliance
+              <span className="text-[13.5px] text-[var(--muted)] font-sans">
+                Audited food safety and compliance
               </span>
             </div>
             <div className="col-span-12 sm:col-span-9 flex flex-wrap gap-x-8 gap-y-3 text-[14.5px] text-[var(--ink)]">
@@ -177,6 +201,6 @@ export const FoodProductsSections: React.FC<FoodProductsSectionsProps> = ({ data
           </div>
         </Container>
       </section>
-    </div>
+    </Section>
   );
 };
