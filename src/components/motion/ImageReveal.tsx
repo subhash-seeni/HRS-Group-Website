@@ -1,103 +1,97 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { motionTokens } from '@/lib/motion';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-export interface ImageRevealProps {
-  children: React.ReactNode;
-  className?: string;
-  delay?: number; // in seconds
-  triggerOnce?: boolean;
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
 }
 
-export function ImageReveal({
-  children,
+interface ImageRevealProps {
+  src: string;
+  alt: string;
+  caption?: string;
+  className?: string;
+  aspectRatio?: string; // e.g. 'aspect-[16/9]'
+  priority?: boolean;
+}
+
+export const ImageReveal: React.FC<ImageRevealProps> = ({
+  src,
+  alt,
+  caption,
   className = '',
-  delay = 0,
-  triggerOnce = true,
-}: ImageRevealProps) {
+  aspectRatio = 'aspect-[16/9]',
+}) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isInView, setIsInView] = useState(true); // Default to true so images are immediately visible
-  const [hasAnimated, setHasAnimated] = useState(false);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const imageRef = useRef<HTMLImageElement>(null);
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setPrefersReducedMotion(mediaQuery.matches);
+    setIsHydrated(true);
+    const container = containerRef.current;
+    const img = imageRef.current;
+    if (!container || !img) return;
 
-    const el = containerRef.current;
-    if (!el) return;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
 
-    if (mediaQuery.matches) {
-      setIsInView(true);
-      setHasAnimated(true);
-      return;
-    }
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: container,
+          start: 'top 85%',
+          once: true,
+        },
+      });
 
-    // Check synchronously if already in or near the viewport
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight + 250 && rect.bottom > -150) {
-      setIsInView(true);
-      setHasAnimated(true);
-      if (triggerOnce) return;
-    } else {
-      // If far below the fold, enable scroll-triggered reveal
-      setIsInView(false);
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
-          setHasAnimated(true);
-          if (triggerOnce) {
-            observer.unobserve(el);
-          }
-        } else if (!triggerOnce) {
-          setIsInView(false);
+      tl.fromTo(
+        container,
+        { clipPath: 'inset(100% 0% 0% 0%)' },
+        {
+          clipPath: 'inset(0% 0% 0% 0%)',
+          duration: 1.0,
+          ease: 'power3.out',
         }
-      },
-      {
-        threshold: 0.01,
-        rootMargin: '200px 0px 200px 0px', // Trigger 200px before entering viewport so images are never blank
-      }
-    );
+      ).fromTo(
+        img,
+        { scale: 1.1 },
+        {
+          scale: 1.0,
+          duration: 1.2,
+          ease: 'power2.out',
+        },
+        0
+      );
+    }, container);
 
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [triggerOnce]);
-
-  const delaySec = delay > 10 ? delay / 1000 : delay;
-
-  // Outer container: smooth clip-path and gentle fade, never completely blank
-  const outerStyle: React.CSSProperties = prefersReducedMotion
-    ? {}
-    : {
-        clipPath: isInView ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 12% 0%)',
-        opacity: isInView ? 1 : 0.6,
-        transitionProperty: 'clip-path, opacity',
-        transitionDuration: `${motionTokens.durations.slow}s`,
-        transitionTimingFunction: motionTokens.easings.cssEaseOut,
-        transitionDelay: `${delaySec}s`,
-      };
-
-  // Inner element: subtle scale from 1.04 to 1
-  const innerStyle: React.CSSProperties = prefersReducedMotion
-    ? {}
-    : {
-        transform: isInView ? 'scale(1)' : 'scale(1.04)',
-        transformOrigin: 'center center',
-        transitionProperty: 'transform',
-        transitionDuration: `${motionTokens.durations.slow}s`,
-        transitionTimingFunction: motionTokens.easings.cssEaseOut,
-        transitionDelay: `${delaySec}s`,
-      };
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <div ref={containerRef} className={`relative overflow-hidden ${className}`} style={outerStyle}>
-      <div className="w-full h-full" style={innerStyle}>
-        {children}
+    <figure className={`relative overflow-hidden ${className}`}>
+      <div
+        ref={containerRef}
+        className={`relative w-full overflow-hidden bg-[var(--ink)]/5 ${aspectRatio}`}
+        style={!isHydrated ? { clipPath: 'none' } : undefined}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          ref={imageRef}
+          src={src}
+          alt={alt}
+          className="h-full w-full object-cover will-change-transform"
+          loading="lazy"
+        />
       </div>
-    </div>
+      {caption && (
+        <figcaption className="mt-2 text-xs font-medium text-neutral-500">
+          {caption}
+        </figcaption>
+      )}
+    </figure>
   );
-}
+};
+
+export default ImageReveal;

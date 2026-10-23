@@ -1,71 +1,58 @@
 import type { Metadata } from 'next';
-import { Newsreader, Hanken_Grotesk } from 'next/font/google';
-import { Shell } from '@/components/layout';
-import { CookieNotice } from '@/components/CookieNotice';
-import { SmoothScroll } from '@/components/motion/SmoothScroll';
+import { Bricolage_Grotesque, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
+import { SmoothScroll, CursorLabel, PageIntro } from '@/components/motion';
 
-const newsreader = Newsreader({
+const bricolageGrotesque = Bricolage_Grotesque({
   subsets: ['latin'],
-  style: ['normal', 'italic'],
-  weight: ['400', '500', '600'],
-  variable: '--font-newsreader',
+  weight: ['600', '700', '800'],
+  variable: '--font-display',
   display: 'swap',
 });
 
-const hankenGrotesk = Hanken_Grotesk({
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  variable: '--font-hanken-grotesk',
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-sans',
   display: 'swap',
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://hrsgroup.in'),
-  title: {
-    default: 'HRS Group',
-    template: '%s | HRS Group',
-  },
+  title: 'HRS Group • Ahmedabad, Gujarat',
   description:
-    'Parent corporate portal of HRS Group, Ahmedabad. Eight operating entities across facade engineering, property developments, food processing, consumer goods, hospitality, and trade education.',
-  alternates: {
-    canonical: '/',
-  },
-  openGraph: {
-    title: 'HRS Group',
-    description:
-      'Coordinating eight operating businesses across Gujarat and Karnataka anchored in engineering, manufacturing, property, and trade education.',
-    url: 'https://hrsgroup.in',
-    siteName: 'HRS Group',
-    locale: 'en_IN',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'HRS Group',
-    description:
-      'Coordinating eight operating businesses across Gujarat and Karnataka anchored in engineering, manufacturing, property, and trade education.',
-  },
-  icons: {
-    icon: '/favicon.ico',
-    apple: '/favicon.ico',
-  },
+    'Parent website for HRS Group: Built Environment, Retail, Food & Consumer, Hospitality & Leasing, and Services.',
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html
       lang="en"
-      className={`${newsreader.variable} ${hankenGrotesk.variable} antialiased`}
+      className={`${bricolageGrotesque.variable} ${plusJakartaSans.variable}`}
     >
-      <body className="min-h-screen bg-[var(--white)] text-[var(--ink)] font-sans antialiased selection:bg-[var(--orange)] selection:text-[var(--ink)]">
+      <body className="font-sans antialiased text-[var(--ink)] bg-[var(--paper)]">
+        {/* Skip to main content for accessibility */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-full focus:bg-[var(--ink)] focus:px-6 focus:py-3 focus:text-white focus:outline-none"
+        >
+          Skip to main content
+        </a>
+
+        {/* 1-second Page Intro session logo reveal */}
+        <PageIntro />
+
+        {/* Desktop Cursor Label */}
+        <CursorLabel />
+
+        {/* Lenis Smooth Scroll Provider */}
         <SmoothScroll>
-          <Shell>{children}</Shell>
-          <CookieNotice />
+          <div id="main-content" tabIndex={-1}>
+            {children}
+          </div>
         </SmoothScroll>
       </body>
     </html>

@@ -1,99 +1,91 @@
 import React from 'react';
-import Image from 'next/image';
-import { resolveImage } from '@/content/images';
-import { getAssetPath } from '@/lib/assets';
+import { getAssetUrl } from '@/lib/basePath';
 
-export interface ImageSlotProps {
-  aspectRatio?: '3:2' | '4:5' | '16:9' | '1:1';
-  src?: string;
-  alt?: string;
+interface ImageSlotProps {
+  src?: string | null;
+  alt: string;
   caption?: string;
+  aspectRatio?: string; // e.g., 'aspect-[16/9]' | 'aspect-[4/3]'
   className?: string;
-  priority?: boolean;
+  fallbackTitle?: string;
+  fallbackSector?: string;
+  accentColor?: string;
 }
 
-// 4x3 warm stone placeholder for instant zero-CLS blur
-const WARM_STONE_BLUR =
-  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAAPklEQVR42mN88eLF/4sXL/5nZGD4z8DA8B+Inz179v/06dP/Hz169P/Zs2f/mZmZ/zMwMPxnYGD4D8QAG+Yn251786sAAAAASUVORK5CYII=';
-
 export const ImageSlot: React.FC<ImageSlotProps> = ({
-  aspectRatio = '3:2',
   src,
-  alt = '',
+  alt,
   caption,
+  aspectRatio = 'aspect-[16/9]',
   className = '',
-  priority = false,
+  fallbackTitle,
+  fallbackSector,
+  accentColor = 'var(--hrs-orange)',
 }) => {
-  // Mapping true aspect ratios
-  const aspectClasses: Record<'3:2' | '4:5' | '16:9' | '1:1', string> = {
-    '3:2': 'aspect-[3/2]',
-    '4:5': 'aspect-[4/5]',
-    '16:9': 'aspect-[16/9]',
-    '1:1': 'aspect-square',
-  };
+  // If the image is a concept store render, default caption to 'Concept' if not provided
+  const isConcept = src && (src.includes('concept') || caption === 'Concept');
+  const displayCaption = caption || (isConcept ? 'Concept' : undefined);
 
-  const ratioClass = aspectClasses[aspectRatio] || 'aspect-[3/2]';
-
-  // Resolve image from explicit src, caption context, or curated ratio defaults
-  let resolved = resolveImage(src, caption, alt);
-
-  // Default homepage Selected Work slots if uncaptioned
-  if (!resolved && !src) {
-    if (aspectRatio === '3:2') {
-      resolved = {
-        src: '/images/hrishikesh-ventures/h2-residential.webp',
-        alt: alt || 'H2 Residential Development Shela Ahmedabad architectural exterior',
-      };
-    } else if (aspectRatio === '4:5') {
-      // In selected work or single portrait slots
-      resolved = {
-        src: '/images/hrs-aluglaze/sanand-campus.webp',
-        alt: alt || 'Sanand Industrial Engineering Campus glazed facade',
-      };
-    }
+  if (src) {
+    const fullSrc = getAssetUrl(src);
+    return (
+      <figure className={`group relative w-full overflow-hidden ${className}`}>
+        <div
+          className={`relative w-full overflow-hidden bg-neutral-100 ${aspectRatio}`}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={fullSrc}
+            alt={alt}
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            loading="lazy"
+          />
+        </div>
+        {displayCaption && (
+          <figcaption className="mt-2.5 flex items-center gap-1.5 text-xs font-semibold tracking-wider text-neutral-500 uppercase">
+            <span
+              className="inline-block h-1.5 w-1.5 rounded-full"
+              style={{ backgroundColor: accentColor }}
+            />
+            {displayCaption}
+          </figcaption>
+        )}
+      </figure>
+    );
   }
 
-  const finalSrc = getAssetPath(resolved?.src || src);
-  const finalAlt = alt || resolved?.alt || caption || 'HRS Group photographic view';
-
+  // Fallback: Elegant flat colour / typographic field (never stock or generic placeholder)
   return (
-    <figure className={`m-0 p-0 block ${className}`}>
-      <div
-        className={`relative w-full ${ratioClass} overflow-hidden bg-[var(--stone)] border border-[var(--stone-deep)]`}
-      >
-        {finalSrc ? (
-          <div className="relative w-full h-full group/img overflow-hidden">
-            <Image
-              src={finalSrc}
-              alt={finalAlt}
-              fill
-              priority={priority}
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1280px"
-              placeholder="blur"
-              blurDataURL={WARM_STONE_BLUR}
-              className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/img:scale-[1.025]"
-              style={{
-                filter: 'sepia(0.04) contrast(1.02) brightness(0.99)', // Subtle warm tint
-              }}
-            />
-          </div>
-        ) : (
-          /* Architectural stone fallback block */
-          <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center select-none bg-[var(--stone)] text-[var(--muted)]">
-            <div className="w-8 h-8 border border-[var(--stone-deep)] flex items-center justify-center mb-3">
-              <span className="w-1.5 h-1.5 bg-[var(--orange)]" />
-            </div>
-            <span className="text-[11px] font-mono tracking-widest uppercase text-[var(--muted)]">
-              ARCHITECTURAL REFERENCE
-            </span>
-          </div>
+    <div
+      className={`relative flex w-full flex-col justify-between overflow-hidden border border-[var(--rule)] p-8 ${aspectRatio} ${className}`}
+      style={{
+        backgroundColor: 'var(--paper)',
+      }}
+    >
+      <div className="flex items-center justify-between">
+        {fallbackSector && (
+          <span className="text-xs font-semibold tracking-wider text-neutral-500 uppercase">
+            {fallbackSector}
+          </span>
         )}
+        <div
+          className="h-2.5 w-2.5 rounded-full"
+          style={{ backgroundColor: accentColor }}
+        />
       </div>
-      {caption ? (
-        <figcaption className="mt-2.5 text-[13px] text-[var(--muted)] font-sans leading-normal">
-          {caption}
-        </figcaption>
-      ) : null}
-    </figure>
+
+      <div>
+        <h4 className="font-['Bricolage_Grotesque'] text-2xl font-bold tracking-tight text-[var(--ink)]">
+          {fallbackTitle || alt}
+        </h4>
+        <p className="mt-1 text-xs text-neutral-400">Archival record • HRS Group</p>
+      </div>
+
+      <div className="hairline-t pt-3 text-[11px] font-medium tracking-wider text-neutral-400 uppercase">
+        Visual asset awaiting release
+      </div>
+    </div>
   );
 };
+
+export default ImageSlot;

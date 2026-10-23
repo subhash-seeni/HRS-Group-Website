@@ -1,100 +1,72 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { motionTokens } from '@/lib/motion';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-export interface RevealProps {
-  children: React.ReactNode;
-  delay?: number; // in seconds or milliseconds
-  direction?: 'up' | 'down' | 'left' | 'right' | 'none';
-  distance?: number; // px, default 24
-  duration?: number; // seconds, default 0.5 (500ms)
-  className?: string;
-  as?: React.ElementType;
-  triggerOnce?: boolean;
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
 }
 
-export function Reveal({
+interface RevealProps {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+  duration?: number;
+  y?: number;
+  as?: 'div' | 'section' | 'article' | 'span' | 'aside' | 'p' | 'h1' | 'h2' | 'h3' | 'h4';
+}
+
+export const Reveal: React.FC<RevealProps> = ({
   children,
-  delay = 0,
-  direction = 'up',
-  distance = motionTokens.distances.rise,
-  duration = motionTokens.durations.base,
   className = '',
+  delay = 0,
+  duration = 0.7,
+  y = 24,
   as: Component = 'div',
-  triggerOnce = true,
-}: RevealProps) {
-  const ref = useRef<HTMLDivElement>(null);
+}) => {
+  const ref = useRef<HTMLElement>(null);
   const [isHydrated, setIsHydrated] = useState(false);
-  const [isInView, setIsInView] = useState(false);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
     setIsHydrated(true);
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setPrefersReducedMotion(mediaQuery.matches);
-
     const el = ref.current;
     if (!el) return;
 
-    if (mediaQuery.matches) {
-      setIsInView(true);
-      return;
-    }
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
-          if (triggerOnce) {
-            observer.unobserve(el);
-          }
-        } else if (!triggerOnce) {
-          setIsInView(false);
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        el,
+        { opacity: 0, y },
+        {
+          opacity: 1,
+          y: 0,
+          duration,
+          delay: delay / 1000,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 88%',
+            once: true,
+          },
         }
-      },
-      { threshold: 0.15 }
-    );
+      );
+    }, el);
 
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [triggerOnce]);
-
-  // Delay normalization: if passed > 10, treat as ms, else as seconds
-  const delaySec = delay > 10 ? delay / 1000 : delay;
-
-  // Determine transform offset
-  const getInitialTransform = () => {
-    if (prefersReducedMotion || direction === 'none') return 'none';
-    switch (direction) {
-      case 'up':
-        return `translate3d(0, ${distance}px, 0)`;
-      case 'down':
-        return `translate3d(0, -${distance}px, 0)`;
-      case 'left':
-        return `translate3d(${distance}px, 0, 0)`;
-      case 'right':
-        return `translate3d(-${distance}px, 0, 0)`;
-      default:
-        return `translate3d(0, ${distance}px, 0)`;
-    }
-  };
-
-  const style: React.CSSProperties = !isHydrated || prefersReducedMotion
-    ? {}
-    : {
-        opacity: isInView ? 1 : 0,
-        transform: isInView ? 'translate3d(0, 0, 0)' : getInitialTransform(),
-        transitionProperty: 'opacity, transform',
-        transitionDuration: `${duration}s`,
-        transitionTimingFunction: motionTokens.easings.cssEaseOut,
-        transitionDelay: `${delaySec}s`,
-        willChange: isInView ? 'auto' : 'opacity, transform',
-      };
+    return () => ctx.revert();
+  }, [delay, duration, y]);
 
   return (
-    <Component ref={ref} className={className} style={style}>
+    <Component
+      ref={ref as any}
+      className={`${className} ${!isHydrated ? 'opacity-100 translate-y-0' : ''}`}
+      style={!isHydrated ? { opacity: 1, transform: 'none' } : undefined}
+    >
       {children}
     </Component>
   );
-}
+};
+
+export default Reveal;

@@ -1,117 +1,262 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion, useScroll } from 'motion/react';
-import { ChevronDown, Menu, X, ArrowUpRight } from 'lucide-react';
+import { ChevronDown, ArrowRight, Menu, X, ArrowUpRight } from 'lucide-react';
 import { Logo } from '@/components/ui/Logo';
-import { LineLink } from '@/components/motion/LineLink';
-import { entities } from '@/content/entities';
-import { Sector } from '@/content/types';
+import { MagneticButton } from '@/components/motion/MagneticButton';
+import { getAssetUrl } from '@/lib/basePath';
+
+interface EntityLink {
+  name: string;
+  line: string;
+  href: string;
+}
+
+interface SectorColumn {
+  name: string;
+  color: string;
+  entities: EntityLink[];
+}
+
+const SECTOR_COLUMNS: SectorColumn[] = [
+  {
+    name: 'Built Environment',
+    color: '#15852C',
+    entities: [
+      {
+        name: 'Hrishikesh Ventures',
+        line: '13 residential & commercial developments in Ahmedabad',
+        href: '/businesses#hrishikesh-ventures',
+      },
+      {
+        name: 'HRS Aluglaze Ltd',
+        line: 'High-precision facade & fenestration engineering',
+        href: '/businesses#hrs-aluglaze',
+      },
+      {
+        name: 'Geotrix Pvt. Ltd.',
+        line: 'Southern India facade operations in Bengaluru',
+        href: '/businesses#geotrix',
+      },
+      {
+        name: 'School of Facade Technologies',
+        line: 'Technical training for students, fabricators & architects',
+        href: '/businesses#school-of-facade-technologies',
+      },
+    ],
+  },
+  {
+    name: 'Retail',
+    color: '#F58A33',
+    entities: [
+      {
+        name: 'BOGO',
+        line: 'Connected multi-format modern retail ecosystem',
+        href: '/bogo',
+      },
+      {
+        name: 'BOGO Square',
+        line: 'Flagship retail, dining & experiential hub',
+        href: '/bogo#formats',
+      },
+      {
+        name: 'BOGO Bazaar & Mini',
+        line: 'Community grocery & quick neighbourhood convenience',
+        href: '/bogo#formats',
+      },
+      {
+        name: 'BOGO Go',
+        line: 'Coordinated distribution & stockist supply network',
+        href: '/bogo#distribution',
+      },
+    ],
+  },
+  {
+    name: 'Food & Consumer',
+    color: '#EB7C20',
+    entities: [
+      {
+        name: 'Hrishikesh Food Products',
+        line: 'Clean spice milling & botanical processing in Bavla',
+        href: '/businesses#hrishikesh-food-products',
+      },
+      {
+        name: 'Hrishikesh Consumer Products',
+        line: 'Portfolio of 13 dedicated household brands',
+        href: '/businesses#hrishikesh-consumer-products',
+      },
+      {
+        name: 'Manpras',
+        line: 'Everyday neighbourhood grocery & packaged staples',
+        href: '/businesses#hrishikesh-consumer-products',
+      },
+    ],
+  },
+  {
+    name: 'Hospitality & Leasing',
+    color: '#13477A',
+    entities: [
+      {
+        name: 'FirstGen Pvt. Ltd.',
+        line: 'Parent holding umbrella for commercial operations',
+        href: '/businesses#firstgen',
+      },
+      {
+        name: 'FirstGen Assets',
+        line: 'Commercial, office, retail & industrial leasing',
+        href: '/businesses#firstgen-assets',
+      },
+      {
+        name: 'FirstGen Hotels',
+        line: 'Flight Stays & Amuktamalyada dining in Bengaluru',
+        href: '/businesses#firstgen-hotels',
+      },
+      {
+        name: 'FirstGen Enterprises',
+        line: 'The Bluprint by Builders Cafe & ShubhVista retail',
+        href: '/businesses#firstgen-enterprises',
+      },
+    ],
+  },
+  {
+    name: 'Services',
+    color: '#EA5735',
+    entities: [
+      {
+        name: 'Indian Brand House',
+        line: 'Strategy, identity, content & digital marketing',
+        href: '/businesses#indian-brand-house',
+      },
+    ],
+  },
+];
 
 export const Header: React.FC = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isHidden, setIsHidden] = useState(false);
-  const [businessesOpen, setBusinessesOpen] = useState(false);
-  const [hoveredEntitySlug, setHoveredEntitySlug] = useState<string | null>(null);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [mobileSectorsOpen, setMobileSectorsOpen] = useState<Record<string, boolean>>({});
-
   const pathname = usePathname();
+  const isHome = pathname === '/';
+
+  // Navigation states
+  const [isScrolledPastHero, setIsScrolledPastHero] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+  const [tone, setTone] = useState<'light' | 'dark'>('light'); // 'light' means light text (dark bg), 'dark' means dark text (light bg)
+  const [solidBg, setSolidBg] = useState<string>('transparent');
+
+  // Mega panel & Mobile menu state
+  const [isMegaOpen, setIsMegaOpen] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [hoveredEntity, setHoveredEntity] = useState<string | null>(null);
+  const [expandedSector, setExpandedSector] = useState<string | null>(null);
+
+  const lastScrollY = useRef(0);
+  const megaRef = useRef<HTMLDivElement>(null);
   const businessesButtonRef = useRef<HTMLButtonElement>(null);
-  const megaPanelRef = useRef<HTMLDivElement>(null);
-  const lastScrollYRef = useRef(0);
 
-  // Scroll Progress Hook
-  const { scrollYProgress } = useScroll();
-
-  // Group entities by sector dynamically from /src/content/entities.ts
-  const sectors: Sector[] = [
-    'Built Environment',
-    'Food and Consumer',
-    'Hospitality, Leasing and Retail',
-    'Services',
-  ];
-
-  const entitiesBySector: Record<Sector, typeof entities> = {
-    'Built Environment': entities.filter((e) => e.sector === 'Built Environment'),
-    'Food and Consumer': entities.filter((e) => e.sector === 'Food and Consumer'),
-    'Hospitality, Leasing and Retail': entities.filter(
-      (e) => e.sector === 'Hospitality, Leasing and Retail'
-    ),
-    Services: entities.filter((e) => e.sector === 'Services'),
-  };
-
-  // Scroll listener: transparent over first 80px, hide on scroll down, return on scroll up
+  // Close menus on route change
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const scrolledPastThreshold = currentScrollY > 80;
-      setIsScrolled(scrolledPastThreshold);
-
-      if (currentScrollY <= 80 || businessesOpen || mobileMenuOpen) {
-        setIsHidden(false);
-      } else if (currentScrollY > lastScrollYRef.current && currentScrollY > 120) {
-        // Scrolling down past 120px -> hide
-        setIsHidden(true);
-      } else if (currentScrollY < lastScrollYRef.current) {
-        // Scrolling up -> return
-        setIsHidden(false);
-      }
-
-      lastScrollYRef.current = currentScrollY;
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [businessesOpen, mobileMenuOpen]);
-
-  const [isInkOpening, setIsInkOpening] = useState(false);
-
-  // Close menus when route changes
-  useEffect(() => {
-    setBusinessesOpen(false);
-    setMobileMenuOpen(false);
-    setHoveredEntitySlug(null);
-
-    const checkOpening = () => {
-      const firstSection = document.querySelector('main > *:first-child, section[data-surface]');
-      if (firstSection) {
-        const surface = firstSection.getAttribute('data-surface');
-        setIsInkOpening(surface === 'ink');
-      } else {
-        setIsInkOpening(false);
-      }
-    };
-    checkOpening();
-    const timer = setTimeout(checkOpening, 100);
-    return () => clearTimeout(timer);
+    setIsMegaOpen(false);
+    setIsMobileOpen(false);
   }, [pathname]);
 
-  const isLightText = isInkOpening && !isScrolled && !businessesOpen;
+  // Handle scroll detection, tone detection, and hide-on-scroll-down
+  const handleScroll = useCallback(() => {
+    const currentY = window.scrollY;
+    const heroThreshold = window.innerHeight - 80;
 
-  // Handle ESC key to close businesses panel or mobile menu
+    const isPastHero = currentY > heroThreshold;
+    setIsScrolledPastHero(isPastHero);
+
+    // Hide/show behavior (only when mega panel is closed)
+    if (!isMegaOpen && !isMobileOpen) {
+      if (currentY > 100 && currentY > lastScrollY.current + 8) {
+        setIsHidden(true);
+      } else if (currentY < lastScrollY.current - 6 || currentY <= 80) {
+        setIsHidden(false);
+      }
+    }
+    lastScrollY.current = currentY;
+
+    // Detect section beneath header when past hero
+    if (isPastHero) {
+      // Find element directly below header center
+      const el = document.elementFromPoint(window.innerWidth / 2, 85);
+      const section = el?.closest('section');
+      const surface = section?.getAttribute('data-surface');
+
+      if (surface === 'ink') {
+        setSolidBg('var(--ink)');
+        setTone('light');
+      } else if (surface === 'bogo-navy') {
+        setSolidBg('var(--bogo-navy)');
+        setTone('light');
+      } else if (surface === 'orange') {
+        setSolidBg('var(--hrs-orange)');
+        setTone('dark');
+      } else if (surface === 'white') {
+        setSolidBg('var(--white)');
+        setTone('dark');
+      } else {
+        // default paper
+        setSolidBg('var(--paper)');
+        setTone('dark');
+      }
+    } else {
+      setSolidBg('transparent');
+      // Read hero tone from document attribute if available
+      const docHeroTone = document.documentElement.getAttribute('data-hero-tone');
+      if (docHeroTone === 'dark') {
+        setTone('dark');
+      } else {
+        setTone('light');
+      }
+    }
+  }, [isMegaOpen, isMobileOpen]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
+    // Observe changes to data-hero-tone on <html>
+    const observer = new MutationObserver(() => {
+      if (window.scrollY <= window.innerHeight - 80) {
+        const docHeroTone = document.documentElement.getAttribute('data-hero-tone');
+        setTone(docHeroTone === 'dark' ? 'dark' : 'light');
+      }
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-hero-tone'],
+    });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
+    };
+  }, [handleScroll]);
+
+  // Keyboard navigation & Escape key listener
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        if (businessesOpen) {
-          setBusinessesOpen(false);
+        if (isMegaOpen) {
+          setIsMegaOpen(false);
           businessesButtonRef.current?.focus();
         }
-        if (mobileMenuOpen) {
-          setMobileMenuOpen(false);
+        if (isMobileOpen) {
+          setIsMobileOpen(false);
         }
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [businessesOpen, mobileMenuOpen]);
+  }, [isMegaOpen, isMobileOpen]);
 
-  // Lock body scroll when mobile menu is active
+  // Lock body scroll when mobile menu is open
   useEffect(() => {
-    if (mobileMenuOpen) {
+    if (isMobileOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -119,485 +264,346 @@ export const Header: React.FC = () => {
     return () => {
       document.body.style.overflow = '';
     };
-  }, [mobileMenuOpen]);
+  }, [isMobileOpen]);
 
-  // Handle click outside businesses panel
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (
-        businessesOpen &&
-        megaPanelRef.current &&
-        !megaPanelRef.current.contains(e.target as Node) &&
-        businessesButtonRef.current &&
-        !businessesButtonRef.current.contains(e.target as Node)
-      ) {
-        setBusinessesOpen(false);
-      }
-    };
+  const textColorClass = tone === 'light' ? 'text-white' : 'text-[var(--ink)]';
+  const textMutedClass = tone === 'light' ? 'text-neutral-300' : 'text-neutral-600';
+  const navHoverBgClass = tone === 'light' ? 'hover:text-[var(--hrs-orange)]' : 'hover:text-[var(--hrs-orange)]';
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [businessesOpen]);
-
-  // Focus trap for businesses panel
-  useEffect(() => {
-    if (!businessesOpen || !megaPanelRef.current) return;
-
-    const focusableElements = megaPanelRef.current.querySelectorAll<HTMLElement>(
-      'a[href], button:not([disabled]), input, textarea, select, [tabindex]:not([tabindex="-1"])'
-    );
-    const firstElement = focusableElements[0];
-    const lastElement = focusableElements[focusableElements.length - 1];
-
-    const handleTabKey = (e: KeyboardEvent) => {
-      if (e.key !== 'Tab') return;
-
-      if (e.shiftKey) {
-        if (document.activeElement === firstElement) {
-          e.preventDefault();
-          lastElement?.focus();
-        }
-      } else {
-        if (document.activeElement === lastElement) {
-          e.preventDefault();
-          firstElement?.focus();
-        }
-      }
-    };
-
-    megaPanelRef.current.addEventListener('keydown', handleTabKey);
-    return () => {
-      megaPanelRef.current?.removeEventListener('keydown', handleTabKey);
-    };
-  }, [businessesOpen]);
-
-  const toggleSectorMobile = (sector: string) => {
-    setMobileSectorsOpen((prev) => ({
-      ...prev,
-      [sector]: !prev[sector],
-    }));
-  };
-
-  // Nav link active checks
-  const isAboutActive = pathname === '/about';
-  const isBusinessesActive =
-    pathname.startsWith('/businesses') || pathname.startsWith('/entities');
-  const isNewsActive = pathname.startsWith('/news');
-  const isCareersActive = pathname.startsWith('/careers');
-  const isContactActive = pathname.startsWith('/contact');
+  const bogoLink = isHome ? '#bogo' : '/bogo';
 
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-40 h-[80px] transition-all duration-300 ${
-          isScrolled || businessesOpen
-            ? 'bg-[var(--white)] border-b border-[var(--rule)]'
-            : 'bg-transparent border-b border-transparent'
+        role="banner"
+        className={`fixed top-0 left-0 right-0 z-40 h-20 transition-transform duration-300 ${
+          isHidden ? '-translate-y-full' : 'translate-y-0'
         }`}
         style={{
-          transform: isHidden ? 'translateY(-100%)' : 'translateY(0)',
-          transition:
-            'transform 300ms cubic-bezier(0.22, 1, 0.36, 1), background-color 200ms ease, border-color 200ms ease',
+          backgroundColor: isMegaOpen ? 'var(--ink)' : solidBg,
+          transition: 'background-color 200ms ease, transform 300ms ease',
         }}
       >
-        <div className="max-w-[1280px] mx-auto h-full px-6 sm:px-8 md:px-12 flex items-center justify-between">
-          {/* Left: HRS Group Logo (Reduces to 90% once scrolled) */}
+        <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-6 lg:px-8">
+          {/* Left: Logo */}
           <Link
             href="/"
-            className="inline-flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--orange)] rounded-[2px]"
-            aria-label="HRS Group homepage"
+            className={`transition-opacity hover:opacity-90 ${
+              isMegaOpen ? 'text-white' : textColorClass
+            }`}
+            aria-label="HRS Group Home"
+            onClick={() => {
+              setIsMegaOpen(false);
+              setIsMobileOpen(false);
+            }}
           >
-            <div
-              style={{
-                transform: isScrolled ? 'scale(0.9)' : 'scale(1)',
-                transformOrigin: 'left center',
-                transition: 'transform 300ms cubic-bezier(0.22, 1, 0.36, 1)',
-              }}
-            >
-              <Logo entity="hrs-group" variant={isLightText ? 'light' : 'auto'} height={30} />
-            </div>
+            <Logo slug="hrs-group" height="h-9" />
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Center/Right Nav */}
           <nav
-            className={`hidden md:flex items-center gap-8 lg:gap-10 font-sans text-[15px] ${
-              isLightText ? 'text-[#F5F2EC]' : 'text-[var(--ink)]'
-            }`}
-            aria-label="Main navigation"
+            role="navigation"
+            aria-label="Main Navigation"
+            className="hidden items-center gap-8 md:flex"
           >
-            {/* About */}
-            <LineLink href="/about" className="py-1">
-              <span className="flex items-center gap-2">
-                {isAboutActive && (
-                  <motion.span
-                    layoutId="header-active-dot"
-                    className="w-1.5 h-1.5 bg-[var(--orange)] inline-block flex-shrink-0"
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                  />
-                )}
-                <span>About</span>
-              </span>
-            </LineLink>
+            <Link
+              href="/about"
+              className={`text-sm font-semibold tracking-tight transition-colors ${
+                isMegaOpen ? 'text-neutral-300 hover:text-white' : `${textColorClass} ${navHoverBgClass}`
+              }`}
+            >
+              About
+            </Link>
 
-            {/* Businesses Mega-Panel Toggle Button */}
+            {/* Businesses Trigger with mega panel */}
             <div className="relative">
               <button
                 ref={businessesButtonRef}
                 type="button"
-                id="businesses-nav-button"
-                aria-expanded={businessesOpen}
-                aria-controls="businesses-panel"
-                onClick={() => setBusinessesOpen(!businessesOpen)}
-                className={`inline-flex items-center gap-1.5 py-1 ${
-                  isLightText ? 'text-[#F5F2EC]' : 'text-[var(--ink)]'
-                } bg-transparent border-0 cursor-pointer transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--orange)] rounded-[2px] ${
-                  businessesOpen || isBusinessesActive ? 'font-medium' : ''
+                onClick={() => setIsMegaOpen(!isMegaOpen)}
+                aria-expanded={isMegaOpen}
+                aria-haspopup="true"
+                aria-controls="businesses-mega-panel"
+                className={`flex items-center gap-1.5 text-sm font-semibold tracking-tight transition-colors cursor-pointer ${
+                  isMegaOpen
+                    ? 'text-[var(--hrs-orange)]'
+                    : `${textColorClass} ${navHoverBgClass}`
                 }`}
               >
-                <span className="flex items-center gap-2">
-                  {isBusinessesActive && (
-                    <motion.span
-                      layoutId="header-active-dot"
-                      className="w-1.5 h-1.5 bg-[var(--orange)] inline-block flex-shrink-0"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                  <span>Businesses</span>
-                </span>
+                <span>Businesses</span>
                 <ChevronDown
-                  className={`w-3.5 h-3.5 stroke-[1.5] transition-transform duration-200 ${
-                    businessesOpen ? 'rotate-180' : ''
+                  className={`h-4 w-4 transition-transform duration-200 ${
+                    isMegaOpen ? 'rotate-180 text-[var(--hrs-orange)]' : ''
                   }`}
-                  aria-hidden="true"
                 />
               </button>
             </div>
 
-            {/* News */}
-            <LineLink href="/news" className="py-1">
-              <span className="flex items-center gap-2">
-                {isNewsActive && (
-                  <motion.span
-                    layoutId="header-active-dot"
-                    className="w-1.5 h-1.5 bg-[var(--orange)] inline-block flex-shrink-0"
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                  />
-                )}
-                <span>News</span>
-              </span>
-            </LineLink>
+            {/* BOGO with orange dot */}
+            <Link
+              href={bogoLink}
+              className={`flex items-center gap-2 text-sm font-semibold tracking-tight transition-colors ${
+                isMegaOpen ? 'text-neutral-300 hover:text-white' : `${textColorClass} ${navHoverBgClass}`
+              }`}
+            >
+              <span className="h-2 w-2 rounded-full bg-[var(--bogo-orange)] shrink-0" />
+              <span>BOGO</span>
+            </Link>
 
-            {/* Careers */}
-            <LineLink href="/careers" className="py-1">
-              <span className="flex items-center gap-2">
-                {isCareersActive && (
-                  <motion.span
-                    layoutId="header-active-dot"
-                    className="w-1.5 h-1.5 bg-[var(--orange)] inline-block flex-shrink-0"
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                  />
-                )}
-                <span>Careers</span>
-              </span>
-            </LineLink>
+            <Link
+              href="/news"
+              className={`text-sm font-semibold tracking-tight transition-colors ${
+                isMegaOpen ? 'text-neutral-300 hover:text-white' : `${textColorClass} ${navHoverBgClass}`
+              }`}
+            >
+              News
+            </Link>
 
-            {/* Contact */}
-            <LineLink href="/contact" className="py-1">
-              <span className="flex items-center gap-2">
-                {isContactActive && (
-                  <motion.span
-                    layoutId="header-active-dot"
-                    className="w-1.5 h-1.5 bg-[var(--orange)] inline-block flex-shrink-0"
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                  />
-                )}
-                <span>Contact</span>
-              </span>
-            </LineLink>
+            <Link
+              href="/careers"
+              className={`text-sm font-semibold tracking-tight transition-colors ${
+                isMegaOpen ? 'text-neutral-300 hover:text-white' : `${textColorClass} ${navHoverBgClass}`
+              }`}
+            >
+              Careers
+            </Link>
+
+            {/* Magnetic Contact Button */}
+            <div className="ml-2">
+              <MagneticButton strength={0.3}>
+                <Link
+                  href="/contact"
+                  className={`group inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-semibold tracking-tight transition-all duration-200 ${
+                    isMegaOpen || tone === 'light'
+                      ? 'bg-white text-[var(--ink)] hover:bg-[var(--hrs-orange)] hover:text-white'
+                      : 'bg-[var(--ink)] text-white hover:bg-[var(--hrs-orange)]'
+                  }`}
+                >
+                  <span>Contact</span>
+                  <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-current/10 transition-transform duration-200 group-hover:translate-x-1">
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </span>
+                </Link>
+              </MagneticButton>
+            </div>
           </nav>
 
-          {/* Mobile Hamburger Toggle */}
+          {/* Mobile Menu Toggle Button */}
           <button
             type="button"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-expanded={mobileMenuOpen}
-            aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-            className={`md:hidden inline-flex items-center justify-center min-w-[44px] min-h-[44px] p-2.5 ${
-              isLightText ? 'text-[#F5F2EC]' : 'text-[var(--ink)]'
-            } bg-transparent border-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--orange)] rounded-[2px]`}
+            onClick={() => setIsMobileOpen(!isMobileOpen)}
+            aria-expanded={isMobileOpen}
+            aria-controls="mobile-navigation"
+            aria-label={isMobileOpen ? 'Close Navigation Menu' : 'Open Navigation Menu'}
+            className={`p-2 transition-colors md:hidden cursor-pointer ${
+              isMobileOpen ? 'text-white' : textColorClass
+            }`}
           >
-            {mobileMenuOpen ? (
-              <X className="w-6 h-6 stroke-[1.5]" />
-            ) : (
-              <Menu className="w-6 h-6 stroke-[1.5]" />
-            )}
+            {isMobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
 
-        {/* 2px Orange Scroll-Progress Line along bottom edge */}
-        <motion.div
-          className="absolute bottom-0 left-0 right-0 h-[2px] bg-[var(--orange)] origin-left pointer-events-none"
-          style={{ scaleX: scrollYProgress }}
-        />
+        {/* =========================================================================
+            BUSINESSES MEGA PANEL (Full-width, 5 columns, 400ms clip reveal)
+           ========================================================================= */}
+        <div
+          id="businesses-mega-panel"
+          ref={megaRef}
+          role="region"
+          aria-label="Businesses Directory"
+          className={`absolute top-20 left-0 right-0 w-full overflow-hidden border-b-2 border-white/20 bg-[var(--ink)] text-white transition-[clip-path,opacity] duration-400 ease-out ${
+            isMegaOpen
+              ? 'opacity-100 pointer-events-auto [clip-path:inset(0%_0%_0%_0%)]'
+              : 'opacity-0 pointer-events-none [clip-path:inset(0%_0%_100%_0%)]'
+          }`}
+        >
+          <div className="mx-auto max-w-7xl px-6 py-10 lg:px-8">
+            <div className="mb-6 flex items-center justify-between border-b border-white/10 pb-4">
+              <div>
+                <span className="text-xs font-semibold text-[var(--hrs-orange)]">
+                  Operating directory
+                </span>
+                <h3 className="font-['Bricolage_Grotesque'] text-2xl font-bold tracking-tight text-white">
+                  Five core sectors
+                </h3>
+              </div>
+              <Link
+                href="/businesses"
+                onClick={() => setIsMegaOpen(false)}
+                className="group flex items-center gap-1.5 text-xs font-semibold text-neutral-400 hover:text-white"
+              >
+                <span>View all businesses</span>
+                <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+              {SECTOR_COLUMNS.map((sector) => (
+                <div
+                  key={sector.name}
+                  className="flex flex-col border-t-4 pt-4"
+                  style={{ borderColor: sector.color }}
+                >
+                  <span className="text-xs font-semibold text-neutral-300">
+                    {sector.name}
+                  </span>
+
+                  <ul className="mt-4 space-y-3">
+                    {sector.entities.map((entity) => {
+                      const isHovered = hoveredEntity === entity.name;
+                      const hasHover = hoveredEntity !== null;
+
+                      return (
+                        <li key={entity.name}>
+                          <Link
+                            href={entity.href}
+                            onClick={() => setIsMegaOpen(false)}
+                            onMouseEnter={() => setHoveredEntity(entity.name)}
+                            onMouseLeave={() => setHoveredEntity(null)}
+                            onFocus={() => setHoveredEntity(entity.name)}
+                            onBlur={() => setHoveredEntity(null)}
+                            className={`block transition-all duration-200 ${
+                              isHovered
+                                ? 'translate-x-1.5 opacity-100'
+                                : hasHover
+                                ? 'opacity-40'
+                                : 'opacity-100'
+                            }`}
+                          >
+                            <span className="flex items-center gap-1 font-['Bricolage_Grotesque'] text-sm font-bold text-white hover:text-[var(--hrs-orange)]">
+                              <span>{entity.name}</span>
+                              <ArrowUpRight className="h-3 w-3 opacity-60" />
+                            </span>
+                            <span className="block mt-0.5 text-xs text-neutral-400 leading-tight">
+                              {entity.line}
+                            </span>
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </header>
 
-      {/* Desktop Businesses Mega-Panel: 450ms clip-path reveal from top */}
-      <div
-        ref={megaPanelRef}
-        id="businesses-panel"
-        role="region"
-        aria-labelledby="businesses-nav-button"
-        aria-hidden={!businessesOpen}
-        className={`hidden md:block fixed top-[80px] left-0 right-0 bg-[var(--white)] border-b border-[var(--rule)] z-30 transition-all ${
-          businessesOpen ? 'pointer-events-auto' : 'pointer-events-none'
-        }`}
-        style={{
-          clipPath: businessesOpen ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 100% 0%)',
-          transition: 'clip-path 450ms cubic-bezier(0.22, 1, 0.36, 1)',
-        }}
-      >
-        <div className="max-w-[1280px] mx-auto px-6 sm:px-8 md:px-12 py-10">
-          <div className="grid grid-cols-4 gap-8 lg:gap-12">
-            {sectors.map((sector, sectorIdx) => (
-              <div
-                key={sector}
-                className="space-y-6"
-                style={{
-                  opacity: businessesOpen ? 1 : 0,
-                  transform: businessesOpen ? 'translateY(0)' : 'translateY(16px)',
-                  transition: `opacity 400ms cubic-bezier(0.22, 1, 0.36, 1) ${sectorIdx * 60}ms, transform 400ms cubic-bezier(0.22, 1, 0.36, 1) ${sectorIdx * 60}ms`,
-                }}
+      {/* =========================================================================
+          MOBILE NAVIGATION DRAWER (Full-screen Ink Menu)
+         ========================================================================= */}
+      {isMobileOpen && (
+        <div
+          id="mobile-navigation"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile Navigation"
+          className="fixed inset-0 z-30 flex flex-col justify-between bg-[var(--ink)] text-white pt-24 pb-8 px-6 overflow-y-auto"
+        >
+          <div className="space-y-6">
+            <Link
+              href="/"
+              onClick={() => setIsMobileOpen(false)}
+              className="block font-['Bricolage_Grotesque'] text-3xl font-extrabold tracking-tight text-white hover:text-[var(--hrs-orange)]"
+            >
+              Home
+            </Link>
+
+            <Link
+              href="/about"
+              onClick={() => setIsMobileOpen(false)}
+              className="block font-['Bricolage_Grotesque'] text-3xl font-extrabold tracking-tight text-white hover:text-[var(--hrs-orange)]"
+            >
+              About
+            </Link>
+
+            {/* Mobile Businesses Accordion */}
+            <div className="border-t border-b border-white/15 py-3">
+              <button
+                type="button"
+                onClick={() => setExpandedSector(expandedSector ? null : 'all')}
+                className="flex w-full items-center justify-between font-['Bricolage_Grotesque'] text-3xl font-extrabold tracking-tight text-white cursor-pointer"
               >
-                {/* Sector Title */}
-                <div className="border-b border-[var(--rule)] pb-2">
-                  <span className="font-serif text-[18px] text-[var(--ink)]">
-                    {sector}
-                  </span>
-                </div>
+                <span>Businesses</span>
+                <ChevronDown
+                  className={`h-6 w-6 transition-transform duration-200 ${
+                    expandedSector ? 'rotate-180 text-[var(--hrs-orange)]' : ''
+                  }`}
+                />
+              </button>
 
-                {/* Entity List */}
-                <ul className="space-y-4 m-0 p-0 list-none">
-                  {entitiesBySector[sector].map((entity) => {
-                    const isHovered = hoveredEntitySlug === entity.slug;
-                    const isDimmed =
-                      hoveredEntitySlug !== null && hoveredEntitySlug !== entity.slug;
-
-                    return (
-                      <li
-                        key={entity.slug}
-                        onMouseEnter={() => setHoveredEntitySlug(entity.slug)}
-                        onMouseLeave={() => setHoveredEntitySlug(null)}
-                        style={{
-                          opacity: isDimmed ? 0.45 : 1,
-                          transform: isHovered ? 'translateX(6px)' : 'translateX(0)',
-                          transition:
-                            'opacity 200ms ease, transform 200ms cubic-bezier(0.22, 1, 0.36, 1)',
-                        }}
-                      >
-                        <Link
-                          href={`/businesses/${entity.slug}`}
-                          onFocus={() => setHoveredEntitySlug(entity.slug)}
-                          onBlur={() => setHoveredEntitySlug(null)}
-                          className="block text-left text-decoration-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--orange)] rounded-[2px]"
-                        >
-                          <div className="flex items-center justify-between text-[15px] font-medium text-[var(--ink)]">
-                            <span className="flex items-center gap-2">
-                              <span
-                                className={`w-1.5 h-1.5 bg-[var(--orange)] inline-block flex-shrink-0 transition-opacity duration-150 ${
-                                  isHovered ? 'opacity-100' : 'opacity-0'
-                                }`}
-                              />
-                              <span className="border-b border-transparent hover:border-[var(--orange)] transition-colors duration-150">
-                                {entity.name}
-                              </span>
-                            </span>
-                            <ArrowUpRight className="w-3.5 h-3.5 text-[var(--muted)] opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
-                          </div>
-
-                          {/* Description revealed beneath */}
-                          <div
-                            className="overflow-hidden transition-all duration-300 ease-out"
-                            style={{
-                              maxHeight: isHovered ? '60px' : '0px',
-                              opacity: isHovered ? 1 : 0,
-                              marginTop: isHovered ? '4px' : '0px',
-                            }}
+              {expandedSector && (
+                <div className="mt-4 space-y-4 pl-2">
+                  {SECTOR_COLUMNS.map((sec) => (
+                    <div key={sec.name} className="border-l-2 pl-3" style={{ borderColor: sec.color }}>
+                      <span className="text-xs font-semibold text-neutral-300">
+                        {sec.name}
+                      </span>
+                      <div className="mt-2 space-y-2">
+                        {sec.entities.map((ent) => (
+                          <Link
+                            key={ent.name}
+                            href={ent.href}
+                            onClick={() => setIsMobileOpen(false)}
+                            className="block"
                           >
-                            <p className="text-[13px] text-[var(--muted)] font-sans leading-relaxed m-0 line-clamp-2">
-                              {entity.summary}
-                            </p>
-                          </div>
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-10 pt-4 border-t border-[var(--rule)] flex items-center justify-between text-[13px] text-[var(--muted)] font-sans">
-            <span>Eight entities across four operating sectors</span>
-            <button
-              type="button"
-              onClick={() => {
-                setBusinessesOpen(false);
-                businessesButtonRef.current?.focus();
-              }}
-              className="text-[var(--ink)] border-b border-[var(--rule)] hover:border-[var(--orange)] bg-transparent p-0 cursor-pointer text-[13px]"
-            >
-              Close panel (Esc)
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Full-Screen Menu: Ink-deep surface sliding down */}
-      <div
-        role="dialog"
-        aria-modal="true"
-        aria-label="Mobile navigation menu"
-        className={`md:hidden fixed inset-0 top-0 bg-[var(--ink-deep)] text-[#F5F2EC] z-50 overflow-y-auto px-6 py-8 flex flex-col justify-between transition-transform duration-400 ${
-          mobileMenuOpen ? 'translate-y-0' : '-translate-y-full'
-        }`}
-        style={{
-          transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)',
-        }}
-      >
-        <div className="space-y-8">
-          {/* Top Bar inside Mobile Menu */}
-          <div className="flex items-center justify-between pb-6 border-b border-[rgba(255,255,255,0.14)]">
-            <Logo variant="light" height={28} />
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(false)}
-              aria-label="Close menu"
-              className="p-2 text-[#F5F2EC] bg-transparent border-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--orange)] rounded-[2px]"
-            >
-              <X className="w-6 h-6 stroke-[1.5]" />
-            </button>
-          </div>
-
-          {/* Primary Large Newsreader Links revealed line by line */}
-          <nav className="space-y-4">
-            <div className="overflow-hidden">
-              <Link
-                href="/"
-                onClick={() => setMobileMenuOpen(false)}
-                className="font-serif text-[clamp(2rem,6.5vw,3rem)] text-[#F5F2EC] block leading-tight hover:text-[var(--orange)] transition-colors"
-              >
-                Overview
-              </Link>
-            </div>
-
-            <div className="overflow-hidden">
-              <Link
-                href="/about"
-                onClick={() => setMobileMenuOpen(false)}
-                className="font-serif text-[clamp(2rem,6.5vw,3rem)] text-[#F5F2EC] block leading-tight hover:text-[var(--orange)] transition-colors"
-              >
-                About
-              </Link>
-            </div>
-
-            {/* Businesses Accordions with smooth height animation */}
-            <div className="py-2 border-t border-b border-[rgba(255,255,255,0.14)]">
-              <div className="font-serif text-[clamp(2rem,6.5vw,3rem)] text-[#F5F2EC] py-1 leading-tight">
-                Businesses
-              </div>
-              <div className="space-y-2 mt-2 pl-2">
-                {sectors.map((sector) => {
-                  const isOpen = Boolean(mobileSectorsOpen[sector]);
-
-                  return (
-                    <div
-                      key={sector}
-                      className="border-b border-[rgba(255,255,255,0.14)] pb-3"
-                    >
-                      <button
-                        type="button"
-                        onClick={() => toggleSectorMobile(sector)}
-                        aria-expanded={isOpen}
-                        className="w-full flex items-center justify-between text-left py-2 bg-transparent border-0 cursor-pointer text-[16px] font-sans font-medium text-[#F5F2EC]"
-                      >
-                        <span>{sector}</span>
-                        <span className="text-[18px] text-[rgba(245,242,236,0.78)]">
-                          {isOpen ? '−' : '+'}
-                        </span>
-                      </button>
-
-                      {/* Smooth height animation via CSS grid */}
-                      <div
-                        className="grid transition-all duration-300 ease-out"
-                        style={{
-                          gridTemplateRows: isOpen ? '1fr' : '0fr',
-                        }}
-                      >
-                        <div className="overflow-hidden">
-                          <ul className="pl-3 space-y-3 pt-2 pb-1 list-none m-0">
-                            {entitiesBySector[sector].map((entity) => (
-                              <li key={entity.slug}>
-                                <Link
-                                  href={`/businesses/${entity.slug}`}
-                                  onClick={() => setMobileMenuOpen(false)}
-                                  className="block py-1"
-                                >
-                                  <div className="text-[15px] font-medium text-[#F5F2EC] hover:text-[var(--orange)] transition-colors">
-                                    {entity.name}
-                                  </div>
-                                  <div className="text-[12.5px] text-[rgba(245,242,236,0.78)] font-sans">
-                                    {entity.summary}
-                                  </div>
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
+                            <span className="text-sm font-bold text-white hover:text-[var(--hrs-orange)]">
+                              {ent.name}
+                            </span>
+                            <span className="block text-xs text-neutral-400">{ent.line}</span>
+                          </Link>
+                        ))}
                       </div>
                     </div>
-                  );
-                })}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
 
-            <div className="overflow-hidden">
-              <Link
-                href="/news"
-                onClick={() => setMobileMenuOpen(false)}
-                className="font-serif text-[clamp(2rem,6.5vw,3rem)] text-[#F5F2EC] block leading-tight hover:text-[var(--orange)] transition-colors"
-              >
-                News
-              </Link>
-            </div>
+            <Link
+              href={bogoLink}
+              onClick={() => setIsMobileOpen(false)}
+              className="flex items-center gap-3 font-['Bricolage_Grotesque'] text-3xl font-extrabold tracking-tight text-white hover:text-[var(--hrs-orange)]"
+            >
+              <span className="h-3 w-3 rounded-full bg-[var(--bogo-orange)] shrink-0" />
+              <span>BOGO</span>
+            </Link>
 
-            <div className="overflow-hidden">
-              <Link
-                href="/careers"
-                onClick={() => setMobileMenuOpen(false)}
-                className="font-serif text-[clamp(2rem,6.5vw,3rem)] text-[#F5F2EC] block leading-tight hover:text-[var(--orange)] transition-colors"
-              >
-                Careers
-              </Link>
-            </div>
+            <Link
+              href="/news"
+              onClick={() => setIsMobileOpen(false)}
+              className="block font-['Bricolage_Grotesque'] text-3xl font-extrabold tracking-tight text-white hover:text-[var(--hrs-orange)]"
+            >
+              News
+            </Link>
 
-            <div className="overflow-hidden">
-              <Link
-                href="/contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className="font-serif text-[clamp(2rem,6.5vw,3rem)] text-[#F5F2EC] flex items-center gap-3 leading-tight hover:text-[var(--orange)] transition-colors"
-              >
-                <span className="w-2.5 h-2.5 bg-[var(--orange)] inline-block flex-shrink-0" />
-                <span>Contact</span>
-              </Link>
-            </div>
-          </nav>
+            <Link
+              href="/careers"
+              onClick={() => setIsMobileOpen(false)}
+              className="block font-['Bricolage_Grotesque'] text-3xl font-extrabold tracking-tight text-white hover:text-[var(--hrs-orange)]"
+            >
+              Careers
+            </Link>
+          </div>
+
+          {/* Bottom Contact Pill */}
+          <div className="pt-8 border-t border-white/15">
+            <Link
+              href="/contact"
+              onClick={() => setIsMobileOpen(false)}
+              className="flex w-full items-center justify-between rounded-full bg-[var(--hrs-orange)] px-6 py-4 text-sm font-bold text-white"
+            >
+              <span>Contact Operating Desk</span>
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <p className="mt-3 text-xs text-neutral-400">
+              Ahmedabad HQ: Bodakdev, SG Highway • Southern Hub: Bengaluru
+            </p>
+          </div>
         </div>
-
-        <div className="pt-8 border-t border-[rgba(255,255,255,0.14)] text-[13px] text-[rgba(245,242,236,0.78)] font-sans">
-          <div>HRS Group &bull; Ahmedabad, Gujarat</div>
-          <div className="mt-1">+91 79 2685 4100</div>
-        </div>
-      </div>
+      )}
     </>
   );
 };
+
+export default Header;

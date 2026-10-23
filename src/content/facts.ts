@@ -1,40 +1,105 @@
-import { GroupFact } from './types';
+export interface FactItem {
+  metric: string;
+  label: string;
+  detail: string;
+}
 
-export const groupFacts: GroupFact[] = [
+export interface OperatingHub {
+  city: string;
+  role: string;
+  address: string;
+  coordinates?: string;
+  facilities: string[];
+}
+
+export const keyFacts: FactItem[] = [
   {
-    metric: '8',
-    label: 'Operating entities',
-    context:
-      'Organised across facade engineering, real estate, food manufacturing, consumer brands, hospitality, education, brand communications and retail.',
+    metric: '13',
+    label: 'Real estate developments',
+    detail: 'Residential communities, plotted layouts, and commercial hubs developed by Hrishikesh Ventures in Ahmedabad.',
+  },
+  {
+    metric: '11',
+    label: 'BOGO category brands',
+    detail: 'Specialised consumer brands covering essentials, organics, healthcare, pet nutrition, and educational tools.',
   },
   {
     metric: '13',
-    label: 'Live real estate developments',
-    context:
-      'Residential and commercial projects executed by Hrishikesh Ventures across Ahmedabad growth corridors, along with one joint venture.',
+    label: 'Consumer packaged brands',
+    detail: 'Active and reserved brands managed by Hrishikesh Consumer Products across grocery, beverages, and daily home goods.',
   },
   {
-    metric: '450,000',
-    label: 'Sq m facade capacity',
-    context:
-      'Annual aluminium and glass processing throughput from the HRS Aluglaze manufacturing plant in Sanand, Gujarat.',
+    metric: '18k',
+    label: 'Sq m monthly facade output',
+    detail: 'High-precision aluminium and unitised curtain wall fabrication capacity at the HRS Aluglaze Sanand plant.',
   },
   {
-    metric: '13',
-    label: 'Consumer brands',
-    context:
-      'Managed under Hrishikesh Consumer Products, spanning neighbourhood grocery, snacks, water, beverages, and reserved trade marks.',
+    metric: '3',
+    label: 'Technical education tracks',
+    detail: 'Formal curricula for students, site fabricators, and architects at the School of Facade Technologies.',
   },
   {
-    metric: '380,000',
-    label: 'Sq ft commercial footprint',
-    context:
-      'Office, retail, and industrial storage premises managed under long-term leases by FirstGen Assets.',
-  },
-  {
-    metric: '6',
-    label: 'Guiding values',
-    context:
-      'Faith, Trust, Foundation, People, Process, and Service inform operational decisions across all group boards.',
+    metric: '2',
+    label: 'Industrial processing hubs',
+    detail: 'Dedicated manufacturing campuses in Sanand (engineered facades) and Bavla (spice milling and clean packaging).',
   },
 ];
+
+export const operatingHubs: OperatingHub[] = [
+  {
+    city: 'Ahmedabad',
+    role: 'Corporate Headquarters & Western Hub',
+    address: 'Bodakdev, Near SG Highway, Ahmedabad, Gujarat 380054',
+    facilities: [
+      'Corporate Executive Offices',
+      'HRS Aluglaze Manufacturing Plant (Sanand)',
+      'Hrishikesh Food Products Processing Mill (Bavla)',
+      'Hrishikesh Ventures Project Development Offices',
+      'School of Facade Technologies Practical Workshop',
+    ],
+  },
+  {
+    city: 'Bengaluru',
+    role: 'Southern Regional Hub & Hospitality Division',
+    address: 'Kadubeesanahalli, Outer Ring Road, Bengaluru, Karnataka 560103',
+    facilities: [
+      'Geotrix Facade Engineering Operations',
+      'Flight Stays Serviced Corporate Apartments',
+      'Amuktamalyada Telugu Dining Establishment',
+      'Southern Commercial Leasing Management Desk',
+    ],
+  },
+];
+
+export const groupValues = [
+  {
+    name: 'Faith',
+    description: 'Holding conviction in long-term goals and respecting enduring community traditions.',
+  },
+  {
+    name: 'Trust',
+    description: 'Maintaining transparent contracts, engineering integrity, and dependable trade relationships.',
+  },
+  {
+    name: 'Foundation',
+    description: 'Investing in physical capital, owned land parcels, and robust manufacturing facilities.',
+  },
+  {
+    name: 'People',
+    description: 'Providing steady technical training, fair workplace safety, and professional dignity.',
+  },
+  {
+    name: 'Process',
+    description: 'Standardising precision tolerances, audited food hygiene, and disciplined operating frameworks.',
+  },
+  {
+    name: 'Service',
+    description: 'Delivering punctual civil completions, dependable retail availability, and sincere hospitality.',
+  },
+];
+
+export default {
+  keyFacts,
+  operatingHubs,
+  groupValues,
+};

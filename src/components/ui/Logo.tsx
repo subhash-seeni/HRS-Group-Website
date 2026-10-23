@@ -1,92 +1,103 @@
-import React from 'react';
-import Image from 'next/image';
-import { WideLogoSlot } from './WideLogoSlot';
-import { getAssetPath } from '@/lib/assets';
+'use client';
 
-export interface LogoProps {
-  entity?: string;
+import React from 'react';
+import { getAssetUrl } from '@/lib/basePath';
+
+interface LogoProps {
+  slug: string;
+  name?: string;
   className?: string;
-  height?: number;
-  width?: number;
-  variant?: 'auto' | 'svg' | 'tile' | 'placeholder' | 'light';
-  alt?: string;
+  height?: number | string;
+  variant?: 'default' | 'inverted';
 }
 
 export const Logo: React.FC<LogoProps> = ({
-  entity = 'hrs-group',
+  slug,
+  name,
   className = '',
-  height = 32,
-  width,
-  variant = 'auto',
-  alt,
+  height = 'h-9',
+  variant = 'default',
 }) => {
-  const normalizedSlug = (entity || 'hrs-group').toLowerCase().trim().replace(/_/g, '-');
-  const accessibleAlt = alt || `${normalizedSlug.replace(/-/g, ' ')} logo`;
+  const isBogo = slug.startsWith('bogo');
+  const isAluglazeReal = slug === 'hrs-aluglaze-real';
+  const altText = name || `${slug} logo`;
 
-  if (variant === 'placeholder') {
-    return <WideLogoSlot title={accessibleAlt} className={className} />;
-  }
-
-  // Light variant for use on dark/ink surfaces (#F5F2EC text + #F58220 micro-marker)
-  if (variant === 'light') {
-    const displayName =
-      normalizedSlug === 'hrs-group'
-        ? 'HRS Group'
-        : normalizedSlug === 'hrs-aluglaze'
-        ? 'HRS Aluglaze'
-        : normalizedSlug === 'soft' || normalizedSlug === 'school-of-facade-technologies'
-        ? 'School of Facade Technologies'
-        : normalizedSlug
-            .split('-')
-            .map((w) => (w === 'hrs' || w === 'soft' ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1)))
-            .join(' ');
-
+  if (slug === 'hrs-group') {
     return (
-      <span className={`inline-flex items-center gap-2.5 ${className}`} aria-label={accessibleAlt}>
-        <span className="w-[7px] h-[7px] bg-[var(--orange)] flex-shrink-0" aria-hidden="true" />
-        <span
-          className="font-serif text-[18.5px] text-[#F5F2EC] tracking-[-0.01em] whitespace-nowrap"
-          style={{ lineHeight: 1 }}
+      <div className={`inline-flex items-center ${height} ${className}`}>
+        <svg
+          viewBox="0 0 140 44"
+          className="h-full w-auto"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-label={altText}
         >
-          {displayName}
-        </span>
-      </span>
+          <circle cx="12" cy="22" r="7" fill="#F58220" />
+          <text
+            x="28"
+            y="25"
+            fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+            fontSize="18"
+            fontWeight="800"
+            letterSpacing="-0.03em"
+            fill="currentColor"
+          >
+            HRS
+          </text>
+          <text
+            x="28"
+            y="36"
+            fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+            fontSize="8.5"
+            fontWeight="700"
+            letterSpacing="0.1em"
+            fill="currentColor"
+            opacity="0.75"
+          >
+            GROUP
+          </text>
+        </svg>
+      </div>
     );
   }
 
-  // HRS Aluglaze special requirement:
-  // "HRS Aluglaze uses the supplied PNG, placed on an ink-coloured tile because it is white on black."
-  if (normalizedSlug === 'hrs-aluglaze' && variant !== 'svg') {
-    return (
-      <span
-        className={`inline-flex items-center justify-center bg-[var(--ink)] px-2.5 py-1.5 ${className}`}
-        style={{ minHeight: height ? `${height}px` : '36px' }}
-      >
-        <Image
-          src={getAssetPath('/brand/hrs-aluglaze-logo.png')}
-          alt={accessibleAlt}
-          width={width || 120}
-          height={height || 32}
-          className="h-7 w-auto object-contain"
-          priority
-        />
-      </span>
-    );
+  let logoSrc = '';
+  if (isAluglazeReal) {
+    logoSrc = getAssetUrl('/brand/hrs-aluglaze-logo.png');
+  } else if (isBogo) {
+    const bogoFile = slug === 'bogo' ? 'bogo-master' : slug;
+    logoSrc = getAssetUrl(`/bogo/logos/${bogoFile}.png`);
+  } else {
+    logoSrc = getAssetUrl(`/logos/${slug}.svg`);
   }
 
-  // All other entities use /public/logos/<slug>.svg
-  // SVG already includes the orange micro-marker and Newsreader wordmark
   return (
-    <span className={`inline-flex items-center ${className}`}>
+    <div
+      className={`inline-flex items-center ${height} ${className} ${
+        variant === 'inverted' ? 'brightness-0 invert' : ''
+      }`}
+    >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={getAssetPath(`/logos/${normalizedSlug}.svg`)}
-        alt={accessibleAlt}
-        height={height}
-        width={width}
-        className="h-8 w-auto object-contain"
+        src={logoSrc}
+        alt={altText}
+        className="h-full w-auto max-w-full object-contain"
         loading="lazy"
+        onError={(e) => {
+          // Fallback graceful text if image fails
+          const target = e.currentTarget;
+          target.style.display = 'none';
+          const parent = target.parentElement;
+          if (parent && !parent.querySelector('.logo-fallback')) {
+            const span = document.createElement('span');
+            span.className = 'logo-fallback font-bold tracking-tight text-current';
+            span.textContent = name || slug.toUpperCase();
+            parent.appendChild(span);
+          }
+        }}
       />
-    </span>
+    </div>
   );
 };
+
+export default Logo;

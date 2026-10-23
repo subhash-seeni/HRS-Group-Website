@@ -2,226 +2,274 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { siteSettings } from '@/content/siteSettings';
+import { ArrowUpRight, ArrowUp } from 'lucide-react';
+import { Logo } from '@/components/ui/Logo';
+import { MagneticButton } from '@/components/motion/MagneticButton';
+import { sectors } from '@/content/sectors';
+import { siteConfig } from '@/content/site';
 
 export const Footer: React.FC = () => {
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   };
 
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="bg-[var(--ink-deep)] text-[#F5F2EC] font-sans border-t border-[rgba(255,255,255,0.14)]">
-      <div className="max-w-[1280px] mx-auto px-6 sm:px-8 md:px-12 pt-20 pb-16">
-        {/* Top: Very large closing line in Newsreader ('Start a conversation') linking to /contact */}
-        <div className="pb-16 md:pb-24">
+    <footer
+      data-surface="ink"
+      role="contentinfo"
+      className="relative w-full bg-[var(--ink)] text-white pt-20 pb-12 overflow-hidden border-t border-white/10"
+    >
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        {/* Large Closing Line: Start a conversation */}
+        <div className="border-b border-white/15 pb-16">
           <Link
             href="/contact"
-            className="group inline-flex flex-col items-start gap-4 text-decoration-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--orange)] rounded-[2px]"
-            aria-label="Start a conversation with HRS Group"
+            className="group flex flex-col md:flex-row md:items-center justify-between gap-8 text-left transition-colors"
           >
-            <span className="text-[14px] text-[rgba(245,242,236,0.65)] font-sans flex items-center gap-2">
-              <span className="w-1.5 h-1.5 bg-[var(--orange)] inline-block flex-shrink-0" />
-              <span>Direct enquiries and partnerships</span>
-            </span>
-
-            <div className="relative inline-flex items-center gap-4 sm:gap-8 flex-wrap">
-              <span className="font-serif text-[clamp(2.75rem,7.5vw,7rem)] text-[#F5F2EC] font-normal tracking-tight leading-[0.98]">
+            <div>
+              <span className="text-xs font-semibold text-[var(--hrs-orange)]">
+                Dialogue & inquiries
+              </span>
+              <h2 className="mt-3 font-['Bricolage_Grotesque'] text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-white transition-colors duration-300 group-hover:text-[var(--hrs-orange)]">
                 Start a conversation
-              </span>
-              <span
-                className="font-serif text-[clamp(2.75rem,7.5vw,7rem)] text-[#F5F2EC] font-normal transition-transform duration-300 group-hover:translate-x-3 select-none leading-[0.98]"
-                aria-hidden="true"
-              >
-                &rarr;
-              </span>
-              {/* Orange underline drawing smoothly on hover */}
-              <span
-                className="absolute -bottom-2 left-0 right-0 h-[2px] bg-[var(--orange)] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 pointer-events-none"
-                aria-hidden="true"
-              />
+              </h2>
+            </div>
+
+            <div className="self-start md:self-center shrink-0">
+              <MagneticButton strength={0.4}>
+                <span className="inline-flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-full bg-[var(--hrs-orange)] text-white transition-all duration-300 group-hover:scale-105 group-hover:bg-white group-hover:text-[var(--ink)]">
+                  <ArrowUpRight className="h-8 w-8 sm:h-10 sm:w-10 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                </span>
+              </MagneticButton>
             </div>
           </Link>
         </div>
 
-        {/* Below: Hairline-separated link columns */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 border-t border-[rgba(255,255,255,0.14)] pt-12 pb-16">
-          {/* Column 1: Businesses by Sector */}
-          <div className="space-y-4">
-            <h3 className="text-[13px] font-sans font-medium uppercase tracking-wider text-[rgba(245,242,236,0.78)] m-0">
-              Businesses
+        {/* Directory Grid: Sectors & Company Links */}
+        <div className="grid grid-cols-2 gap-10 py-16 sm:grid-cols-3 lg:grid-cols-6 border-b border-white/15">
+          {/* Sector 1: Built Environment */}
+          <div>
+            <h3 className="text-xs font-semibold text-[var(--hrs-orange)]">
+              Built Environment
             </h3>
-            <ul className="space-y-2.5 m-0 p-0 list-none text-[15px]">
+            <ul className="mt-4 space-y-2.5 text-xs text-neutral-400">
               <li>
-                <Link
-                  href="/businesses?sector=built-environment"
-                  className="text-[rgba(245,242,236,0.85)] hover:text-[#F5F2EC] transition-colors"
-                >
-                  Built environment
+                <Link href="/businesses#hrishikesh-ventures" className="hover:text-white transition-colors">
+                  Hrishikesh Ventures
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/businesses?sector=food-and-consumer"
-                  className="text-[rgba(245,242,236,0.85)] hover:text-[#F5F2EC] transition-colors"
-                >
-                  Food and consumer
+                <Link href="/businesses#hrs-aluglaze" className="hover:text-white transition-colors">
+                  HRS Aluglaze Ltd
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/businesses?sector=hospitality-leasing-retail"
-                  className="text-[rgba(245,242,236,0.85)] hover:text-[#F5F2EC] transition-colors"
-                >
-                  Hospitality and leasing
+                <Link href="/businesses#geotrix" className="hover:text-white transition-colors">
+                  Geotrix Pvt. Ltd.
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/businesses?sector=services"
-                  className="text-[rgba(245,242,236,0.85)] hover:text-[#F5F2EC] transition-colors"
-                >
-                  Services
+                <Link href="/businesses#school-of-facade-technologies" className="hover:text-white transition-colors">
+                  School of Facade Tech
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 2: Company */}
-          <div className="space-y-4">
-            <h3 className="text-[13px] font-sans font-medium uppercase tracking-wider text-[rgba(245,242,236,0.78)] m-0">
+          {/* Sector 2: Retail */}
+          <div>
+            <h3 className="text-xs font-semibold text-[var(--hrs-orange)]">
+              Retail
+            </h3>
+            <ul className="mt-4 space-y-2.5 text-xs text-neutral-400">
+              <li>
+                <Link href="/bogo" className="hover:text-white transition-colors">
+                  BOGO Ecosystem
+                </Link>
+              </li>
+              <li>
+                <Link href="/bogo#formats" className="hover:text-white transition-colors">
+                  BOGO Square
+                </Link>
+              </li>
+              <li>
+                <Link href="/bogo#formats" className="hover:text-white transition-colors">
+                  BOGO Bazaar & Mini
+                </Link>
+              </li>
+              <li>
+                <Link href="/bogo#distribution" className="hover:text-white transition-colors">
+                  BOGO Go Network
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Sector 3: Food & Consumer */}
+          <div>
+            <h3 className="text-xs font-semibold text-[var(--hrs-orange)]">
+              Food & Consumer
+            </h3>
+            <ul className="mt-4 space-y-2.5 text-xs text-neutral-400">
+              <li>
+                <Link href="/businesses#hrishikesh-food-products" className="hover:text-white transition-colors">
+                  Hrishikesh Food Products
+                </Link>
+              </li>
+              <li>
+                <Link href="/businesses#hrishikesh-consumer-products" className="hover:text-white transition-colors">
+                  Consumer Products (13)
+                </Link>
+              </li>
+              <li>
+                <Link href="/businesses#hrishikesh-consumer-products" className="hover:text-white transition-colors">
+                  Manpras Grocery
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Sector 4: Hospitality & Leasing */}
+          <div>
+            <h3 className="text-xs font-semibold text-[var(--hrs-orange)]">
+              Hospitality & Leasing
+            </h3>
+            <ul className="mt-4 space-y-2.5 text-xs text-neutral-400">
+              <li>
+                <Link href="/businesses#firstgen-assets" className="hover:text-white transition-colors">
+                  FirstGen Assets
+                </Link>
+              </li>
+              <li>
+                <Link href="/businesses#firstgen-hotels" className="hover:text-white transition-colors">
+                  Flight Stays (Bengaluru)
+                </Link>
+              </li>
+              <li>
+                <Link href="/businesses#firstgen-hotels" className="hover:text-white transition-colors">
+                  Amuktamalyada Dining
+                </Link>
+              </li>
+              <li>
+                <Link href="/businesses#firstgen-enterprises" className="hover:text-white transition-colors">
+                  The Bluprint & ShubhVista
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Sector 5: Services */}
+          <div>
+            <h3 className="text-xs font-semibold text-[var(--hrs-orange)]">
+              Services
+            </h3>
+            <ul className="mt-4 space-y-2.5 text-xs text-neutral-400">
+              <li>
+                <Link href="/businesses#indian-brand-house" className="hover:text-white transition-colors">
+                  Indian Brand House
+                </Link>
+              </li>
+              <li>
+                <Link href="/businesses#indian-brand-house" className="hover:text-white transition-colors">
+                  Strategy & Identity
+                </Link>
+              </li>
+              <li>
+                <Link href="/businesses#indian-brand-house" className="hover:text-white transition-colors">
+                  Digital Marketing
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Company links */}
+          <div>
+            <h3 className="text-xs font-semibold text-[var(--hrs-orange)]">
               Company
             </h3>
-            <ul className="space-y-2.5 m-0 p-0 list-none text-[15px]">
+            <ul className="mt-4 space-y-2.5 text-xs text-neutral-400">
               <li>
-                <Link
-                  href="/about"
-                  className="text-[rgba(245,242,236,0.85)] hover:text-[#F5F2EC] transition-colors"
-                >
-                  About the group
+                <Link href="/about" className="hover:text-white transition-colors">
+                  About HRS Group
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/about#leadership"
-                  className="text-[rgba(245,242,236,0.85)] hover:text-[#F5F2EC] transition-colors"
-                >
-                  Leadership
+                <Link href="/businesses" className="hover:text-white transition-colors">
+                  All Businesses
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/about#milestones"
-                  className="text-[rgba(245,242,236,0.85)] hover:text-[#F5F2EC] transition-colors"
-                >
-                  Milestones
+                <Link href="/news" className="hover:text-white transition-colors">
+                  News & Milestones
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/news"
-                  className="text-[rgba(245,242,236,0.85)] hover:text-[#F5F2EC] transition-colors"
-                >
-                  News and announcements
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/careers"
-                  className="text-[rgba(245,242,236,0.85)] hover:text-[#F5F2EC] transition-colors"
-                >
+                <Link href="/careers" className="hover:text-white transition-colors">
                   Careers
                 </Link>
               </li>
-            </ul>
-          </div>
-
-          {/* Column 3: Ahmedabad Head Office */}
-          <div className="space-y-4">
-            <h3 className="text-[13px] font-sans font-medium uppercase tracking-wider text-[rgba(245,242,236,0.78)] m-0">
-              Ahmedabad head office
-            </h3>
-            <address className="not-italic text-[14.5px] leading-relaxed text-[rgba(245,242,236,0.78)] font-sans space-y-1">
-              <div>HRS House, Near Pakwan Cross Roads</div>
-              <div>SG Highway, Bodakdev</div>
-              <div>Ahmedabad 380054, Gujarat, India</div>
-              <div className="pt-2">
-                <a
-                  href={`tel:${siteSettings.headquarters.phone}`}
-                  className="text-[#F5F2EC] hover:text-[var(--orange)] transition-colors"
-                >
-                  {siteSettings.headquarters.phone}
-                </a>
-              </div>
-            </address>
-          </div>
-
-          {/* Column 4: Contact & Channels */}
-          <div className="space-y-4">
-            <h3 className="text-[13px] font-sans font-medium uppercase tracking-wider text-[rgba(245,242,236,0.78)] m-0">
-              Contact & details
-            </h3>
-            <div className="text-[14.5px] leading-relaxed text-[rgba(245,242,236,0.78)] space-y-2">
-              <div>
-                <a
-                  href={`mailto:${siteSettings.headquarters.email}`}
-                  className="text-[#F5F2EC] hover:text-[var(--orange)] transition-colors"
-                >
-                  {siteSettings.headquarters.email}
-                </a>
-              </div>
-              <div className="pt-2 flex flex-col gap-2">
-                <Link
-                  href="/contact"
-                  className="text-[rgba(245,242,236,0.85)] hover:text-[#F5F2EC] transition-colors"
-                >
-                  Send an enquiry
+              <li>
+                <Link href="/contact" className="hover:text-white transition-colors">
+                  Contact Desk
                 </Link>
-                <span className="text-[13px] text-[rgba(245,242,236,0.65)]">
-                  Registered Parent Enterprise &bull; Gujarat & Karnataka
-                </span>
-              </div>
-            </div>
+              </li>
+            </ul>
           </div>
         </div>
 
-        {/* Small Legal Line, Core Values & Back to Top */}
-        <div className="border-t border-[rgba(255,255,255,0.14)] pt-8 flex flex-col md:flex-row items-baseline justify-between gap-6 text-[13px] text-[rgba(245,242,236,0.78)] font-sans">
-          <div className="space-y-1">
-            <div>&copy; 2026 HRS Group. All rights reserved.</div>
-            <div>Values: Faith &bull; Trust &bull; Foundation &bull; People &bull; Process &bull; Service</div>
+        {/* Operating Addresses */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-10 border-b border-white/15 text-xs text-neutral-400">
+          <div>
+            <span className="font-semibold text-white block mb-1">
+              Headquarters • Ahmedabad
+            </span>
+            <p className="leading-relaxed">
+              {siteConfig.contact.hqAddress}
+            </p>
+            <p className="mt-2 text-neutral-300">
+              Phone: {siteConfig.contact.phone} • Email: {siteConfig.contact.email}
+            </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-6">
-            <Link
-              href="/styleguide"
-              className="text-[rgba(245,242,236,0.78)] hover:text-[#F5F2EC] transition-colors"
-            >
-              Design styleguide
-            </Link>
-            <Link
-              href="/privacy"
-              className="text-[rgba(245,242,236,0.78)] hover:text-[#F5F2EC] transition-colors"
-            >
-              Privacy
-            </Link>
-            <Link
-              href="/terms"
-              className="text-[rgba(245,242,236,0.78)] hover:text-[#F5F2EC] transition-colors"
-            >
-              Terms
-            </Link>
-            <button
-              type="button"
-              onClick={scrollToTop}
-              className="bg-transparent border-0 p-0 text-[13px] text-[rgba(245,242,236,0.85)] hover:text-[#F5F2EC] cursor-pointer inline-flex items-center gap-1.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--orange)] rounded-[2px]"
-              aria-label="Back to top of page"
-            >
-              <span>Back to top</span>
-              <span aria-hidden="true">&uarr;</span>
-            </button>
+          <div>
+            <span className="font-semibold text-white block mb-1">
+              Southern Regional Hub • Bengaluru
+            </span>
+            <p className="leading-relaxed">
+              {siteConfig.contact.bengaluruAddress}
+            </p>
+            <p className="mt-2 text-neutral-300">
+              Specialized desks for Geotrix Facades and FirstGen Hospitality.
+            </p>
           </div>
+        </div>
+
+        {/* Bottom Bar: Legal + Back to Top */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 text-xs text-neutral-500">
+          <p>
+            © {currentYear} HRS Group. All rights reserved. Diversified business operations headquartered in Ahmedabad, Gujarat.
+          </p>
+
+          <button
+            type="button"
+            onClick={scrollToTop}
+            className="group inline-flex items-center gap-2 text-neutral-400 hover:text-white transition-colors cursor-pointer"
+            aria-label="Scroll back to top of page"
+          >
+            <span>Back to top</span>
+            <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/10 group-hover:bg-[var(--hrs-orange)] group-hover:text-white transition-colors">
+              <ArrowUp className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-y-0.5" />
+            </span>
+          </button>
         </div>
       </div>
     </footer>
   );
 };
+
+export default Footer;

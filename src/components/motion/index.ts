@@ -1,8 +1,10 @@
-export * from './SmoothScroll';
-export * from './Reveal';
-export * from './SplitHeading';
-export * from './ImageReveal';
-export * from './Parallax';
-export * from './LineLink';
-export * from './FillButton';
-export * from './PageTransition';
+export { SmoothScroll } from './SmoothScroll';
+export { SplitLines } from './SplitLines';
+export { Reveal } from './Reveal';
+export { ImageReveal } from './ImageReveal';
+export { PinScene } from './PinScene';
+export { MagneticButton } from './MagneticButton';
+export { CursorLabel } from './CursorLabel';
+export { ScrollText } from './ScrollText';
+export { Marquee } from './Marquee';
+export { PageIntro } from './PageIntro';

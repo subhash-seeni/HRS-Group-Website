@@ -1,69 +1,58 @@
 import React from 'react';
 import Link from 'next/link';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'outline';
-export type ButtonSize = 'default' | 'small' | 'large';
+export type ButtonVariant = 'primary' | 'secondary' | 'orange' | 'outline' | 'ghost';
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
-  size?: ButtonSize;
   href?: string;
   external?: boolean;
+  arrow?: 'right' | 'up-right' | 'none';
   children: React.ReactNode;
+  className?: string;
 }
+
+const variantStyles: Record<ButtonVariant, string> = {
+  primary:
+    'bg-[var(--ink)] text-[var(--white)] hover:bg-neutral-800 focus-visible:ring-2 focus-visible:ring-[var(--hrs-orange)]',
+  secondary:
+    'bg-[var(--white)] text-[var(--ink)] border border-[var(--rule)] hover:bg-neutral-50',
+  orange:
+    'bg-[var(--hrs-orange)] text-[var(--ink)] hover:brightness-105 font-bold',
+  outline:
+    'bg-transparent text-current border border-current hover:bg-current/10',
+  ghost:
+    'bg-transparent text-current hover:bg-current/5',
+};
 
 export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
   (
     {
       variant = 'primary',
-      size = 'default',
       href,
       external = false,
+      arrow = 'right',
       children,
       className = '',
-      disabled,
-      type = 'button',
-      ...rest
+      ...props
     },
     ref
   ) => {
-    // Base styles: square corners (0px/2px max), transition 150ms, font-sans
-    const baseStyles =
-      'inline-flex items-center justify-center font-sans text-left transition-colors duration-150 rounded-[2px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--orange)] disabled:opacity-40 disabled:cursor-not-allowed select-none cursor-pointer';
+    const baseClasses = `group inline-flex items-center gap-3 rounded-full px-6 py-3.5 text-sm font-semibold tracking-tight transition-all duration-300 focus-visible:outline-none cursor-pointer select-none ${variantStyles[variant]} ${className}`;
 
-    // Variant styles strictly adhering to brief:
-    // primary: solid ink, white text; on hover turns orange with ink text
-    // secondary: text-link secondary with a hairline underline that turns orange on hover
-    // outline: subtle 1px rule border, turns ink on hover
-    const variantStyles: Record<ButtonVariant, string> = {
-      primary:
-        'bg-[var(--ink)] text-[var(--white)] border border-[var(--ink)] hover:bg-[var(--orange)] hover:text-[var(--ink)] hover:border-[var(--orange)] active:bg-[var(--orange)] active:text-[var(--ink)]',
-      secondary:
-        'bg-transparent text-[var(--ink)] border-0 border-b border-[var(--rule)] hover:border-[var(--orange)] hover:border-b-2 active:border-[var(--orange)] p-0 rounded-none',
-      outline:
-        'bg-transparent text-[var(--ink)] border border-[var(--rule)] hover:border-[var(--ink)] active:bg-[var(--paper)]',
-    };
+    const ArrowIcon = arrow === 'up-right' ? ArrowUpRight : ArrowRight;
 
-    // Sizing styles
-    const sizeStyles: Record<ButtonVariant, Record<ButtonSize, string>> = {
-      primary: {
-        small: 'text-[14px] px-4 py-2',
-        default: 'text-[16px] px-6 py-3',
-        large: 'text-[17.5px] px-8 py-3.5',
-      },
-      secondary: {
-        small: 'text-[14px] pb-0.5',
-        default: 'text-[16px] pb-1',
-        large: 'text-[17.5px] pb-1',
-      },
-      outline: {
-        small: 'text-[14px] px-4 py-2',
-        default: 'text-[16px] px-6 py-3',
-        large: 'text-[17.5px] px-8 py-3.5',
-      },
-    };
-
-    const combinedClassName = `${baseStyles} ${variantStyles[variant]} ${sizeStyles[variant][size]} ${className}`;
+    const content = (
+      <>
+        <span>{children}</span>
+        {arrow !== 'none' && (
+          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-current/15 transition-transform duration-300 group-hover:translate-x-1">
+            <ArrowIcon className="h-3.5 w-3.5 text-current" strokeWidth={2.5} />
+          </span>
+        )}
+      </>
+    );
 
     if (href) {
       if (external) {
@@ -73,10 +62,9 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className={combinedClassName}
-            {...(rest as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
+            className={baseClasses}
           >
-            {children}
+            {content}
           </a>
         );
       }
@@ -84,10 +72,9 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
         <Link
           ref={ref as React.Ref<HTMLAnchorElement>}
           href={href}
-          className={combinedClassName}
-          {...(rest as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
+          className={baseClasses}
         >
-          {children}
+          {content}
         </Link>
       );
     }
@@ -95,15 +82,15 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
     return (
       <button
         ref={ref as React.Ref<HTMLButtonElement>}
-        type={type}
-        disabled={disabled}
-        className={combinedClassName}
-        {...rest}
+        className={baseClasses}
+        {...props}
       >
-        {children}
+        {content}
       </button>
     );
   }
 );
 
 Button.displayName = 'Button';
+
+export default Button;

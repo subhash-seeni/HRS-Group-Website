@@ -1,126 +1,33 @@
-import React, { Suspense } from 'react';
-import type { Metadata } from 'next';
-import { Container, InteractiveBackground } from '@/components/ui';
-import { SplitHeading } from '@/components/motion/SplitHeading';
-import { BusinessesFilter } from '@/components/sections/BusinessesFilter';
-import { heroContent } from '@/content/heroContent';
+import React from 'react';
+import Link from 'next/link';
+import { Section, Button } from '@/components/ui';
 
-export const metadata: Metadata = {
-  title: 'Our Businesses',
-  description:
-    'Overview of eight autonomous operating entities across architectural facades, residential real estate, contract food processing, hospitality, technical education, and brand communications.',
-  openGraph: {
-    title: 'Our Businesses | HRS Group',
-    description:
-      'Eight operating entities across architectural facades, residential real estate, food processing, hospitality, technical education, and brand communications.',
-    url: 'https://hrsgroup.in/businesses',
-    siteName: 'HRS Group',
-    locale: 'en_IN',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Our Businesses | HRS Group',
-    description:
-      'Eight operating entities across architectural facades, residential real estate, food processing, hospitality, technical education, and brand communications.',
-  },
+export const metadata = {
+  title: 'Businesses • HRS Group',
+  description: 'Operating entities across Built Environment, Food, Hospitality and Services.',
 };
 
 export default function BusinessesPage() {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    name: 'Operating Companies of HRS Group',
-    description:
-      'Directory of operating subsidiaries and divisions managed by HRS Group across Gujarat and Karnataka.',
-    url: 'https://hrsgroup.in/businesses',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Hrishikesh Ventures',
-        url: 'https://hrsgroup.in/businesses/hrishikesh-ventures',
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'HRS Aluglaze Ltd',
-        url: 'https://hrsgroup.in/businesses/hrs-aluglaze',
-      },
-      {
-        '@type': 'ListItem',
-        position: 3,
-        name: 'Geotrix Pvt. Ltd.',
-        url: 'https://hrsgroup.in/businesses/geotrix',
-      },
-      {
-        '@type': 'ListItem',
-        position: 4,
-        name: 'School of Facade Technologies (SoFT)',
-        url: 'https://hrsgroup.in/businesses/school-of-facade-technologies',
-      },
-      {
-        '@type': 'ListItem',
-        position: 5,
-        name: 'Hrishikesh Food Products',
-        url: 'https://hrsgroup.in/businesses/hrishikesh-food-products',
-      },
-      {
-        '@type': 'ListItem',
-        position: 6,
-        name: 'Hrishikesh Consumer Products',
-        url: 'https://hrsgroup.in/businesses/hrishikesh-consumer-products',
-      },
-      {
-        '@type': 'ListItem',
-        position: 7,
-        name: 'FirstGen Pvt. Ltd.',
-        url: 'https://hrsgroup.in/businesses/firstgen',
-      },
-      {
-        '@type': 'ListItem',
-        position: 8,
-        name: 'Indian Brand House',
-        url: 'https://hrsgroup.in/businesses/indian-brand-house',
-      },
-    ],
-  };
-
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-
-      <div className="bg-[var(--white)] text-[var(--ink)] font-sans">
-        {/* Generous space above: 18vh - 22vh */}
-        <section className="relative pt-[18vh] md:pt-[22vh] pb-24 md:pb-36 overflow-hidden">
-          <InteractiveBackground variant="inner" />
-          <Container className="relative z-10">
-            {/* Header: heading 'Our businesses' and one impactful sentence */}
-            <div className="grid grid-cols-12 gap-6 mb-16 md:mb-24">
-              <div className="col-span-12 lg:col-span-9 space-y-6">
-                <div className="flex items-center gap-2.5 text-[14.5px] text-[var(--muted)] font-sans">
-                  <span className="w-1.5 h-1.5 bg-[var(--orange)] inline-block flex-shrink-0" />
-                  <span>{heroContent.businesses.markerLabel}</span>
-                </div>
-                <SplitHeading as="h1" className="text-display-1 text-[var(--ink)] font-normal tracking-tight">
-                  {heroContent.businesses.headline}
-                </SplitHeading>
-                <p className="text-[20px] md:text-[23px] leading-[1.5] text-[var(--muted)] font-sans max-w-[58ch] m-0">
-                  {heroContent.businesses.curiosityHook}
-                </p>
-              </div>
-            </div>
-
-            {/* Filter and List Directory with animated reordering and hover previews */}
-            <Suspense fallback={<div className="h-40" />}>
-              <BusinessesFilter />
-            </Suspense>
-          </Container>
-        </section>
-      </div>
-    </>
+    <main className="min-h-screen py-24">
+      <Section surface="paper">
+        <div className="max-w-2xl">
+          <p className="text-xs font-semibold tracking-wider text-neutral-500 uppercase">
+            Operating Companies
+          </p>
+          <h1 className="mt-3 font-['Bricolage_Grotesque'] text-5xl font-extrabold tracking-tight text-[var(--ink)]">
+            Our Businesses
+          </h1>
+          <p className="mt-6 text-lg text-neutral-700">
+            A comprehensive directory of HRS Group entities across real estate, facade engineering, food processing, hospitality, property leasing, and brand services.
+          </p>
+          <div className="mt-10">
+            <Button href="/" variant="primary">
+              Return to Homepage
+            </Button>
+          </div>
+        </div>
+      </Section>
+    </main>
   );
 }

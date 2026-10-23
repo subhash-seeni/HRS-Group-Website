@@ -1,72 +1,54 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import Lenis from 'lenis';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 interface SmoothScrollProps {
   children: React.ReactNode;
 }
 
-export function SmoothScroll({ children }: SmoothScrollProps) {
-  const lenisRef = useRef<Lenis | null>(null);
-
+export const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
   useEffect(() => {
-    // Check for prefers-reduced-motion
+    // Check for reduced motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    // Check for touch / coarse pointer devices
-    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window;
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-    // Leave native on touch devices and disabled for reduced motion
-    if (prefersReducedMotion || isTouchDevice) {
+    if (prefersReducedMotion || isTouch) {
       return;
     }
 
     const lenis = new Lenis({
       duration: 1.1,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // smooth exponential decay
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      syncTouch: false, // strictly native touch
-      autoRaf: false,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 2,
     });
 
-    lenisRef.current = lenis;
+    lenis.on('scroll', ScrollTrigger.update);
 
-    let rafId: number;
-    function raf(time: number) {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    }
-    rafId = requestAnimationFrame(raf);
-
-    // Anchor links and 'back to top' support
-    const handleAnchorClick = (e: MouseEvent) => {
-      const target = (e.target as HTMLElement).closest('a');
-      if (!target) return;
-      const href = target.getAttribute('href');
-      if (href && href.startsWith('#')) {
-        e.preventDefault();
-        if (href === '#' || href === '#top') {
-          lenis.scrollTo(0, { duration: 1.0 });
-        } else {
-          const el = document.querySelector(href);
-          if (el) {
-            lenis.scrollTo(el as HTMLElement, { duration: 1.0, offset: -80 });
-          }
-        }
-      }
+    const updateTicker = (time: number) => {
+      lenis.raf(time * 1000);
     };
 
-    document.addEventListener('click', handleAnchorClick);
+    gsap.ticker.add(updateTicker);
+    gsap.ticker.lagSmoothing(0);
 
     return () => {
-      document.removeEventListener('click', handleAnchorClick);
-      cancelAnimationFrame(rafId);
+      gsap.ticker.remove(updateTicker);
       lenis.destroy();
-      lenisRef.current = null;
     };
   }, []);
 
   return <>{children}</>;
-}
+};
+
+export default SmoothScroll;
