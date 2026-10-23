@@ -98,8 +98,39 @@ export const groupValues = [
   },
 ];
 
+export const calmFacts: FactItem[] = [
+  {
+    metric: '22',
+    label: 'Years in operation',
+    detail: 'Founded in Ahmedabad, building foundational businesses across western India.',
+  },
+  {
+    metric: '13',
+    label: 'Developments delivered',
+    detail: 'Residential communities, plotted layouts, and commercial hubs across Gujarat.',
+  },
+  {
+    metric: '850+',
+    label: 'People employed',
+    detail: 'Engineers, fabricators, operational managers, and retail specialists.',
+  },
+  {
+    metric: '4',
+    label: 'Cities served',
+    detail: 'Active operating footprints in Ahmedabad, Sanand, Bavla, and Bengaluru.',
+  },
+];
+
+export const aboutStory = [
+  'Founded in Ahmedabad, HRS Group began as a regional real estate development firm focused on planned residential communities across western Gujarat. Over two decades, disciplined capital allocation and direct operating control enabled expansion from land development into architectural building envelopes, advanced manufacturing, and consumer distribution.',
+  'Today, our manufacturing facilities in Sanand fabricate advanced unitised curtain walls for commercial towers across western and southern India, while our food processing mill in Bavla blends and packages spices to international food safety standards. Each venture operates with dedicated sector leadership while drawing on shared group systems.',
+  'We remain an owner-led enterprise committed to long-term physical assets, dependable commercial contracts, and community trust. From neighbourhood retail destinations to technical education, our businesses are built to serve enduring everyday needs.',
+];
+
 export default {
   keyFacts,
   operatingHubs,
   groupValues,
+  calmFacts,
+  aboutStory,
 };

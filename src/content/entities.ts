@@ -274,4 +274,127 @@ export const entities: Entity[] = [
   },
 ];
 
+export interface ConsumerBrand {
+  slug: string;
+  name: string;
+  category: string;
+  status: 'active' | 'upcoming';
+  description?: string;
+  color: string;
+  fontStyle: string;
+  isLarge?: boolean;
+}
+
+export const consumerBrands: ConsumerBrand[] = [
+  // 6 Active Brands
+  {
+    slug: 'manpras',
+    name: 'Manpras',
+    category: 'Neighbourhood grocery store & packaged range',
+    status: 'active',
+    description: 'Operating both neighbourhood grocery stores and a dedicated range of kitchen staples and provisions.',
+    color: '#1B5E20',
+    fontStyle: 'font-black tracking-tight text-3xl sm:text-4xl',
+    isLarge: true,
+  },
+  {
+    slug: 'snackshot',
+    name: 'Snackshot',
+    category: 'Packaged snacks and namkeen',
+    status: 'active',
+    color: '#D97706',
+    fontStyle: 'font-black italic uppercase tracking-wider text-xl sm:text-2xl',
+  },
+  {
+    slug: 'antrah',
+    name: 'Antrah',
+    category: 'Mouth fresheners and digestive blends',
+    status: 'active',
+    color: '#78350F',
+    fontStyle: 'font-semibold tracking-widest uppercase text-lg sm:text-xl',
+  },
+  {
+    slug: 'basic-essentials',
+    name: 'Basic Essentials',
+    category: 'Household paper and hygiene essentials',
+    status: 'active',
+    color: '#0284C7',
+    fontStyle: 'font-bold tracking-tight text-xl sm:text-2xl',
+  },
+  {
+    slug: 'gush',
+    name: 'Gush',
+    category: 'Packaged drinking water',
+    status: 'active',
+    color: '#0D9488',
+    fontStyle: 'font-black uppercase tracking-tight text-2xl sm:text-3xl',
+  },
+  {
+    slug: 'daily-pump',
+    name: 'Daily Pump',
+    category: 'Functional hydration and wellness drinks',
+    status: 'active',
+    color: '#DC2626',
+    fontStyle: 'font-extrabold italic tracking-tight text-xl sm:text-2xl',
+  },
+
+  // 7 Upcoming Brands (Outlined / Lighter styling)
+  {
+    slug: 'biscbite',
+    name: 'Biscbite',
+    category: 'Biscuits and bakery snacks',
+    status: 'upcoming',
+    color: '#EA580C',
+    fontStyle: 'font-semibold tracking-tight text-lg sm:text-xl',
+  },
+  {
+    slug: 'mood-beans',
+    name: 'Mood Beans',
+    category: 'Specialty roasted coffee beans',
+    status: 'upcoming',
+    color: '#854D0E',
+    fontStyle: 'font-bold italic tracking-normal text-lg sm:text-xl',
+  },
+  {
+    slug: 'the-frozen-palette',
+    name: 'The Frozen Palette',
+    category: 'Ice creams and frozen treats',
+    status: 'upcoming',
+    color: '#DB2777',
+    fontStyle: 'font-medium italic tracking-tight text-lg sm:text-xl',
+  },
+  {
+    slug: 'the-nut-tribe',
+    name: 'The Nut Tribe',
+    category: 'Packaged dry fruits and gourmet nuts',
+    status: 'upcoming',
+    color: '#059669',
+    fontStyle: 'font-extrabold uppercase tracking-tight text-lg sm:text-xl',
+  },
+  {
+    slug: 'purple-cow',
+    name: 'Purple Cow',
+    category: 'Flavoured dairy and milk drinks',
+    status: 'upcoming',
+    color: '#7C3AED',
+    fontStyle: 'font-bold tracking-tight text-lg sm:text-xl',
+  },
+  {
+    slug: 'defumes',
+    name: 'Defumes',
+    category: 'Home fragrance and aroma solutions',
+    status: 'upcoming',
+    color: '#475569',
+    fontStyle: 'font-semibold uppercase tracking-widest text-lg sm:text-xl',
+  },
+  {
+    slug: 'raspberry-rhinoceros',
+    name: 'Raspberry Rhinoceros',
+    category: 'Artisanal confectionery and sweets',
+    status: 'upcoming',
+    color: '#E11D48',
+    fontStyle: 'font-bold italic tracking-tight text-lg sm:text-xl',
+  },
+];
+
 export default entities;

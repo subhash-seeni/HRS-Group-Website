@@ -3,6 +3,7 @@ export interface NewsArticle {
   title: string;
   date: string;
   sector: string;
+  business: string;
   location: string;
   summary: string;
   content: string[];
@@ -14,6 +15,7 @@ export const newsArticles: NewsArticle[] = [
     title: 'HRS Aluglaze adds second automated fabrication line at Sanand facility',
     date: '2026-09-14',
     sector: 'Built Environment',
+    business: 'HRS Aluglaze Ltd',
     location: 'Sanand, Gujarat',
     summary:
       'The expansion increases monthly output of unitised facade panels to 18,000 square metres to support commercial high-rise projects in western India.',
@@ -28,6 +30,7 @@ export const newsArticles: NewsArticle[] = [
     title: 'Hrishikesh Ventures completes structural topping out of H10 in Bodakdev',
     date: '2026-08-02',
     sector: 'Built Environment',
+    business: 'Hrishikesh Ventures',
     location: 'Ahmedabad, Gujarat',
     summary:
       'The 14-storey office and retail development on SG Highway reaches its planned structural height ahead of facade installation.',
@@ -42,6 +45,7 @@ export const newsArticles: NewsArticle[] = [
     title: 'BOGO details flagship retail destination planned for western Ahmedabad',
     date: '2026-06-20',
     sector: 'Retail',
+    business: 'BOGO',
     location: 'Ahmedabad, Gujarat',
     summary:
       'The multi-format retail destination will house all eleven category brands, dining venues, and automated inventory systems under one roof.',
@@ -56,6 +60,7 @@ export const newsArticles: NewsArticle[] = [
     title: 'School of Facade Technologies certifies 42 structural facade specialists',
     date: '2026-05-18',
     sector: 'Built Environment',
+    business: 'School of Facade Technologies',
     location: 'Ahmedabad, Gujarat',
     summary:
       'Graduates completed five months of rigorous practical training in sealant chemistry, structural wind loading, and curtain wall installation.',
@@ -70,6 +75,7 @@ export const newsArticles: NewsArticle[] = [
     title: 'FirstGen Hotels opens 36-key serviced apartment annex in Kadubeesanahalli',
     date: '2026-03-11',
     sector: 'Hospitality & Leasing',
+    business: 'FirstGen Hotels',
     location: 'Bengaluru, Karnataka',
     summary:
       'The property expands Flight Stays capacity near Outer Ring Road technology parks to accommodate long-term project consultants and relocating executives.',
@@ -84,6 +90,7 @@ export const newsArticles: NewsArticle[] = [
     title: 'Hrishikesh Food Products Bavla processing mill receives global food safety certification',
     date: '2026-01-29',
     sector: 'Food & Consumer',
+    business: 'Hrishikesh Food Products',
     location: 'Bavla, Gujarat',
     summary:
       'Audit confirms compliance with international food hygiene, automated metal detection, and botanical traceability standards across spice milling lines.',

@@ -4,15 +4,15 @@ import React from 'react';
 import { getAssetUrl } from '@/lib/basePath';
 
 interface LogoProps {
-  slug: string;
+  slug?: string;
   name?: string;
   className?: string;
   height?: number | string;
-  variant?: 'default' | 'inverted';
+  variant?: 'default' | 'inverted' | 'light';
 }
 
 export const Logo: React.FC<LogoProps> = ({
-  slug,
+  slug = 'hrs-group',
   name,
   className = '',
   height = 'h-9',

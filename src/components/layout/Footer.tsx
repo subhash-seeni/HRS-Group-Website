@@ -25,29 +25,19 @@ export const Footer: React.FC = () => {
       className="relative w-full bg-[var(--ink)] text-white pt-20 pb-12 overflow-hidden border-t border-white/10"
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        {/* Large Closing Line: Start a conversation */}
-        <div className="border-b border-white/15 pb-16">
-          <Link
-            href="/contact"
-            className="group flex flex-col md:flex-row md:items-center justify-between gap-8 text-left transition-colors"
-          >
-            <div>
-              <span className="text-xs font-semibold text-[var(--hrs-orange)]">
-                Dialogue & inquiries
-              </span>
-              <h2 className="mt-3 font-['Bricolage_Grotesque'] text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-white transition-colors duration-300 group-hover:text-[var(--hrs-orange)]">
-                Start a conversation
-              </h2>
-            </div>
+        {/* Quiet Brand Header Bar (Complementing the vibrant Careers & Contact section above) */}
+        <div className="border-b border-white/15 pb-12 pt-4 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <Logo slug="hrs-group" variant="inverted" height="h-7" />
+            <div className="h-4 w-px bg-white/20 hidden sm:block" />
+            <span className="text-xs text-neutral-400 hidden sm:inline">
+              Ahmedabad • Sanand • Bavla • Bengaluru
+            </span>
+          </div>
 
-            <div className="self-start md:self-center shrink-0">
-              <MagneticButton strength={0.4}>
-                <span className="inline-flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-full bg-[var(--hrs-orange)] text-white transition-all duration-300 group-hover:scale-105 group-hover:bg-white group-hover:text-[var(--ink)]">
-                  <ArrowUpRight className="h-8 w-8 sm:h-10 sm:w-10 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                </span>
-              </MagneticButton>
-            </div>
-          </Link>
+          <div className="flex items-center gap-6 text-xs text-neutral-400">
+            <span>Parent corporate entity for nine operating companies</span>
+          </div>
         </div>
 
         {/* Directory Grid: Sectors & Company Links */}
