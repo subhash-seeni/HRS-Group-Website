@@ -366,7 +366,7 @@ export default function MotionLabPage() {
                   {brand.name}
                 </span>
                 <span className="text-xs font-semibold text-neutral-400 whitespace-nowrap">
-                  — {brand.tagline}
+                  • {brand.tagline}
                 </span>
               </div>
             ))}

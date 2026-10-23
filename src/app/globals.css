@@ -166,6 +166,19 @@ html.lenis, html.lenis body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+  .split-line-inner,
+  .scroll-word,
+  .reveal-inner,
+  .loyalty-card,
+  .loyalty-card-desktop {
+    transform: none !important;
+    opacity: 1 !important;
+    clip-path: none !important;
+    visibility: visible !important;
+  }
+  .animate-marquee {
+    animation: none !important;
+  }
   .no-reduced-motion {
     display: none !important;
   }

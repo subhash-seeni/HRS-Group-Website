@@ -82,7 +82,7 @@ export const groupValues = [
   },
   {
     name: 'Foundation',
-    description: 'Investing in physical capital, owned land parcels, and robust manufacturing facilities.',
+    description: 'Investing in physical capital, owned land parcels, and precision manufacturing facilities.',
   },
   {
     name: 'People',

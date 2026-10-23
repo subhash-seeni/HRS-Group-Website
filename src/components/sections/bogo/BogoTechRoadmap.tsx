@@ -19,10 +19,10 @@ export const BogoTechRoadmap: React.FC = () => {
     const track = trackRef.current;
     if (!section || !track) return;
 
-    // Pinned horizontal scroll on desktop only (min-width: 1024px)
+    // Pinned horizontal scroll on desktop fine-pointer only (min-width: 1024px)
     const mm = gsap.matchMedia();
 
-    mm.add('(min-width: 1024px)', () => {
+    mm.add('(min-width: 1024px) and (hover: hover) and (pointer: fine)', () => {
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (prefersReducedMotion) return;
 

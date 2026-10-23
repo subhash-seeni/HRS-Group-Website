@@ -1,185 +1,229 @@
-# HRS Group Portal — Content Management Guide
+# HRS Group Website • Content Management Guide
 
-This guide instructs site administrators, editors, and developers on how to maintain, update, and expand content across the official parent website for HRS Group.
+This guide explains how content editors, brand managers, and developers maintain and update the official parent website for HRS Group.
 
-All copy, project registries, brand catalogs, news announcements, and career postings are decoupled from React presentation logic and strictly managed in TypeScript structured data files inside `/src/content/`.
-
----
-
-## 1. Content Architecture Overview
-
-```
-src/content/
-├── siteSettings.ts       # Group brand name, headquarters address, regional office, navigation links
-├── entities.ts           # Complete specifications, systems, and overviews for all 8 entities + 3 divisions
-├── projects.ts           # Portfolio registry for all 16 developments and industrial facade deliveries
-├── brands.ts             # Registry of all 13 consumer brands (6 active, 7 upcoming) + group ventures
-├── jobs.ts               # Open careers, employee quotes, values in action, employee benefits
-├── news.ts               # Official press statements, infrastructure handovers, and curriculum notices
-├── values.ts             # Six core values: Faith, Trust, Foundation, People, Process, Service
-├── milestones.ts         # Historical corporate timeline (2008–2026)
-├── leadership.ts         # Board of directors and executive leadership profiles
-└── types.ts              # TypeScript interface definitions governing all data structures
-```
+All copy, brand registries, sector entities, news announcements, and BOGO ecosystem specifications are strictly decoupled from presentation components and managed in structured TypeScript files under `/src/content/`.
 
 ---
 
-## 2. Updating Existing Content Files
+## 1. Editorial Voice & Workspace Rules
 
-### A. Updating Headquarters & Contact Information (`siteSettings.ts`)
-Edit `siteSettings.ts` to update postal addresses, corporate phone numbers, or administrative contacts:
+Every piece of copy across the HRS Group website must adhere to the official brand directives:
+
+- **Tone**: Plain, specific, and confident. Use statements of fact rather than slogans.
+- **Specifics**: Real Gujarat, Ahmedabad, and Bengaluru details (e.g. Bodakdev, SG Highway, Sanand, Bavla, Kadubeesanahalli).
+- **Prohibited Buzzwords**: Never use *unlock*, *elevate*, *empower*, *seamless*, *cutting-edge*, *state-of-the-art*, *innovative*, *leverage*, *robust*, *holistic*, *synergy*, *journey*, *world-class*, *next-generation*, *end-to-end*, *passionate*, *tapestry*, *game-changer*, *'not just X but Y'*, or *'where X meets Y'*.
+- **Punctuation**: No em dashes (`—`). Use colons (`:`) or middots (`•`). No exclamation marks (`!`).
+- **Typography & Case**: Sentence case everywhere. No uppercase tracked eyebrows. Tabular numerals for figures.
+- **Render Captions**: Every architectural and 3D store render must be captioned **'Concept'**.
+- **Roadmap Statuses**: No planned roadmap initiative may be described as 'Live'. Always use **'Planned'**.
+
+---
+
+## 2. Updating BOGO Content (`/src/content/bogo.ts`)
+
+The entire BOGO retail section (#bogo) is driven by `/src/content/bogo.ts`.
+
+### A. Updating the 11 Category Brands
+The `categoryBrands` array powers the interactive 11-Brand Orbit Explorer:
+
 ```typescript
-export const siteSettings: SiteSettings = {
-  groupName: 'HRS Group',
-  headquarters: {
-    city: 'Ahmedabad',
-    state: 'Gujarat',
-    address: 'HRS House, Near Pakwan Cross Roads, SG Highway, Bodakdev',
-    phone: '+91 79 4000 8900',
-    email: 'info@hrsgroup.in',
-  },
-  // ...
-};
+{
+  slug: 'bogo-essentials',
+  name: 'BOGO Essentials',
+  tagline: 'Household care & cleaning',
+  color: '#149395', // Category brand color token
+  productLines: [
+    'Surface Cleaners & Floor Disinfectants',
+    'Liquid Laundry Detergents',
+    'Biodegradable Kitchen Soaps',
+    'Recycled Paper Products & Tissues',
+    'Air Purifying Fragrance Blends',
+    'Sanitisation & Hygiene Supplies',
+  ],
+  vision: 'To make essential home hygiene accessible, dependable, and safe for every household routine.',
+  logoPath: '/bogo/logos/bogo-essentials.png',
+  imagePath: '/bogo/stores/bogo-essentials-concept.webp',
+  caption: 'Concept',
+}
 ```
 
-### B. Updating Entity Details & Capabilities (`entities.ts`)
-Each entity record contains:
-- `slug`: URL identifier (e.g. `hrs-aluglaze`, `geotrix`, `school-of-facade-technologies`)
-- `name`: Official registered trade name
-- `sector`: One of `'Built Environment'`, `'Food and Consumer'`, `'Hospitality, Leasing & Retail'`, `'Services'`
-- `summary`: One declarative sentence defining the company
-- `offerings`: High-level capability bullet points
-- `detailedOfferings`: Structured offerings with titles and technical descriptions
-- `aluglazeData`, `foodData`, `softData`, `firstgenData`, etc.: Entity-specific fields rendered conditionally in templates.
+- **Color Tokens**: When updating `color`, ensure it coordinates with the brand token in `/src/app/globals.css`. If luminance is high (e.g. amber, olive, light orange), `BogoExplorer.tsx` automatically switches text to dark ink (`#0E0E10`) to maintain WCAG AA contrast (minimum 4.5:1).
+- **Product Lines**: Provide exactly 6 numbered items per category.
+- **Concept Store Image**: Must point to an optimized `.webp` file inside `/public/bogo/stores/`.
 
-**Writing Guidelines:**
-- Use strictly factual, declarative sentences.
-- Never use buzzwords: *seamless*, *cutting-edge*, *innovative*, *synergy*, *unlock*, *elevate*, *tapestry*.
-- Do not use em dashes (`—`) or exclamation marks (`!`).
-- Specific location details: Bodakdev, Shela, Sanand, Bavla, Kadubeesanahalli (Outer Ring Road, Bengaluru).
+### B. Updating Store Formats & Distribution
+The `formats` array governs the physical store specifications:
+
+```typescript
+{
+  slug: 'bogo-square',
+  name: 'BOGO Square',
+  headline: 'The Flagship Destination',
+  promise: 'Where the BOGO ecosystem comes to life.',
+  size: 'Regional Destination (10,000+ sq. ft.)',
+  idealFor: [
+    'Destination weekend family shopping',
+    'Multi-category brand discovery',
+    'Dining, cafes, and community interactions',
+  ],
+  imagePath: '/bogo/stores/bogo-square-concept.webp',
+  logoPath: '/bogo/logos/bogo-square.png',
+}
+```
+
+The distribution network (`distribution` object) defines the **BOGO Go** logistics movement grid.
+
+### C. Updating Companion & Loyalty Programs
+The `programs` array defines the four integrated initiatives:
+1. **BOGO Life**: Corporate benefits and bulk procurement partnerships.
+2. **BOGO Companion**: Consumer ecosystem loyalty tier.
+3. **BOGO Partner**: Retail shelf space for equity collaborative partnerships.
+4. **BOGO Affairs**: Industry communications and supplier origin stories.
+
+### D. Updating the Technology Vision Roadmap
+The `technologyVision.phases` array drives the desktop horizontal pinned sequence and mobile vertical roadmap:
+
+```typescript
+{
+  phase: 1,
+  title: 'Purchase History',
+  desc: 'A connected shopping history in the BOGO app that helps customers review past purchases...',
+  status: 'Planned', // Strictly 'Planned' until officially deployed in stores
+}
+```
 
 ---
 
-## 3. How to Swap `ImageSlot` Visuals for Real Photos
+## 3. Swapping Placeholder Logos for Real Ones
 
-Every visual container on the portal uses the typography-led `<ImageSlot />` component with fixed aspect ratios (`16:9`, `4:3`, `1:1`, `21:9`) and caption labels.
+All entity logos are stored under `/public/logos/` (group entities) and `/public/bogo/logos/` (BOGO brands).
 
-### Step 1: Place Real Media in Public Directory
-Copy optimized `.webp` or `.jpg` image files into `/public/images/`:
+### Step 1: Prepare the Real Logo Asset
+- **Format**: SVG (`.svg`) is strongly preferred for vector sharpness. High-resolution transparent PNG (`.png`) is also supported.
+- **Dimensions**: Viewbox ratio should ideally be horizontal or balanced (e.g. `240x60` or `120x120`).
+- **Colors**: Both solid black and solid white versions should be generated, or a single monochrome SVG with `currentColor` support.
+
+### Step 2: Save the File
+Place the asset in the appropriate public directory:
+- Group businesses: `/public/logos/<entity-slug>.svg`
+- BOGO marks: `/public/bogo/logos/<brand-slug>.png`
+
+### Step 3: Reference in Content
+Update the `logo` or `logoPath` property in `/src/content/entities.ts` or `/src/content/bogo.ts`:
+
+```typescript
+// /src/content/entities.ts
+{
+  slug: 'hrs-aluglaze',
+  name: 'HRS Aluglaze Ltd',
+  logoPath: '/logos/hrs-aluglaze.svg',
+  // ...
+}
 ```
-public/images/
-├── aluglaze-sanand-bay.webp
-├── bavla-cryogenic-line.webp
-└── h2-shela-facade.webp
-```
 
-### Step 2: Reference in Content or Template
-In `src/content/entities.ts` or component template, set the `src` property of the `ImageSlot`:
+The unified `<Logo />` component (`/src/components/ui/Logo.tsx`) automatically resolves paths with base path handling (`getAssetUrl`), falling back to a clean typographic monogram if the image is missing.
+
+---
+
+## 4. Adding Real Photos & Concept Renders
+
+Visuals on the site use `<ImageReveal />` with progressive clip-path reveal animations and layout-shift prevention.
+
+### Step 1: Compress & Optimize Media
+- **Format**: WebP (`.webp`) format with 80–85% quality.
+- **Maximum Width**: 1600px wide (avoids unnecessary cellular bandwidth consumption).
+- **Aspect Ratios**:
+  - Flagship hero store renders: `16:10` or `16:9` (e.g. `1600x1000` or `1600x900`).
+  - Secondary format renders (Bazaar, Mini): `21:9` wide letterbox (e.g. `1600x685`).
+  - News article thumbnails: `3:2` (e.g. `600x400`).
+
+### Step 2: Save to Public Directory
+- Store renders: `/public/bogo/stores/<slug>-concept.webp`
+- General photography: `/public/images/<image-name>.webp`
+
+### Step 3: Use the Component
 ```tsx
-<ImageSlot
-  src="/images/aluglaze-sanand-bay.webp"
-  alt="Automated CNC double-head cutting line at Sanand works"
-  aspectRatio="16/9"
-  caption="CNC precision machining bay, Sanand Industrial Estate, Ahmedabad"
+<ImageReveal
+  src="/bogo/stores/bogo-square-concept.webp"
+  alt="BOGO Square Flagship Store Concept"
+  caption="Concept"
+  aspectRatio="aspect-[16/10]"
 />
 ```
-If no `src` is provided, `ImageSlot` automatically renders an architectural placeholder slot displaying aspect ratio, coordinate marks, and the factual muted caption.
 
 ---
 
-## 4. How to Add a New Item
+## 5. Updating Group Facts, History & Values (`/src/content/facts.ts`)
 
-### A. Adding a New Real Estate or Engineering Project
-Open `src/content/projects.ts` and add an object to the `projects` array:
-```typescript
-{
-  slug: 'hrishikesh-11',
-  name: 'Hrishikesh 11 Residential Enclave',
-  entitySlug: 'hrishikesh-ventures',
-  sector: 'Built Environment',
-  typology: 'residential',
-  location: 'South Bopal, Ahmedabad',
-  yearCompletedOrStatus: 'Under construction (Target Q4 2027)',
-  scale: '96 three-bedroom residential units across 14 storeys',
-  description: 'Reinforced concrete frame with aerated autoclaved block masonry, cross-ventilated dual-aspect floor plans, and low-e fenestration.',
-}
-```
-*Note:* The Next.js dynamic route at `/projects/[slug]` will automatically generate a static page for this project during build.
+The calm About section (#about) and group statistics are managed in `/src/content/facts.ts`:
 
-### B. Adding a New Consumer Brand
-Open `src/content/brands.ts` and add to the `brands` array:
-```typescript
-{
-  slug: 'new-brand-slug',
-  name: 'Brand Name',
-  category: 'Cold-Pressed Seed Oils',
-  parentEntitySlug: 'hrishikesh-consumer-products',
-  status: 'active', // or 'in-development'
-  description: 'Single-press mustard and groundnut oils bottled without chemical refining at Bavla plant.',
-  offerings: ['Cold-pressed mustard oil 1L', 'Filter groundnut oil 5L'],
-}
-```
-
-### C. Adding a New Job Opening
-Open `src/content/jobs.ts` and add an item to `jobOpenings`:
-```typescript
-{
-  id: 'job-alu-03',
-  slug: 'facade-site-quality-inspector',
-  title: 'Facade Site Quality Inspector',
-  entitySlug: 'hrs-aluglaze',
-  department: 'Quality Assurance',
-  location: 'Ahmedabad, Gujarat',
-  employmentType: 'Full-time',
-  experienceLevel: '4+ years',
-  postedDate: '21 October 2026',
-  description: 'Conducts daily torque checks, sealant adhesion peel tests, and water hose tests on site.',
-  responsibilities: [
-    'Inspect torque calibration on anchor bracket bolts',
-    'Perform field hose testing in accordance with AAMA 501.2',
-  ],
-  requirements: [
-    'Diploma in Civil or Mechanical Engineering',
-    '3+ years on-site quality inspection for architectural glazing',
-  ],
-}
-```
-*Note:* This immediately exposes the role in `/careers`, includes it in `/careers/[slug]`, and generates `JobPosting` JSON-LD.
-
-### D. Adding a New Press Release / News Story
-Open `src/content/news.ts` and add an item to `news`:
-```typescript
-{
-  slug: 'sanand-acoustic-testing-bay-commissioned',
-  title: 'HRS Aluglaze commissions calibrated sound-transmission test chamber at Sanand',
-  date: '21 October 2026',
-  entitySlug: 'hrs-aluglaze',
-  category: 'Built Environment',
-  readTime: '3 min read',
-  summary: 'The laboratory allows acoustic attenuation measurements up to 48 dB for double-glazed facade prototypes.',
-  content: [
-    'HRS Aluglaze Ltd has installed a sound transmission suite at its Sanand engineering headquarters.',
-    'The bay measures sound transmission loss across double-glazed curtain wall assemblies according to ASTM E90 standards.',
-  ],
-  pullQuote: {
-    text: 'Pre-construction acoustic calibration guarantees interior noise criteria in airport and highway commercial developments.',
-    author: 'Acoustic Engineer, HRS Aluglaze',
-  },
-  relatedSlugs: ['soft-curriculum-framework'],
-}
-```
-*Note:* The story will automatically publish to `/news`, create its article page at `/news/[slug]`, generate `Article` schema, and update `/news/rss.xml`.
+- **Key Numerical Facts (`keyFacts`)**: Four verified metrics with labels and contextual detail (e.g., `1998` founding year, `5` operational sectors, Sanand & Bavla facilities).
+- **Historical Narrative (`historyParagraphs`)**: Three Ahmedabad paragraphs detailing the transition from regional civil contracting to integrated industrial engineering and FMCG.
+- **Corporate Values (`values`)**: The 6 foundational values:
+  1. **Faith**: Holding conviction in long-term goals and respecting enduring community traditions.
+  2. **Trust**: Maintaining transparent contracts, engineering integrity, and dependable trade relationships.
+  3. **Foundation**: Investing in physical capital, owned land parcels, and precision manufacturing facilities.
+  4. **People**: Providing steady technical training, fair workplace safety, and professional dignity.
+  5. **Process**: Standardising precision tolerances, audited food hygiene, and disciplined operating frameworks.
+  6. **Service**: Delivering consistent after-sales commitment, long-term tenant care, and attentive community retail.
 
 ---
 
-## 5. Contact Enquiries & CRM Integration
+## 6. Updating Sector Panels (`/src/components/sections/BusinessesSection.tsx`)
 
-When a visitor submits the form at `/contact`, it posts to `/api/contact/route.ts`.
-To connect a commercial CRM (e.g. Salesforce, HubSpot) or send direct notification emails via SendGrid/AWS SES:
-1. Open `src/app/api/contact/route.ts`.
-2. Update the `dispatchToCrmOrEmail(payload)` function to invoke your API client.
-3. Supply required credentials via standard environment variables:
-   ```bash
-   CRM_API_KEY=your_key_here
-   ALERT_EMAIL_RECIPIENT=commercial@hrsgroup.in
-   ```
+The five expanding full-height sector panels on the homepage (#businesses) are configured in `SECTOR_CONFIG`:
+
+```typescript
+{
+  slug: 'built-environment',
+  numeral: '01',
+  bgColor: '#1B5E38', // Deep Emerald
+  textColor: '#FFFFFF',
+  entities: [
+    {
+      slug: 'hrishikesh-ventures',
+      name: 'Hrishikesh Ventures',
+      tagline: 'Residential communities, plotted layouts, and commercial hubs in Ahmedabad.',
+      url: '/businesses#hrishikesh-ventures',
+      logo: '/logos/hrishikesh-ventures.svg',
+    },
+    {
+      slug: 'hrs-aluglaze',
+      name: 'HRS Aluglaze Ltd',
+      tagline: 'Engineered facade and fenestration solutions with Sanand manufacturing plant.',
+      url: '/businesses#hrs-aluglaze',
+      logo: '/logos/hrs-aluglaze.svg',
+      subEntity: {
+        slug: 'geotrix',
+        label: 'Geotrix',
+        name: 'Southern India Engineering & Facade Execution',
+        tagline: 'Bengaluru-based regional execution partner for high-rise commercial fenestration.',
+        url: '/businesses#geotrix',
+        logo: '/logos/geotrix.svg',
+      },
+    },
+  ],
+}
+```
+
+*Hierarchy Rule*: Geotrix is nested strictly under HRS Aluglaze; FirstGen assets/hotels/enterprises are nested strictly under the FirstGen banner.
+
+---
+
+## 7. Pre-Publish Validation Checklist
+
+Before committing or publishing any content changes, run the automated validation suite:
+
+```bash
+# 1. Audit copy for prohibited buzzwords, em dashes, and exclamation marks
+python scripts/audit_content_rules.py
+
+# 2. Verify WCAG AA contrast across all flat colour fields
+python scripts/verify_contrast.py
+
+# 3. Test TypeScript compilation and static export generation
+npm run build
+```
+
+When all three checks pass, your content is verified compliant with the HRS Group brand standards.

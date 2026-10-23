@@ -81,6 +81,9 @@ export const ImageReveal: React.FC<ImageRevealProps> = ({
           ref={imageRef}
           src={src}
           alt={alt}
+          width={1600}
+          height={900}
+          decoding="async"
           className="h-full w-full object-cover will-change-transform"
           loading="lazy"
         />

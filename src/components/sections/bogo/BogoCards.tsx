@@ -40,16 +40,11 @@ export const BogoCards: React.FC = () => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     setIsReduced(reduced);
 
-    if (reduced) return;
-
     const container = containerRef.current;
     const cardsWrap = cardsWrapRef.current;
     if (!container || !cardsWrap) return;
 
-    const cardElements = cardsWrap.querySelectorAll<HTMLElement>('.loyalty-card');
-    if (!cardElements.length) return;
-
-    // Relative fan offsets for the 5 cards
+    // Relative fan offsets for the 5 cards on desktop fine-pointer
     const fanOffsets = [
       { rotate: -20, x: -70, y: 15 },
       { rotate: -10, x: -35, y: 5 },
@@ -58,8 +53,16 @@ export const BogoCards: React.FC = () => {
       { rotate: 20, x: 70, y: 15 },
     ];
 
-    const ctx = gsap.context(() => {
-      // Timeline pinned over about 150vh
+    const mm = gsap.matchMedia();
+
+    // Only pin and scrub on desktop screens >= 1024px with fine pointer (mouse), not touch
+    mm.add('(min-width: 1024px) and (hover: hover) and (pointer: fine)', () => {
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) return;
+
+      const cardElements = cardsWrap.querySelectorAll<HTMLElement>('.loyalty-card-desktop');
+      if (!cardElements.length) return;
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: container,
@@ -68,6 +71,7 @@ export const BogoCards: React.FC = () => {
           scrub: 1,
           pin: true,
           anticipatePin: 1,
+          invalidateOnRefresh: true,
         },
       });
 
@@ -84,9 +88,14 @@ export const BogoCards: React.FC = () => {
           0
         );
       });
-    }, container);
 
-    return () => ctx.revert();
+      return () => {
+        tl.scrollTrigger?.kill();
+        tl.kill();
+      };
+    });
+
+    return () => mm.revert();
   }, []);
 
   return (
@@ -108,16 +117,16 @@ export const BogoCards: React.FC = () => {
           </h2>
         </div>
 
-        {/* Content: Fanning Cards on Left, Programmes on Right */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        {/* Content: Cards on Left, Programmes on Right */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start lg:items-center">
           {/* Left: Five Loyalty Cards */}
-          <div className="lg:col-span-7 flex justify-center items-center py-12">
+          <div className="lg:col-span-7 flex justify-center items-center w-full">
+            {/* Desktop Fan Scrub (min-width: 1024px and fine pointer) */}
             <div
               ref={cardsWrapRef}
-              className="relative w-[300px] h-[190px] sm:w-[360px] sm:h-[225px]"
+              className="hidden lg:flex relative w-[360px] h-[225px] justify-center items-center py-12"
             >
               {CARDS.map((card, idx) => {
-                // Static fan fallback if reduced motion
                 const staticOffsets = [
                   'rotate-[-16deg] translate-x-[-60px]',
                   'rotate-[-8deg] translate-x-[-30px]',
@@ -128,8 +137,8 @@ export const BogoCards: React.FC = () => {
 
                 return (
                   <div
-                    key={card.id}
-                    className={`loyalty-card absolute inset-0 rounded-2xl p-5 sm:p-6 flex flex-col justify-between border-2 border-white/20 will-change-transform shadow-xl ${
+                    key={`desktop-${card.id}`}
+                    className={`loyalty-card-desktop absolute inset-0 rounded-2xl p-6 flex flex-col justify-between border-2 border-white/20 will-change-transform shadow-xl ${
                       isReduced ? staticOffsets[idx] : ''
                     }`}
                     style={{
@@ -142,7 +151,7 @@ export const BogoCards: React.FC = () => {
                     {/* Top Row: Brand & Loyalty Card label */}
                     <div className="flex items-start justify-between">
                       <div>
-                        <span className="font-['Bricolage_Grotesque'] text-base sm:text-lg font-bold block leading-tight">
+                        <span className="font-['Bricolage_Grotesque'] text-lg font-bold block leading-tight">
                           {card.name}
                         </span>
                         <span className="text-[10px] font-semibold opacity-75">
@@ -167,6 +176,44 @@ export const BogoCards: React.FC = () => {
                   </div>
                 );
               })}
+            </div>
+
+            {/* Mobile / Touch / <1024px Simple Vertical Layout (clean stacked cards) */}
+            <div className="flex lg:hidden flex-col gap-4 w-full max-w-md mx-auto">
+              {CARDS.map((card) => (
+                <div
+                  key={`mobile-${card.id}`}
+                  className="rounded-xl p-5 flex flex-col justify-between border border-white/25 shadow-md transition-transform duration-200"
+                  style={{
+                    backgroundColor: card.color,
+                    color: card.textColor,
+                  }}
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <div>
+                      <span className="font-['Bricolage_Grotesque'] text-lg font-bold block leading-tight">
+                        {card.name}
+                      </span>
+                      <span className="text-xs opacity-80 font-medium">
+                        {card.sub}
+                      </span>
+                    </div>
+                    <span className="rounded-full bg-white/20 px-2.5 py-0.5 text-[9px] font-bold tracking-tight uppercase shrink-0">
+                      Loyalty card
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between pt-3 border-t border-white/20 text-xs">
+                    <div className="flex items-center gap-2">
+                      <span className="h-4 w-6 rounded bg-amber-300/80 border border-amber-500/50 block" />
+                      <span className="font-mono text-[10px] opacity-80">•••• 8492</span>
+                    </div>
+                    <span className="font-['Bricolage_Grotesque'] text-xs font-bold tracking-tight">
+                      BOGO
+                    </span>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 

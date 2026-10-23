@@ -247,7 +247,7 @@ export const bogoContent = {
       },
     ],
     vision:
-      'To build India’s most coordinated retail logistics platform, ensuring seamless inventory movement and dependable supply across every store format.',
+      'To build India’s most coordinated retail logistics platform, ensuring continuous inventory movement and dependable supply across every store format.',
     logoPath: '/bogo/logos/bogo-go.png',
     imagePath: '/bogo/stores/bogo-go-concept.webp',
     caption: 'Concept',
@@ -678,7 +678,7 @@ export const bogoContent = {
       pillars: [
         {
           title: 'Membership',
-          desc: 'Belong to the unified BOGO ecosystem with a single seamless identity.',
+          desc: 'Belong to the unified BOGO ecosystem with a single unified identity.',
         },
         {
           title: 'Subscription',
@@ -733,7 +733,7 @@ export const bogoContent = {
       name: 'BOGO Partner',
       headline: 'Building businesses together through shared equity.',
       summary:
-        'BOGO Partner is an innovative growth platform where promising emerging brands receive prominent retail shelf space, prime endcaps, and distribution coordination within the BOGO ecosystem in exchange for strategic equity participation.',
+        'BOGO Partner is a collaborative growth platform where promising emerging brands receive prominent retail shelf space, prime endcaps, and distribution coordination within the BOGO ecosystem in exchange for strategic equity participation.',
       pillars: [
         { title: 'Retail Shelf Space', desc: 'Guaranteed placement across high-traffic BOGO retail store formats.' },
         { title: 'Strategic Equity', desc: 'Aligning business incentives through long-term collaborative ownership.' },

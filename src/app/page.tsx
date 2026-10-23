@@ -1,21 +1,20 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import dynamic from 'next/dynamic';
 import { Header, Footer } from '@/components/layout';
 import { Hero } from '@/components/sections/Hero';
 import { GroupIntro } from '@/components/sections/GroupIntro';
-import {
-  BogoHero,
-  BogoExplorer,
-  BogoFormats,
-  BogoCards,
-  BogoTechRoadmap,
-  BogoClose,
-} from '@/components/sections/bogo';
+import { BogoHero, BogoFormats, BogoClose } from '@/components/sections/bogo';
 import { BusinessesSection } from '@/components/sections/BusinessesSection';
-import { BrandWall } from '@/components/sections/BrandWall';
 import { CalmAbout } from '@/components/sections/CalmAbout';
 import { NewsSection } from '@/components/sections/NewsSection';
 import { CareersContact } from '@/components/sections/CareersContact';
+
+// Dynamic imports for below-the-fold interactive & GSAP ScrollTrigger scenes
+const BogoExplorer = dynamic(() => import('@/components/sections/bogo/BogoExplorer'));
+const BogoCards = dynamic(() => import('@/components/sections/bogo/BogoCards'));
+const BogoTechRoadmap = dynamic(() => import('@/components/sections/bogo/BogoTechRoadmap'));
+const BrandWall = dynamic(() => import('@/components/sections/BrandWall'));
 
 export const metadata: Metadata = {
   title: 'HRS Group • Built Environment, Retail, Food & Hospitality',

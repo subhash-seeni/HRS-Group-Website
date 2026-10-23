@@ -11,7 +11,7 @@ export const BogoHero: React.FC = () => {
       id="bogo"
       data-surface="bogo-navy"
       className="relative flex min-h-screen w-full flex-col justify-between overflow-hidden bg-[var(--bogo-navy)] px-6 pt-32 pb-12 sm:px-8 sm:pt-36 lg:px-12 text-white"
-      aria-label="BOGO — Building India's next retail ecosystem"
+      aria-label="BOGO: Building India's next retail ecosystem"
     >
       {/* Top Bar inside BOGO Hero */}
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between border-b border-white/15 pb-6">

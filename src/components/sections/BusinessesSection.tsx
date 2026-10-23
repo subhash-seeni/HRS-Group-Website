@@ -11,7 +11,37 @@ import { entities } from '@/content/entities';
 // Food and Consumer: Warm Terracotta #B45309
 // Hospitality and Leasing: Deep Slate Indigo #273043
 // Services: Bold Garnet #991B1B
-const SECTOR_CONFIG = [
+interface SectorSubEntity {
+  slug: string;
+  name: string;
+  label: string;
+  tagline: string;
+  url: string;
+  logo: string;
+}
+
+interface SectorEntity {
+  slug: string;
+  name: string;
+  tagline: string;
+  url: string;
+  logo: string;
+  isBogo?: boolean;
+  subEntity?: SectorSubEntity;
+}
+
+interface SectorPanelData {
+  slug: string;
+  numeral: string;
+  bgColor: string;
+  textColor: string;
+  isRetail?: boolean;
+  groupLabel?: string;
+  groupTagline?: string;
+  entities: SectorEntity[];
+}
+
+const SECTOR_CONFIG: SectorPanelData[] = [
   {
     slug: 'built-environment',
     numeral: '01',

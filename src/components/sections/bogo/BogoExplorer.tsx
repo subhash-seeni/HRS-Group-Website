@@ -3,11 +3,12 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { bogoContent, BogoCategoryBrand } from '@/content/bogo';
 
-// Determine tone and contrast based on brand color
+// Determine tone and contrast based on brand color for strict WCAG AA/AAA compliance
 function getBrandTone(color: string): { isDarkBg: boolean; textColor: string; mutedColor: string; pillBg: string; pillText: string } {
-  // Olive #8B8937 and Amber #EB9C03 have high luminance, requiring dark text for AA/AAA compliance
+  // Olive #8B8937, Amber #EB9C03, Warm Orange #EB7C20, Green #02A04A, Teal #149395
   const lower = color.toLowerCase();
-  if (lower === '#8b8937' || lower === '#eb9c03') {
+  const lightBgColors = ['#8b8937', '#eb9c03', '#eb7c20', '#02a04a', '#149395'];
+  if (lightBgColors.includes(lower)) {
     return {
       isDarkBg: false,
       textColor: '#0E0E10',
@@ -69,9 +70,13 @@ export const BogoExplorer: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Auto-advance every 4 seconds until user interacts or leaves view
+  // Auto-advance every 4 seconds until user interacts, leaves view, or prefers reduced motion
   useEffect(() => {
-    if (hasInteracted || !inView) {
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (hasInteracted || !inView || prefersReducedMotion) {
       if (autoTimerRef.current) clearInterval(autoTimerRef.current);
       return;
     }
@@ -207,7 +212,7 @@ export const BogoExplorer: React.FC = () => {
                   type="button"
                   onClick={() => selectBrand(idx)}
                   onFocus={() => selectBrand(idx)}
-                  className={`absolute z-20 flex flex-col items-center justify-center rounded-full transition-all duration-300 focus:outline-none ${
+                  className={`absolute z-20 flex flex-col items-center justify-center rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-4 focus-visible:ring-white ${
                     isSelected
                       ? 'w-18 h-18 bg-white text-[var(--ink)] scale-115 border-2 border-white ring-4 ring-white/30'
                       : 'w-13 h-13 bg-black/25 text-white hover:scale-105 border border-white/40'
@@ -223,6 +228,8 @@ export const BogoExplorer: React.FC = () => {
                   <img
                     src={brand.logoPath}
                     alt=""
+                    width={24}
+                    height={24}
                     className={`h-6 w-6 object-contain transition-transform ${
                       isSelected ? 'brightness-100 scale-110' : 'brightness-0 invert'
                     }`}
@@ -250,6 +257,9 @@ export const BogoExplorer: React.FC = () => {
                 alt={`${currentBrand.name} Concept Store`}
                 className="h-full w-full object-cover transition-opacity duration-300"
                 loading="lazy"
+                width={1600}
+                height={900}
+                decoding="async"
               />
               <span className="absolute bottom-3 right-3 rounded bg-black/70 px-2 py-1 text-[11px] font-semibold text-white">
                 Concept
@@ -262,7 +272,11 @@ export const BogoExplorer: React.FC = () => {
               <img
                 src={currentBrand.logoPath}
                 alt={currentBrand.name}
-                className="h-10 sm:h-12 w-auto object-contain brightness-0 invert"
+                width={160}
+                height={48}
+                className={`h-10 sm:h-12 w-auto object-contain ${
+                  tone.isDarkBg ? 'brightness-0 invert' : 'brightness-0'
+                }`}
               />
               <div>
                 <h3 className="font-['Bricolage_Grotesque'] text-2xl font-bold tracking-tight">
