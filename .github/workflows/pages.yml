@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - design-overhaul
       - fresh-homepage
   workflow_dispatch:
 
