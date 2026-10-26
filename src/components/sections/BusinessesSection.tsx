@@ -202,7 +202,7 @@ export const BusinessesSection: React.FC = () => {
           Hovered / Focused: Expands to ~60% over 600ms, showing entities as large rows.
          ========================================================================= */}
       <div
-        className="hidden lg:flex w-full h-[700px] border-t border-b border-neutral-300"
+        className="hidden lg:flex w-full h-[720px] border-t border-b border-neutral-300"
         role="tablist"
         aria-label="Sector panels"
       >
@@ -265,7 +265,7 @@ export const BusinessesSection: React.FC = () => {
 
               {/* EXPANDED STATE (Rich content & large entity rows) */}
               {isExpanded && (
-                <div className="flex-1 flex flex-col justify-between py-6 overflow-y-auto pr-4 scrollbar-thin">
+                <div className="flex-1 flex flex-col justify-between py-6 overflow-hidden">
                   {/* Sector Title & Summary */}
                   <div className="mb-8 border-b border-white/20 pb-6">
                     <h3 className="font-['Bricolage_Grotesque'] text-3xl sm:text-4xl font-extrabold tracking-tight mb-2">
@@ -379,8 +379,16 @@ export const BusinessesSection: React.FC = () => {
 
               {/* Bottom Row */}
               <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-white/60">
-                <span>{sectorData.title}</span>
-                <span>{isExpanded ? 'Active' : 'Click to view'}</span>
+                {isExpanded ? (
+                  <>
+                    <span className="truncate mr-2">{sectorData.title}</span>
+                    <span className="shrink-0 font-medium">Active</span>
+                  </>
+                ) : (
+                  <span className="w-full text-center text-[11px] font-medium opacity-75">
+                    View
+                  </span>
+                )}
               </div>
             </div>
           );

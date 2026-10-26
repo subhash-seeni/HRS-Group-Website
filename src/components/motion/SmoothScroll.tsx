@@ -15,9 +15,8 @@ interface SmoothScrollProps {
 
 export const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
   useEffect(() => {
-    // Check for reduced motion and touch devices
+    // Check for reduced motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
     // Refresh ScrollTrigger once web fonts load to prevent layout shift calculation bugs
     if (typeof document !== 'undefined' && 'fonts' in document) {
@@ -36,7 +35,7 @@ export const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
     window.addEventListener('pageshow', handleRefresh);
     window.addEventListener('popstate', handleRefresh);
 
-    if (prefersReducedMotion || isTouch) {
+    if (prefersReducedMotion) {
       return () => {
         window.removeEventListener('resize', handleRefresh);
         window.removeEventListener('orientationchange', handleRefresh);

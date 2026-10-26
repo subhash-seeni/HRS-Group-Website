@@ -4,16 +4,14 @@ import dynamic from 'next/dynamic';
 import { Header, Footer } from '@/components/layout';
 import { Hero } from '@/components/sections/Hero';
 import { GroupIntro } from '@/components/sections/GroupIntro';
-import { BogoHero, BogoFormats, BogoClose } from '@/components/sections/bogo';
 import { BusinessesSection } from '@/components/sections/BusinessesSection';
+import { AluglazeSpotlight } from '@/components/sections/AluglazeSpotlight';
+import { BogoSpotlight } from '@/components/sections/bogo';
 import { CalmAbout } from '@/components/sections/CalmAbout';
 import { NewsSection } from '@/components/sections/NewsSection';
 import { CareersContact } from '@/components/sections/CareersContact';
 
-// Dynamic imports for below-the-fold interactive & GSAP ScrollTrigger scenes
-const BogoExplorer = dynamic(() => import('@/components/sections/bogo/BogoExplorer'));
-const BogoCards = dynamic(() => import('@/components/sections/bogo/BogoCards'));
-const BogoTechRoadmap = dynamic(() => import('@/components/sections/bogo/BogoTechRoadmap'));
+// Dynamic import for below-the-fold BrandWall
 const BrandWall = dynamic(() => import('@/components/sections/BrandWall'));
 
 export const metadata: Metadata = {
@@ -114,46 +112,31 @@ export default function HomePage() {
 
       <Header />
       <main className="relative">
-        {/* 1. Full-bleed Hero with rolling word states (surface: ink) */}
+        {/* 1. Hero: Parametric Computational Mesh with 7 sector topologies (dynamic surface) */}
         <Hero />
 
         {/* 2. Group Introduction: Word-by-word scroll text (surface: paper) */}
         <GroupIntro />
 
-        {/* 3. BOGO Section Sequence: Anchored at #bogo */}
-        <div id="bogo" className="relative">
-          {/* A. BOGO Opening: Full viewport (surface: bogo-navy) */}
-          <BogoHero />
-
-          {/* B. BOGO Square Explorer: 11 category brand ring & live color swapping */}
-          <BogoExplorer />
-
-          {/* C. Formats and Distribution: True relative areas & BOGO Go (surface: paper) */}
-          <BogoFormats />
-
-          {/* D. Companion Cards: 150vh pinned and scrubbed HTML/CSS loyalty card fan (surface: bogo-navy) */}
-          <BogoCards />
-
-          {/* E. Technology Roadmap: Desktop horizontal pinned scroll, mobile vertical list (surface: ink) */}
-          <BogoTechRoadmap />
-
-          {/* F. Close: BOGO navy with visit & partner actions (surface: bogo-navy) */}
-          <BogoClose />
-        </div>
-
-        {/* 4. The Group's Businesses: Desktop 5 flat-colour expanding panels, mobile accordion (#businesses, surface: white) */}
+        {/* 3. The Group's Businesses: Desktop 5 flat-colour expanding panels, mobile accordion (#businesses, surface: white) */}
         <BusinessesSection />
 
-        {/* 5. Brand Wall: Hrishikesh Consumer Products 13 typographic tiles with 3D tilt (surface: ink) */}
+        {/* 4. Built Environment Flagship: HRS Aluglaze Ltd (#aluglaze, surface: ink) */}
+        <AluglazeSpotlight />
+
+        {/* 5. Venture in Focus: BOGO Retail Ecosystem (#bogo, surface: bogo-navy) */}
+        <BogoSpotlight />
+
+        {/* 6. Brand Wall: Hrishikesh Consumer Products 13 typographic tiles with 3D tilt (surface: ink) */}
         <BrandWall />
 
-        {/* 6. The Group, Calmly: Three Ahmedabad history paragraphs, 4 plain facts, 6 values (#about, surface: paper) */}
+        {/* 7. The Group, Calmly: Three Ahmedabad history paragraphs, 4 plain facts, 6 values (#about, surface: paper) */}
         <CalmAbout />
 
-        {/* 7. News: Four news rows with 8px shift & sliding 3:2 flat thumbnail (surface: white) */}
+        {/* 8. News: Four news rows with 8px shift & sliding 3:2 flat thumbnail (surface: white) */}
         <NewsSection />
 
-        {/* 8. Careers & Contact: Largest orange area on page, huge Bricolage links, magnetic buttons (surface: orange) */}
+        {/* 9. Careers & Contact: Largest orange area on page, huge Bricolage links, magnetic buttons (surface: orange) */}
         <CareersContact />
       </main>
 

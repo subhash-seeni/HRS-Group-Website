@@ -74,7 +74,7 @@ export const PageIntro: React.FC = () => {
         <div className="overflow-hidden py-1">
           <div ref={line1Ref} className="flex items-center gap-3.5">
             <span className="h-3.5 w-3.5 rounded-full bg-[var(--hrs-orange)]" />
-            <span className="font-['Bricolage_Grotesque'] text-4xl sm:text-5xl font-extrabold tracking-tight text-white uppercase">
+            <span className="font-['Bricolage_Grotesque'] text-4xl sm:text-5xl font-extrabold tracking-tight text-white">
               HRS Group
             </span>
           </div>
@@ -83,9 +83,9 @@ export const PageIntro: React.FC = () => {
         <div className="overflow-hidden py-1">
           <p
             ref={line2Ref}
-            className="font-['Plus_Jakarta_Sans'] text-xs sm:text-sm font-medium tracking-widest text-neutral-400 uppercase"
+            className="font-['Plus_Jakarta_Sans'] text-xs sm:text-sm font-medium tracking-normal text-neutral-400"
           >
-            Ahmedabad • Gujarat
+            Ahmedabad, Gujarat
           </p>
         </div>
       </div>

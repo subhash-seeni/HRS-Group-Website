@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - fresh-homepage
   workflow_dispatch:
 
 permissions:

@@ -7,6 +7,12 @@ import { ChevronDown, ArrowRight, Menu, X, ArrowUpRight } from 'lucide-react';
 import { Logo } from '@/components/ui/Logo';
 import { MagneticButton } from '@/components/motion/MagneticButton';
 import { getAssetUrl } from '@/lib/basePath';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 interface EntityLink {
   name: string;
@@ -152,6 +158,30 @@ export const Header: React.FC = () => {
   const lastScrollY = useRef(0);
   const megaRef = useRef<HTMLDivElement>(null);
   const businessesButtonRef = useRef<HTMLButtonElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
+
+  // GSAP Reading Progress Bar
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const bar = progressBarRef.current;
+    if (!bar) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const ctx = gsap.context(() => {
+      gsap.to(bar, {
+        scaleX: 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: document.documentElement,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 0.15,
+        },
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
 
   // Close menus on route change
   useEffect(() => {
@@ -487,7 +517,15 @@ export const Header: React.FC = () => {
             </div>
           </div>
         </div>
+
       </header>
+
+      {/* GSAP Scroll Reading Progress Bar along the very top edge of viewport */}
+      <div
+        ref={progressBarRef}
+        className="fixed top-0 left-0 right-0 h-[2px] w-full bg-[var(--hrs-orange)] origin-left scale-x-0 pointer-events-none will-change-transform z-50"
+        aria-hidden="true"
+      />
 
       {/* =========================================================================
           MOBILE NAVIGATION DRAWER (Full-screen Ink Menu)

@@ -40,16 +40,17 @@ export const ScrollText: React.FC<ScrollTextProps> = ({
     const ctx = gsap.context(() => {
       gsap.fromTo(
         words,
-        { opacity: 0.22 },
+        { opacity: 0.2, y: 4 },
         {
           opacity: 1,
-          ease: 'none',
-          stagger: 0.05,
+          y: 0,
+          ease: 'power1.out',
+          stagger: 0.04,
           scrollTrigger: {
             trigger: el,
             start,
             end,
-            scrub: true,
+            scrub: 0.4,
           },
         }
       );

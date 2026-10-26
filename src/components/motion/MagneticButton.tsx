@@ -44,8 +44,8 @@ export const MagneticButton: React.FC<MagneticButtonProps> = ({
       gsap.to(el, {
         x: 0,
         y: 0,
-        duration: 0.6,
-        ease: 'elastic.out(1, 0.4)',
+        duration: 0.4,
+        ease: 'power2.out',
       });
     };
 
