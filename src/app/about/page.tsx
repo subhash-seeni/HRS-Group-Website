@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ArrowLeft, ArrowRight, ShieldCheck, MapPin, Award, CheckCircle2, Factory, History } from 'lucide-react';
 import { Header, Footer } from '@/components/layout';
 import { groupValues, calmFacts, aboutStory } from '@/content/facts';
+import { getAssetUrl } from '@/lib/basePath';
 
 interface LeaderBio {
   name: string;
@@ -148,7 +149,7 @@ export default function AboutPage() {
                 <div className="relative aspect-[3/4] overflow-hidden border border-neutral-300 bg-neutral-200">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/images/group/ahmedabad-skyline.webp"
+                    src={getAssetUrl('/images/group/ahmedabad-skyline.webp')}
                     alt="Ahmedabad corporate base"
                     className="h-full w-full object-cover"
                   />
@@ -162,7 +163,7 @@ export default function AboutPage() {
                 <div className="relative aspect-[3/4] overflow-hidden border border-neutral-300 bg-neutral-200">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/images/group/corporate-lobby.webp"
+                    src={getAssetUrl('/images/group/corporate-lobby.webp')}
                     alt="Bodakdev headquarters lobby"
                     className="h-full w-full object-cover"
                   />
@@ -253,7 +254,7 @@ export default function AboutPage() {
                   <div className="relative aspect-[3/4] overflow-hidden border border-neutral-200 bg-neutral-100 mb-4">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={leader.image}
+                      src={getAssetUrl(leader.image)}
                       alt={leader.name}
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />

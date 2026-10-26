@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { ArrowRight, CheckCircle2, Store, Truck, Sparkles, MapPin } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { getAssetUrl } from '@/lib/basePath';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -282,7 +283,7 @@ export const BogoSpotlight: React.FC = () => {
                   {/* Visual Concept Store Render */}
                   <div className="relative aspect-[16/10] w-full overflow-hidden border border-white/15 bg-black/40 mb-6">
                     <Image
-                      src={format.image}
+                      src={getAssetUrl(format.image)}
                       alt={`${format.name} architecture concept store`}
                       fill
                       sizes="(min-width: 1024px) 33vw, 100vw"
@@ -364,7 +365,7 @@ export const BogoSpotlight: React.FC = () => {
                 <div className="relative border border-white/15 overflow-hidden bg-white/5">
                   <div className="relative aspect-[16/9] w-full">
                     <Image
-                      src={activeCategory.image}
+                      src={getAssetUrl(activeCategory.image)}
                       alt={activeCategory.name}
                       fill
                       sizes="(min-width: 1024px) 50vw, 100vw"

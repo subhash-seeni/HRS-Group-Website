@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { calmFacts, aboutStory, groupValues } from '@/content/facts';
+import { getAssetUrl } from '@/lib/basePath';
 
 export const CalmAbout: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -62,7 +63,7 @@ export const CalmAbout: React.FC = () => {
                 <div className="relative aspect-[4/3] overflow-hidden border border-neutral-300 bg-neutral-200">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/images/group/ahmedabad-skyline.webp"
+                    src={getAssetUrl('/images/group/ahmedabad-skyline.webp')}
                     alt="Ahmedabad corporate heritage and skyline"
                     className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                   />
@@ -76,7 +77,7 @@ export const CalmAbout: React.FC = () => {
                 <div className="relative aspect-[4/3] overflow-hidden border border-neutral-300 bg-neutral-200">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/images/group/corporate-lobby.webp"
+                    src={getAssetUrl('/images/group/corporate-lobby.webp')}
                     alt="HRS Group corporate lobby Bodakdev"
                     className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                   />

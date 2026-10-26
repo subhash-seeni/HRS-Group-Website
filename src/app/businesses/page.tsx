@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowUpRight, ArrowRight, MapPin, Building2, ExternalLink } 
 import { Header, Footer } from '@/components/layout';
 import { entities } from '@/content/entities';
 import { sectors } from '@/content/sectors';
+import { getAssetUrl } from '@/lib/basePath';
 
 const ENTITY_IMAGES: Record<string, { image: string; location: string; metric: string }> = {
   'hrishikesh-ventures': {
@@ -183,7 +184,7 @@ export default function BusinessesPage() {
                         <div className="h-12 w-28 bg-neutral-50 flex items-center justify-center p-2 border border-neutral-200 shrink-0">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
-                            src={entity.logoPath}
+                            src={getAssetUrl(entity.logoPath)}
                             alt={entity.name}
                             className="h-full w-auto object-contain"
                           />
@@ -195,7 +196,7 @@ export default function BusinessesPage() {
                     <div className="relative aspect-[16/9] w-full overflow-hidden border border-neutral-200 bg-neutral-100 mb-6">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
-                        src={meta.image}
+                        src={getAssetUrl(meta.image)}
                         alt={entity.name}
                         className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />

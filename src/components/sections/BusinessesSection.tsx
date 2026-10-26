@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { sectors } from '@/content/sectors';
 import { entities } from '@/content/entities';
+import { getAssetUrl } from '@/lib/basePath';
 
 // Harmonious, distinct flat colors for the 5 sectors
 // Built Environment: Deep Emerald #1B5E38
@@ -302,7 +303,7 @@ export const BusinessesSection: React.FC = () => {
                               <div className="h-10 w-28 bg-white flex items-center justify-center p-2 shrink-0 border border-white/40">
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img
-                                  src={item.logo}
+                                  src={getAssetUrl(item.logo)}
                                   alt={item.name}
                                   className="h-full w-auto object-contain"
                                 />

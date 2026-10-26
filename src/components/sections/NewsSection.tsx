@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { newsArticles } from '@/content/news';
+import { getAssetUrl } from '@/lib/basePath';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -135,7 +136,7 @@ export const NewsSection: React.FC = () => {
                       {NEWS_THUMBNAILS[article.slug] ? (
                         <>
                           <Image
-                            src={NEWS_THUMBNAILS[article.slug]}
+                            src={getAssetUrl(NEWS_THUMBNAILS[article.slug])}
                             alt={article.business}
                             fill
                             sizes="128px"

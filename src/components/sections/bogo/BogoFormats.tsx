@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import { bogoContent } from '@/content/bogo';
 import { ImageReveal } from '@/components/motion/ImageReveal';
+import { getAssetUrl } from '@/lib/basePath';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -97,7 +98,7 @@ export const BogoFormats: React.FC = () => {
               <div className="flex items-center justify-between border-b border-neutral-200 pb-4 mb-4">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={square.logoPath}
+                  src={getAssetUrl(square.logoPath)}
                   alt={square.name}
                   className="h-9 w-auto object-contain"
                 />
@@ -147,7 +148,7 @@ export const BogoFormats: React.FC = () => {
                 <div className="flex items-center justify-between border-b border-neutral-200 pb-3 mb-3">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={bazaar.logoPath}
+                    src={getAssetUrl(bazaar.logoPath)}
                     alt={bazaar.name}
                     className="h-7 w-auto object-contain"
                   />
@@ -185,7 +186,7 @@ export const BogoFormats: React.FC = () => {
                 <div className="flex items-center justify-between border-b border-neutral-200 pb-2 mb-2">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={mini.logoPath}
+                    src={getAssetUrl(mini.logoPath)}
                     alt={mini.name}
                     className="h-6 w-auto object-contain"
                   />
@@ -234,7 +235,7 @@ export const BogoFormats: React.FC = () => {
             <div className="flex items-start sm:items-center gap-6">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={distribution.logoPath}
+                src={getAssetUrl(distribution.logoPath)}
                 alt={distribution.name}
                 className="h-10 sm:h-12 w-auto object-contain shrink-0"
               />

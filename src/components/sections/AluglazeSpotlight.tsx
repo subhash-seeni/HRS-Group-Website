@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ArrowUpRight, ArrowRight } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { getAssetUrl } from '@/lib/basePath';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -431,7 +432,7 @@ export const AluglazeSpotlight: React.FC = () => {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   key={activeSystem.image}
-                  src={activeSystem.image}
+                  src={getAssetUrl(activeSystem.image)}
                   alt={activeSystem.name}
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />

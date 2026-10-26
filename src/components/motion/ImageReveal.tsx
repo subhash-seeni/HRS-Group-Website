@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { getAssetUrl } from '@/lib/basePath';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -79,7 +80,7 @@ export const ImageReveal: React.FC<ImageRevealProps> = ({
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           ref={imageRef}
-          src={src}
+          src={getAssetUrl(src)}
           alt={alt}
           width={1600}
           height={900}

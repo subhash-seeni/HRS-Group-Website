@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { bogoContent, BogoCategoryBrand } from '@/content/bogo';
+import { getAssetUrl } from '@/lib/basePath';
 
 // Determine tone and contrast based on brand color for strict WCAG AA/AAA compliance
 function getBrandTone(color: string): { isDarkBg: boolean; textColor: string; mutedColor: string; pillBg: string; pillText: string } {
@@ -165,7 +166,7 @@ export const BogoExplorer: React.FC = () => {
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={b.logoPath}
+                    src={getAssetUrl(b.logoPath)}
                     alt=""
                     className="h-4 w-4 object-contain brightness-0 invert"
                   />
@@ -184,7 +185,7 @@ export const BogoExplorer: React.FC = () => {
             <div className="relative z-10 flex flex-col items-center justify-center rounded-full bg-white text-[var(--ink)] p-6 w-36 h-36 border-4 border-current/20 text-center">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/bogo/logos/bogo-square.png"
+                src={getAssetUrl('/bogo/logos/bogo-square.png')}
                 alt="BOGO Square"
                 className="h-12 w-auto object-contain mb-1"
               />
@@ -226,7 +227,7 @@ export const BogoExplorer: React.FC = () => {
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={brand.logoPath}
+                    src={getAssetUrl(brand.logoPath)}
                     alt=""
                     width={24}
                     height={24}
@@ -253,7 +254,7 @@ export const BogoExplorer: React.FC = () => {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 key={currentBrand.imagePath}
-                src={currentBrand.imagePath}
+                src={getAssetUrl(currentBrand.imagePath)}
                 alt={`${currentBrand.name} Concept Store`}
                 className="h-full w-full object-cover transition-opacity duration-300"
                 loading="lazy"
@@ -270,7 +271,7 @@ export const BogoExplorer: React.FC = () => {
             <div className="flex items-center gap-4 border-b border-current/20 pb-4 mb-4">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={currentBrand.logoPath}
+                src={getAssetUrl(currentBrand.logoPath)}
                 alt={currentBrand.name}
                 width={160}
                 height={48}

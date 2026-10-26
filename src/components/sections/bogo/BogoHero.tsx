@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { SplitLines } from '@/components/motion/SplitLines';
+import { getAssetUrl } from '@/lib/basePath';
 
 export const BogoHero: React.FC = () => {
   return (
@@ -19,7 +20,7 @@ export const BogoHero: React.FC = () => {
           {/* Real BOGO Logo */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/bogo/logos/bogo-master.png"
+            src={getAssetUrl('/bogo/logos/bogo-master.png')}
             alt="BOGO Logo"
             className="h-10 sm:h-12 w-auto object-contain brightness-0 invert"
           />
