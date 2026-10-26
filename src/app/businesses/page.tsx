@@ -133,7 +133,7 @@ export default function BusinessesPage() {
                 >
                   <span
                     className="h-2 w-2 rounded-full shrink-0"
-                    style={{ backgroundColor: sec.accentColor || '#F58220' }}
+                    style={{ backgroundColor: sec.color || '#F58220' }}
                   />
                   <span>{sec.name}</span>
                   <span className="opacity-60 tabular-nums">({count})</span>
