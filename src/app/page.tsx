@@ -11,8 +11,10 @@ import { CalmAbout } from '@/components/sections/CalmAbout';
 import { NewsSection } from '@/components/sections/NewsSection';
 import { CareersContact } from '@/components/sections/CareersContact';
 
-// Dynamic import for below-the-fold BrandWall
+// Dynamic imports for below-the-fold vertical spotlights
 const BrandWall = dynamic(() => import('@/components/sections/BrandWall'));
+const FirstGenSpotlight = dynamic(() => import('@/components/sections/FirstGenSpotlight'));
+const BrandHouseSpotlight = dynamic(() => import('@/components/sections/BrandHouseSpotlight'));
 
 export const metadata: Metadata = {
   title: 'HRS Group • Built Environment, Retail, Food & Hospitality',
@@ -130,7 +132,13 @@ export default function HomePage() {
         {/* 6. Brand Wall: Hrishikesh Consumer Products 13 typographic tiles with 3D tilt (surface: ink) */}
         <BrandWall />
 
-        {/* 7. The Group, Calmly: Three Ahmedabad history paragraphs, 4 plain facts, 6 values (#about, surface: paper) */}
+        {/* 7. Hospitality & Leasing Flagship: FirstGen Assets, Hotels & Enterprises (#firstgen, surface: slate) */}
+        <FirstGenSpotlight />
+
+        {/* 8. Services Studio: Indian Brand House Strategy, Production & Digital (#brandhouse, surface: white) */}
+        <BrandHouseSpotlight />
+
+        {/* 9. The Group, Calmly: Three Ahmedabad history paragraphs, 4 plain facts, 6 values (#about, surface: paper) */}
         <CalmAbout />
 
         {/* 8. News: Four news rows with 8px shift & sliding 3:2 flat thumbnail (surface: white) */}

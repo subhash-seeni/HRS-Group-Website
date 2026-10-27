@@ -39,6 +39,11 @@ interface SectorPanelData {
   isRetail?: boolean;
   groupLabel?: string;
   groupTagline?: string;
+  spotlight?: {
+    href: string;
+    label: string;
+    tagline: string;
+  };
   entities: SectorEntity[];
 }
 
@@ -48,6 +53,11 @@ const SECTOR_CONFIG: SectorPanelData[] = [
     numeral: '01',
     bgColor: '#1B5E38',
     textColor: '#FFFFFF',
+    spotlight: {
+      href: '#aluglaze',
+      label: 'Explore HRS Aluglaze',
+      tagline: 'Sanand automated facade fabrication plant',
+    },
     entities: [
       {
         slug: 'hrishikesh-ventures',
@@ -86,6 +96,11 @@ const SECTOR_CONFIG: SectorPanelData[] = [
     bgColor: '#0F2A5C', // BOGO navy strictly specified
     textColor: '#FFFFFF',
     isRetail: true,
+    spotlight: {
+      href: '#bogo',
+      label: 'Explore BOGO',
+      tagline: '11 category brands • 3 store formats',
+    },
     entities: [
       {
         slug: 'bogo',
@@ -102,6 +117,11 @@ const SECTOR_CONFIG: SectorPanelData[] = [
     numeral: '03',
     bgColor: '#B45309',
     textColor: '#FFFFFF',
+    spotlight: {
+      href: '#brand-wall',
+      label: 'View 13 Brands',
+      tagline: 'Bavla spice milling • Household FMCG',
+    },
     entities: [
       {
         slug: 'hrishikesh-food-products',
@@ -126,6 +146,11 @@ const SECTOR_CONFIG: SectorPanelData[] = [
     textColor: '#FFFFFF',
     groupLabel: 'FirstGen Pvt. Ltd.',
     groupTagline: 'Corporate parent overseeing commercial leasing, business stays, and trade retail.',
+    spotlight: {
+      href: '#firstgen',
+      label: 'Explore FirstGen',
+      tagline: 'Commercial leasing • Flight Stays • Amuktamalyada',
+    },
     entities: [
       {
         slug: 'firstgen-assets',
@@ -155,6 +180,11 @@ const SECTOR_CONFIG: SectorPanelData[] = [
     numeral: '05',
     bgColor: '#991B1B',
     textColor: '#FFFFFF',
+    spotlight: {
+      href: '#brandhouse',
+      label: 'Explore Studio',
+      tagline: 'Brand strategy • Packaging craft • Digital growth',
+    },
     entities: [
       {
         slug: 'indian-brand-house',
@@ -360,17 +390,17 @@ export const BusinessesSection: React.FC = () => {
                     ))}
                   </div>
 
-                  {/* Retail Special Callout */}
-                  {sectorConfig.isRetail && (
+                  {/* Sector Spotlight Callout */}
+                  {sectorConfig.spotlight && (
                     <div className="mt-8 pt-6 border-t border-white/20 flex items-center justify-between">
                       <span className="text-xs text-white/70">
-                        11 specialised consumer brands • 3 scalable store formats
+                        {sectorConfig.spotlight.tagline}
                       </span>
                       <Link
-                        href="#bogo"
+                        href={sectorConfig.spotlight.href}
                         className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wide bg-[var(--hrs-orange)] text-[var(--ink)] px-4 py-2 hover:bg-white transition-colors"
                       >
-                        <span>Explore BOGO</span>
+                        <span>{sectorConfig.spotlight.label}</span>
                         <span>↓</span>
                       </Link>
                     </div>
@@ -490,13 +520,13 @@ export const BusinessesSection: React.FC = () => {
                     ))}
                   </div>
 
-                  {sectorConfig.isRetail && (
+                  {sectorConfig.spotlight && (
                     <div className="pt-4">
                       <Link
-                        href="#bogo"
+                        href={sectorConfig.spotlight.href}
                         className="block text-center text-xs font-bold uppercase tracking-wide bg-[var(--hrs-orange)] text-[var(--ink)] py-2.5 px-4"
                       >
-                        Explore BOGO Section ↓
+                        {sectorConfig.spotlight.label} ↓
                       </Link>
                     </div>
                   )}
