@@ -42,7 +42,7 @@ export const ImageSlot: React.FC<ImageSlotProps> = ({
           />
         </div>
         {displayCaption && (
-          <figcaption className="mt-2.5 flex items-center gap-1.5 text-xs font-semibold tracking-wider text-neutral-500 uppercase">
+          <figcaption className="mt-2.5 flex items-center gap-1.5 text-xs font-semibold text-neutral-500">
             <span
               className="inline-block h-1.5 w-1.5 rounded-full"
               style={{ backgroundColor: accentColor }}
@@ -57,14 +57,14 @@ export const ImageSlot: React.FC<ImageSlotProps> = ({
   // Fallback: Elegant flat colour / typographic field (never stock or generic placeholder)
   return (
     <div
-      className={`relative flex w-full flex-col justify-between overflow-hidden border border-[var(--rule)] p-8 ${aspectRatio} ${className}`}
+      className={`relative flex w-full flex-col justify-between overflow-hidden border border-[var(--ink)]/15 p-8 ${aspectRatio} ${className}`}
       style={{
         backgroundColor: 'var(--paper)',
       }}
     >
       <div className="flex items-center justify-between">
         {fallbackSector && (
-          <span className="text-xs font-semibold tracking-wider text-neutral-500 uppercase">
+          <span className="text-xs font-semibold text-neutral-500">
             {fallbackSector}
           </span>
         )}
@@ -78,10 +78,10 @@ export const ImageSlot: React.FC<ImageSlotProps> = ({
         <h4 className="font-['Bricolage_Grotesque'] text-2xl font-bold tracking-tight text-[var(--ink)]">
           {fallbackTitle || alt}
         </h4>
-        <p className="mt-1 text-xs text-neutral-400">Archival record • HRS Group</p>
+        <p className="mt-1 text-xs text-neutral-500">Archival record · HRS Group</p>
       </div>
 
-      <div className="hairline-t pt-3 text-[11px] font-medium tracking-wider text-neutral-400 uppercase">
+      <div className="hairline-t pt-3 text-xs font-medium text-neutral-500">
         Visual asset awaiting release
       </div>
     </div>

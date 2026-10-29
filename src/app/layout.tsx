@@ -18,7 +18,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'HRS Group • Ahmedabad, Gujarat',
+  title: 'HRS Group · Ahmedabad, Gujarat',
   description:
     'Parent website for HRS Group: Built Environment, Retail, Food & Consumer, Hospitality & Leasing, and Services.',
 };

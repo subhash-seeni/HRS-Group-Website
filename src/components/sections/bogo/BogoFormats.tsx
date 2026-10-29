@@ -71,6 +71,8 @@ export const BogoFormats: React.FC = () => {
       className="relative w-full bg-[var(--paper)] py-24 sm:py-32 px-6 sm:px-8 lg:px-12 text-[var(--ink)] border-t border-[var(--ink)]/10"
       aria-label="BOGO retail formats and distribution"
     >
+      {/* Anchor targets for direct header and footer navigation */}
+      <div id="formats" className="absolute -top-24 pointer-events-none" aria-hidden="true" />
       <div className="mx-auto max-w-7xl">
         {/* Section Header */}
         <div className="mb-14 border-b border-[var(--ink)]/15 pb-6">
@@ -230,7 +232,7 @@ export const BogoFormats: React.FC = () => {
         </div>
 
         {/* BOGO Go Distribution Strip */}
-        <div className="border border-[var(--ink)]/20 bg-white p-6 sm:p-8">
+        <div id="distribution" className="scroll-mt-28 border border-[var(--ink)]/20 bg-white p-6 sm:p-8">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div className="flex items-start sm:items-center gap-6">
               {/* eslint-disable-next-line @next/next/no-img-element */}

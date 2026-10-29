@@ -34,22 +34,22 @@ const SECTOR_COLUMNS: SectorColumn[] = [
       {
         name: 'Hrishikesh Ventures',
         line: '13 residential & commercial developments in Ahmedabad',
-        href: '/businesses#hrishikesh-ventures',
+        href: '/businesses/hrishikesh-ventures',
       },
       {
         name: 'HRS Aluglaze Ltd',
         line: 'High-precision facade & fenestration engineering',
-        href: '/businesses#hrs-aluglaze',
+        href: '/businesses/hrs-aluglaze',
       },
       {
         name: 'Geotrix Pvt. Ltd.',
         line: 'Southern India facade operations in Bengaluru',
-        href: '/businesses#geotrix',
+        href: '/businesses/geotrix',
       },
       {
         name: 'School of Facade Technologies',
         line: 'Technical training for students, fabricators & architects',
-        href: '/businesses#school-of-facade-technologies',
+        href: '/businesses/school-of-facade-technologies',
       },
     ],
   },
@@ -86,17 +86,17 @@ const SECTOR_COLUMNS: SectorColumn[] = [
       {
         name: 'Hrishikesh Food Products',
         line: 'Clean spice milling & botanical processing in Bavla',
-        href: '/businesses#hrishikesh-food-products',
+        href: '/businesses/hrishikesh-food-products',
       },
       {
         name: 'Hrishikesh Consumer Products',
         line: 'Portfolio of 13 dedicated household brands',
-        href: '/businesses#hrishikesh-consumer-products',
+        href: '/businesses/hrishikesh-consumer-products',
       },
       {
         name: 'Manpras',
         line: 'Everyday neighbourhood grocery & packaged staples',
-        href: '/businesses#hrishikesh-consumer-products',
+        href: '/businesses/hrishikesh-consumer-products',
       },
     ],
   },
@@ -107,22 +107,22 @@ const SECTOR_COLUMNS: SectorColumn[] = [
       {
         name: 'FirstGen Pvt. Ltd.',
         line: 'Parent holding umbrella for commercial operations',
-        href: '/businesses#firstgen',
+        href: '/businesses/firstgen',
       },
       {
         name: 'FirstGen Assets',
         line: 'Commercial, office, retail & industrial leasing',
-        href: '/businesses#firstgen-assets',
+        href: '/businesses/firstgen-assets',
       },
       {
         name: 'FirstGen Hotels',
         line: 'Flight Stays & Amuktamalyada dining in Bengaluru',
-        href: '/businesses#firstgen-hotels',
+        href: '/businesses/firstgen-hotels',
       },
       {
         name: 'FirstGen Enterprises',
         line: 'The Bluprint by Builders Cafe & ShubhVista retail',
-        href: '/businesses#firstgen-enterprises',
+        href: '/businesses/firstgen-enterprises',
       },
     ],
   },
@@ -133,7 +133,7 @@ const SECTOR_COLUMNS: SectorColumn[] = [
       {
         name: 'Indian Brand House',
         line: 'Strategy, identity, content & digital marketing',
-        href: '/businesses#indian-brand-house',
+        href: '/businesses/indian-brand-house',
       },
     ],
   },
@@ -142,11 +142,14 @@ const SECTOR_COLUMNS: SectorColumn[] = [
 export const Header: React.FC = () => {
   const pathname = usePathname();
   const isHome = pathname === '/';
+  const isBogoPage = pathname.startsWith('/bogo');
 
-  // Navigation states
-  const [isScrolledPastHero, setIsScrolledPastHero] = useState(false);
+  // Navigation states: default to dark text for inner light pages (paper/white)
+  const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
-  const [tone, setTone] = useState<'light' | 'dark'>('light'); // 'light' means light text (dark bg), 'dark' means dark text (light bg)
+  const [tone, setTone] = useState<'light' | 'dark'>(() => {
+    return pathname === '/' || pathname.startsWith('/bogo') ? 'light' : 'dark';
+  });
   const [solidBg, setSolidBg] = useState<string>('transparent');
 
   // Mega panel & Mobile menu state
@@ -159,6 +162,59 @@ export const Header: React.FC = () => {
   const megaRef = useRef<HTMLDivElement>(null);
   const businessesButtonRef = useRef<HTMLButtonElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
+  const megaCloseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const openMega = useCallback(() => {
+    if (megaCloseTimeoutRef.current) {
+      clearTimeout(megaCloseTimeoutRef.current);
+      megaCloseTimeoutRef.current = null;
+    }
+    setIsMegaOpen(true);
+  }, []);
+
+  const closeMegaWithDelay = useCallback(() => {
+    if (megaCloseTimeoutRef.current) {
+      clearTimeout(megaCloseTimeoutRef.current);
+    }
+    megaCloseTimeoutRef.current = setTimeout(() => {
+      setIsMegaOpen(false);
+    }, 180);
+  }, []);
+
+  const toggleMega = useCallback(() => {
+    if (megaCloseTimeoutRef.current) {
+      clearTimeout(megaCloseTimeoutRef.current);
+      megaCloseTimeoutRef.current = null;
+    }
+    setIsMegaOpen((prev) => !prev);
+  }, []);
+
+  // Cleanup mega timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (megaCloseTimeoutRef.current) {
+        clearTimeout(megaCloseTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  // Close mega panel when clicking outside
+  useEffect(() => {
+    if (!isMegaOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        megaRef.current &&
+        !megaRef.current.contains(e.target as Node) &&
+        businessesButtonRef.current &&
+        !businessesButtonRef.current.contains(e.target as Node)
+      ) {
+        setIsMegaOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isMegaOpen]);
 
   // GSAP Reading Progress Bar
   useEffect(() => {
@@ -183,19 +239,11 @@ export const Header: React.FC = () => {
     return () => ctx.revert();
   }, []);
 
-  // Close menus on route change
-  useEffect(() => {
-    setIsMegaOpen(false);
-    setIsMobileOpen(false);
-  }, [pathname]);
-
   // Handle scroll detection, tone detection, and hide-on-scroll-down
   const handleScroll = useCallback(() => {
+    if (typeof window === 'undefined') return;
     const currentY = window.scrollY;
-    const heroThreshold = window.innerHeight - 80;
-
-    const isPastHero = currentY > heroThreshold;
-    setIsScrolledPastHero(isPastHero);
+    setIsScrolled(currentY > 15);
 
     // Hide/show behavior (only when mega panel is closed)
     if (!isMegaOpen && !isMobileOpen) {
@@ -207,49 +255,97 @@ export const Header: React.FC = () => {
     }
     lastScrollY.current = currentY;
 
-    // Detect section beneath header when past hero
-    if (isPastHero) {
-      // Find element directly below header center
-      const el = document.elementFromPoint(window.innerWidth / 2, 85);
-      const section = el?.closest('section');
-      const surface = section?.getAttribute('data-surface');
+    if (isHome) {
+      const heroThreshold = window.innerHeight - 80;
+      const isPastHero = currentY > heroThreshold;
 
-      if (surface === 'ink') {
-        setSolidBg('var(--ink)');
-        setTone('light');
-      } else if (surface === 'bogo-navy') {
-        setSolidBg('var(--bogo-navy)');
-        setTone('light');
-      } else if (surface === 'orange') {
-        setSolidBg('var(--hrs-orange)');
-        setTone('dark');
-      } else if (surface === 'white') {
-        setSolidBg('var(--white)');
-        setTone('dark');
+      if (isPastHero) {
+        const el = document.elementFromPoint(window.innerWidth / 2, 85);
+        const section = el?.closest('section');
+        const surface = section?.getAttribute('data-surface');
+
+        if (surface === 'ink') {
+          setSolidBg('var(--ink)');
+          setTone('light');
+        } else if (surface === 'bogo-navy') {
+          setSolidBg('var(--bogo-navy)');
+          setTone('light');
+        } else if (surface === 'orange') {
+          setSolidBg('var(--hrs-orange)');
+          setTone('dark');
+        } else if (surface === 'white') {
+          setSolidBg('var(--white)');
+          setTone('dark');
+        } else {
+          setSolidBg('var(--paper)');
+          setTone('dark');
+        }
       } else {
-        // default paper
-        setSolidBg('var(--paper)');
-        setTone('dark');
+        setSolidBg('transparent');
+        const docHeroTone = document.documentElement.getAttribute('data-hero-tone');
+        setTone(docHeroTone === 'dark' ? 'dark' : 'light');
       }
     } else {
-      setSolidBg('transparent');
-      // Read hero tone from document attribute if available
-      const docHeroTone = document.documentElement.getAttribute('data-hero-tone');
-      if (docHeroTone === 'dark') {
-        setTone('dark');
+      // Inner pages: detect section under header or top section
+      const el = document.elementFromPoint(window.innerWidth / 2, 85);
+      const section =
+        el?.closest('section') ||
+        document.querySelector('main section:first-of-type') ||
+        document.querySelector('section');
+      const surface = section?.getAttribute('data-surface');
+
+      const isDarkSurface = surface === 'ink' || surface === 'bogo-navy' || isBogoPage;
+
+      if (currentY <= 15) {
+        // At top of inner page: keep transparent background, but match text tone to section surface
+        setSolidBg('transparent');
+        setTone(isDarkSurface ? 'light' : 'dark');
       } else {
-        setTone('light');
+        // Scrolled down on inner page: adopt section background
+        if (surface === 'ink') {
+          setSolidBg('var(--ink)');
+          setTone('light');
+        } else if (surface === 'bogo-navy') {
+          setSolidBg('var(--bogo-navy)');
+          setTone('light');
+        } else if (surface === 'orange') {
+          setSolidBg('var(--hrs-orange)');
+          setTone('dark');
+        } else if (surface === 'white') {
+          setSolidBg('var(--white)');
+          setTone('dark');
+        } else {
+          setSolidBg('var(--paper)');
+          setTone('dark');
+        }
       }
     }
-  }, [isMegaOpen, isMobileOpen]);
+  }, [isHome, isBogoPage, isMegaOpen, isMobileOpen]);
+
+  // Route change listener: reset menus, clear hero tone on inner pages, re-evaluate tone
+  useEffect(() => {
+    setIsMegaOpen(false);
+    setIsMobileOpen(false);
+
+    if (!isHome && typeof document !== 'undefined') {
+      document.documentElement.removeAttribute('data-hero-tone');
+    }
+
+    // Immediate microtask re-check of surface tone
+    const timeout = setTimeout(() => {
+      handleScroll();
+    }, 20);
+
+    return () => clearTimeout(timeout);
+  }, [pathname, isHome, handleScroll]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
 
-    // Observe changes to data-hero-tone on <html>
+    // Observe changes to data-hero-tone on <html> (only active on homepage)
     const observer = new MutationObserver(() => {
-      if (window.scrollY <= window.innerHeight - 80) {
+      if (isHome && window.scrollY <= window.innerHeight - 80) {
         const docHeroTone = document.documentElement.getAttribute('data-hero-tone');
         setTone(docHeroTone === 'dark' ? 'dark' : 'light');
       }
@@ -264,7 +360,7 @@ export const Header: React.FC = () => {
       window.removeEventListener('scroll', handleScroll);
       observer.disconnect();
     };
-  }, [handleScroll]);
+  }, [isHome, handleScroll]);
 
   // Keyboard navigation & Escape key listener
   useEffect(() => {
@@ -306,12 +402,18 @@ export const Header: React.FC = () => {
     <>
       <header
         role="banner"
-        className={`fixed top-0 left-0 right-0 z-40 h-20 transition-transform duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-40 h-20 transition-all duration-300 ${
           isHidden ? '-translate-y-full' : 'translate-y-0'
+        } ${
+          isScrolled
+            ? tone === 'light'
+              ? 'border-b border-white/10 shadow-sm'
+              : 'border-b border-[var(--ink)]/10 shadow-sm'
+            : ''
         }`}
         style={{
           backgroundColor: isMegaOpen ? 'var(--ink)' : solidBg,
-          transition: 'background-color 200ms ease, transform 300ms ease',
+          transition: 'background-color 200ms ease, transform 300ms ease, border-color 200ms ease',
         }}
       >
         <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-6 lg:px-8">
@@ -346,11 +448,15 @@ export const Header: React.FC = () => {
             </Link>
 
             {/* Businesses Trigger with mega panel */}
-            <div className="relative">
+            <div
+              className="relative"
+              onMouseEnter={openMega}
+              onMouseLeave={closeMegaWithDelay}
+            >
               <button
                 ref={businessesButtonRef}
                 type="button"
-                onClick={() => setIsMegaOpen(!isMegaOpen)}
+                onClick={toggleMega}
                 aria-expanded={isMegaOpen}
                 aria-haspopup="true"
                 aria-controls="businesses-mega-panel"
@@ -368,6 +474,15 @@ export const Header: React.FC = () => {
                 />
               </button>
             </div>
+
+            <Link
+              href="/projects"
+              className={`text-sm font-semibold tracking-tight transition-colors ${
+                isMegaOpen ? 'text-neutral-300 hover:text-white' : `${textColorClass} ${navHoverBgClass}`
+              }`}
+            >
+              Projects
+            </Link>
 
             {/* BOGO with orange dot */}
             <Link
@@ -434,17 +549,19 @@ export const Header: React.FC = () => {
         </div>
 
         {/* =========================================================================
-            BUSINESSES MEGA PANEL (Full-width, 5 columns, 400ms clip reveal)
+            BUSINESSES MEGA PANEL (Full-width, 5 columns, smooth fade & slide)
            ========================================================================= */}
         <div
           id="businesses-mega-panel"
           ref={megaRef}
           role="region"
           aria-label="Businesses Directory"
-          className={`absolute top-20 left-0 right-0 w-full overflow-hidden border-b-2 border-white/20 bg-[var(--ink)] text-white transition-[clip-path,opacity] duration-400 ease-out ${
+          onMouseEnter={openMega}
+          onMouseLeave={closeMegaWithDelay}
+          className={`absolute top-full left-0 right-0 w-full overflow-hidden border-b border-white/20 bg-[var(--ink)] text-white shadow-2xl transition-all duration-300 ease-out z-50 ${
             isMegaOpen
-              ? 'opacity-100 pointer-events-auto [clip-path:inset(0%_0%_0%_0%)]'
-              : 'opacity-0 pointer-events-none [clip-path:inset(0%_0%_100%_0%)]'
+              ? 'opacity-100 translate-y-0 pointer-events-auto visible'
+              : 'opacity-0 -translate-y-2 pointer-events-none invisible'
           }`}
         >
           <div className="mx-auto max-w-7xl px-6 py-10 lg:px-8">
@@ -599,6 +716,14 @@ export const Header: React.FC = () => {
             </div>
 
             <Link
+              href="/projects"
+              onClick={() => setIsMobileOpen(false)}
+              className="block font-['Bricolage_Grotesque'] text-3xl font-extrabold tracking-tight text-white hover:text-[var(--hrs-orange)]"
+            >
+              Projects
+            </Link>
+
+            <Link
               href={bogoLink}
               onClick={() => setIsMobileOpen(false)}
               className="flex items-center gap-3 font-['Bricolage_Grotesque'] text-3xl font-extrabold tracking-tight text-white hover:text-[var(--hrs-orange)]"
@@ -621,6 +746,30 @@ export const Header: React.FC = () => {
               className="block font-['Bricolage_Grotesque'] text-3xl font-extrabold tracking-tight text-white hover:text-[var(--hrs-orange)]"
             >
               Careers
+            </Link>
+
+            <Link
+              href="/sustainability"
+              onClick={() => setIsMobileOpen(false)}
+              className="block font-['Bricolage_Grotesque'] text-xl font-bold tracking-tight text-neutral-300 hover:text-[var(--hrs-orange)]"
+            >
+              Sustainability
+            </Link>
+
+            <Link
+              href="/media"
+              onClick={() => setIsMobileOpen(false)}
+              className="block font-['Bricolage_Grotesque'] text-xl font-bold tracking-tight text-neutral-300 hover:text-[var(--hrs-orange)]"
+            >
+              Media Center
+            </Link>
+
+            <Link
+              href="/partners"
+              onClick={() => setIsMobileOpen(false)}
+              className="block font-['Bricolage_Grotesque'] text-xl font-bold tracking-tight text-neutral-300 hover:text-[var(--hrs-orange)]"
+            >
+              Partner Desk
             </Link>
           </div>
 

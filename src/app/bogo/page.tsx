@@ -12,11 +12,11 @@ const BogoCards = dynamic(() => import('@/components/sections/bogo/BogoCards'));
 const BogoTechRoadmap = dynamic(() => import('@/components/sections/bogo/BogoTechRoadmap'));
 
 export const metadata: Metadata = {
-  title: 'BOGO • Retail Ecosystem & Multi-Format Destinations • HRS Group',
+  title: 'BOGO · Retail Ecosystem · HRS Group',
   description:
     'A featured brand of HRS Group. BOGO unites multi-format retail destinations, eleven specialized consumer brands, direct distribution, and intelligent retail technology.',
   openGraph: {
-    title: 'BOGO • Retail Ecosystem • HRS Group',
+    title: 'BOGO · Retail Ecosystem · HRS Group',
     description:
       'Multi-format retail destinations, eleven category brands, and intelligent retail infrastructure across Gujarat and western India.',
     url: 'https://hrsgroup.in/bogo/',

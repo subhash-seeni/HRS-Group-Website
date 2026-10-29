@@ -26,7 +26,7 @@ export interface SiteConfig {
 export const siteConfig: SiteConfig = {
   name: 'HRS Group',
   shortName: 'HRS',
-  tagline: 'Diversified Business Group • Ahmedabad',
+  tagline: 'Diversified Business Group · Ahmedabad',
   description:
     'Parent website for HRS Group: Built Environment, Retail, Food & Consumer, Hospitality & Leasing, and Brand Services headquartered in Ahmedabad, Gujarat.',
   url: 'https://hrsgroup.in',

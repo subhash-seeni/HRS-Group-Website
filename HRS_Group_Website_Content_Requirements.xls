@@ -1,0 +1,625 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>HRS Group Web Development</Author>
+  <LastAuthor>HRS Group</LastAuthor>
+  <Created>2026-10-29T15:00:00Z</Created>
+  <Company>HRS Group</Company>
+  <Version>16.00</Version>
+ </DocumentProperties>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Top"/>
+   <Borders/>
+   <Font ss:FontName="Segoe UI" ss:Size="10" ss:Color="#0E0E10"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="HeaderRow">
+   <Alignment ss:Vertical="Center" ss:Horizontal="Left" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2" ss:Color="#F58220"/>
+   </Borders>
+   <Font ss:FontName="Segoe UI" ss:Size="11" ss:Color="#FFFFFF" ss:Bold="1"/>
+   <Interior ss:Color="#0E0E10" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="CategoryCell">
+   <Alignment ss:Vertical="Top"/>
+   <Font ss:FontName="Segoe UI" ss:Size="10" ss:Color="#15852C" ss:Bold="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E5E7EB"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="PageNameCell">
+   <Alignment ss:Vertical="Top"/>
+   <Font ss:FontName="Segoe UI" ss:Size="10.5" ss:Color="#0E0E10" ss:Bold="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E5E7EB"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="RouteCell">
+   <Alignment ss:Vertical="Top"/>
+   <Font ss:FontName="Consolas" ss:Size="9.5" ss:Color="#4B5563"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E5E7EB"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="HyperlinkCell">
+   <Alignment ss:Vertical="Top"/>
+   <Font ss:FontName="Segoe UI" ss:Size="9.5" ss:Color="#F58220" ss:Underline="Single"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E5E7EB"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="OwnerCell">
+   <Alignment ss:Vertical="Top"/>
+   <Font ss:FontName="Segoe UI" ss:Size="9.5" ss:Color="#13477A" ss:Bold="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E5E7EB"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="WrapTextCell">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Font ss:FontName="Segoe UI" ss:Size="9.5" ss:Color="#374151"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E5E7EB"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="StatusCell">
+   <Alignment ss:Vertical="Top" ss:Horizontal="Center"/>
+   <Font ss:FontName="Segoe UI" ss:Size="9.5" ss:Color="#15803D" ss:Bold="1"/>
+   <Interior ss:Color="#F0FDF4" ss:Pattern="Solid"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E5E7EB"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="RulesHeader">
+   <Alignment ss:Vertical="Center" ss:Horizontal="Left"/>
+   <Font ss:FontName="Segoe UI" ss:Size="12" ss:Color="#FFFFFF" ss:Bold="1"/>
+   <Interior ss:Color="#F58220" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="RulesBanned">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Font ss:FontName="Segoe UI" ss:Size="10" ss:Color="#B91C1C" ss:Bold="1"/>
+   <Interior ss:Color="#FEF2F2" ss:Pattern="Solid"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#FCA5A5"/>
+   </Borders>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Content Requirements Matrix">
+  <Table ss:ExpandedColumnCount="9" x:FullColumns="1" x:FullRows="1" ss:DefaultRowHeight="18">
+   <Column ss:Width="110"/>
+   <Column ss:Width="160"/>
+   <Column ss:Width="130"/>
+   <Column ss:Width="260"/>
+   <Column ss:Width="160"/>
+   <Column ss:Width="340"/>
+   <Column ss:Width="220"/>
+   <Column ss:Width="240"/>
+   <Column ss:Width="110"/>
+   <Row ss:Height="28" ss:StyleID="HeaderRow">
+    <Cell><Data ss:Type="String">Category</Data></Cell>
+    <Cell><Data ss:Type="String">Page Name</Data></Cell>
+    <Cell><Data ss:Type="String">Route</Data></Cell>
+    <Cell><Data ss:Type="String">Live GitHub Deployment Link</Data></Cell>
+    <Cell><Data ss:Type="String">Primary Content Owner</Data></Cell>
+    <Cell><Data ss:Type="String">Content Needed from Writing Team</Data></Cell>
+    <Cell><Data ss:Type="String">Specific Figures / Metrics Needed</Data></Cell>
+    <Cell><Data ss:Type="String">Media / Photography Requirements</Data></Cell>
+    <Cell><Data ss:Type="String">Status</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Core Corporate</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Homepage</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Corporate Marketing / Leadership</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Rolling hero statements (facades, homes, masalas, brands, stays, identities); parent group value proposition; 5 sector preview blurbs; verified key enterprise figures (founding year 2010, 4 operating hubs, manufacturing capacity).</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Founding year (2010), total real estate developments (14), Sanand plant monthly facade capacity (18,000 sq m), Bavla milling capacity (3,200 MT).</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">High-res Ahmedabad skyline banner, corporate lobby photo, interactive hero parametric mesh theme.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Core Corporate</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">About Us</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/about</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/about/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/about/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Corporate Communications / HR</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">16-year corporate narrative (2010 founding to multi-sector enterprise); 6 core value descriptions (Faith, Trust, Foundation, People, Process, Service); chronological milestones timeline (2010, 2014, 2018, 2021, 2024); bios for 7 executive directors.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">16 operational years, 7 executive directors, 4 physical campuses.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">7 leadership portrait headshots (high-contrast, professional attire), corporate office lobby photo, Sanand campus exterior.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Core Corporate</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Businesses Directory</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/businesses</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/businesses/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/businesses/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Group Business Development</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Overview paragraph for each of the 5 core operating sectors; 1-sentence descriptor for each of the 11 operating companies; summary of 4 physical operating campuses.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Live metric chips for each company (capacities, territory, floor area).</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Hero cards for all operating entities with 16:10 photography; campus photos of Sanand, Bavla, Ahmedabad, and Bengaluru.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Core Corporate</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Developments &amp; Facade Portfolio</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/projects</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/projects/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/projects/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Hrishikesh Ventures &amp; Aluglaze Project Desks</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Project profiles for 14 Hrishikesh Ventures residential/commercial developments + 2 flagship facade projects; architectural typologies (residential, commercial, joint-venture, facade engineering); completion year or construction stage; unit counts and scale.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">16 projects, floor counts (11 to 21 floors), unitised curtain wall areas (18,500 sq m and 24,000 sq m), structural wind load ratings (2.2 kPa).</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">High-resolution architectural renders and civil site construction photos (16:10 aspect ratio).</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Core Corporate</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Sustainability &amp; Operational Governance</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/sustainability</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/sustainability/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/sustainability/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Technical Quality &amp; EHS Desks</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Detailed copy for 3 operational sustainability pillars: 1. High-performance building skins (thermal breaks, SHGC, HVAC energy cuts); 2. Clean botanical processing (chemical-free cold milling, optical sortation, allergen control); 3. Vocational trade safety (School of Facade Technologies fall-arrest rigging, crane safety).</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">HVAC load cut percentage (up to 28%), Solar Heat Gain Coefficient (&lt; 0.25), cold milling temperature (&lt; 42°C), volatile oil retention (&gt; 99.2%), annual certified technicians (80+).</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Close-up of double-glazed curtain wall thermal break, stone milling bay at Bavla, facade training workshop benches.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Core Corporate</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Media Center &amp; Press Kit</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/media</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/media/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/media/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">PR &amp; Corporate Communications</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Enterprise factsheet at a glance; approved corporate spokesperson bios &amp; quote authorization; press contact protocol (email, telephone, office hours); brand guidelines summary for editorial publishers.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Key group milestones, facility sizes, annual turnover tier (if disclosable), leadership tenure.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Downloadable vector SVG and high-resolution PNG logos; high-res editorial facility photography archive.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Core Corporate</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Vendor &amp; Partner Desk</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/partners</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/partners/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/partners/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Procurement &amp; Supply Chain Desk</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Procurement requirements across 4 tracks: Industrial extrusions (6063-T6), float glass, agricultural whole spices (APMC), BOGO retail distribution products, and contract logistics; 4-step onboarding pathway; vendor compliance expectations.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Standard 30-day payment turnaround SLA, quality testing thresholds.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Track icons and material inspection photography.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Core Corporate</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Careers Board</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/careers</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/careers/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/careers/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Human Resources / Talent Acquisition</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Overview of 4 operating work environments (Engineering Bay, Botanical Lab, Retail Floor, Hospitality Hub); employee testimonial quotes; summary of core employee welfare benefits; active job count.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Active opening count, campus location badges, experience ranges.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Workplace photography of technicians at CNC machinery, food lab, retail floor, and front office.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Core Corporate</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Contact Us &amp; Commercial Inquiries</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/contact</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/contact/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/contact/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Operations Secretariat</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Full physical postal addresses, telephone numbers, and operating hours for 4 campuses (Ahmedabad HQ, Bengaluru Hub, Sanand Works, Bavla Campus); direct email routing for 6 commercial desks; 4 detailed commercial FAQs.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">1 working day commercial inquiry response SLA.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Facility photos for all 4 physical campuses.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Core Corporate</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">News &amp; Announcements Index</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/news</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/news/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/news/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Editorial / Communications</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Lead featured article summary; list of operational disclosures and announcements with dates, locations, and sector tags.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Dates, panel output figures, civil milestones.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Editorial preview photography for all articles (16:10 aspect ratio).</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Core Corporate</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Privacy Policy</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/privacy</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/privacy/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/privacy/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Legal &amp; Compliance Desk</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Comprehensive corporate data governance clauses covering commercial tenders, CAD drawings, job applications, and analytics; data retention periods; DPDP statutory compliance details; corporate secretariat postal contact.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Statutory retention periods (e.g. 12 months for CVs, project duration for drawings).</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Structured data matrix format.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Core Corporate</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Terms of Use</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/terms</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/terms/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/terms/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Legal &amp; Compliance Desk</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Registered trademarks protection (HRS Group, Aluglaze, Ventures, BOGO, FirstGen); architectural and engineering specifications disclaimer; quotation validity terms (30 days); exclusive jurisdiction of Ahmedabad courts.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">30-day tender quote validity.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Structured clause cards with icon markers.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Operating Business</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Hrishikesh Ventures</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/businesses/hrishikesh-ventures</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/businesses/hrishikesh-ventures/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/businesses/hrishikesh-ventures/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Hrishikesh Ventures Desk</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Detailed profiles for 13 live developments (H1, H2, H3, H4, H6, H7, H10, W1, Kishor Park, Hrishikesh Villa, Hrishikesh 1, 2, 3) + joint venture H9 on Sindhu Bhavan Road; architectural philosophy; RERA compliance numbers; commercial leasing inquiries protocol.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">13 live projects, 1 JV, residential unit counts, commercial office sq ft.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">High-res renders of residential towers, floor plans, and construction topping-out photos.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Operating Business</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">HRS Aluglaze Ltd</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/businesses/hrs-aluglaze</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/businesses/hrs-aluglaze/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/businesses/hrs-aluglaze/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">HRS Aluglaze Engineering Desk</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Sanand manufacturing plant details (120,000 sq ft, 5-axis CNC machining, automated unitised panel assembly line); 4 engineered facade systems (Unitised, Semi-unitised, Spider glazing, Fin louvres); acoustic and thermal parameters; CWCT water test certifications.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">18,000 sq m monthly capacity (450,000 sq m annual), 38-storey tower capability, 0.5mm fabrication tolerances.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Sanand factory exterior, CNC milling lines, close-up of structural silicone and double-glazed curtain wall.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Operating Business</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Geotrix Pvt. Ltd.</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/businesses/geotrix</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/businesses/geotrix/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/businesses/geotrix/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Geotrix Southern Hub Desk</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Southern India facade operating scope (Bengaluru, Chennai, Hyderabad); on-site crane logistics and high-rise installation methods; coordination with Sanand plant; landmark commercial tech park project references.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Kadubeesanahalli hub address, 24,000 sq m commercial project scale.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Commercial IT corridor curtain wall installation, crane hoisting facade units.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Operating Business</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">School of Facade Technologies</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/businesses/school-of-facade-technologies</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/businesses/school-of-facade-technologies/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/businesses/school-of-facade-technologies/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Academic Director / Training Desk</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Detailed breakdown of 3 audience tracks: 1. Students &amp; fresh entrants; 2. Site installers &amp; fabricators; 3. Architects &amp; structural engineers; course syllabus (sealant chemistry, wind loading, seismic displacement, acoustic testing); admission cycles and placement partners.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">42 certified graduates per cohort, 70% practical workshop ratio, course durations.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Classroom benches, fabrication workshop, pressure-testing test rigs.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Operating Business</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">BOGO (Retail Ecosystem)</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/bogo</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/bogo/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/bogo/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">BOGO Retail Strategy Desk</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Master profile for BOGO retail ecosystem: 5 Pillars (Brands, Technology, Partnerships, Distribution, Retail); 3 retail formats (BOGO Square 10,000+ sq ft, BOGO Bazaar 4,000–6,000 sq ft, BOGO Mini ~2,000 sq ft); BOGO Go distribution supply grid; Companion loyalty program; 11 category brands.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Format square footages (10k+, 4k-6k, 2k), brand counts (11), planned store rollout figures.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">BOGO 3D store concept renders, category logos, companion loyalty cards mockups.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Operating Business</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Hrishikesh Food Products</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/businesses/hrishikesh-food-products</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/businesses/hrishikesh-food-products/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/businesses/hrishikesh-food-products/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Food Processing Operations Desk</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Bavla milling campus infrastructure details; 3 operating pathways: 1. Job work (stone milling &amp; pouch packaging for institutional clients); 2. White labelling (custom supermarket spice packaging); 3. Own product lines; quality control and BRCGS global food safety audit ratings.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">3,200 metric tonnes milling capacity, cold stone milling &lt; 42°C, BRCGS Grade A audit rating.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Whole spices on stone, automated optical sorting bay, cleanroom packaging line.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Operating Business</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Hrishikesh Consumer Products</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/businesses/hrishikesh-consumer-products</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/businesses/hrishikesh-consumer-products/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/businesses/hrishikesh-consumer-products/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">FMCG Brand Management Desk</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Manpras neighbourhood grocery store model (inspired by Magson &amp; Falguni Gruh Udhyog); portfolio of 13 dedicated packaged consumer brands (6 active: Manpras, Snackshot, Antrah, Basic Essentials, Gush, Daily Pump; 7 upcoming: Biscbite, Mood Beans, The Frozen Palette, The Nut Tribe, Defumes, Purple Cow, Raspberry Rhinoceros); product categories and pack sizes.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">13 consumer brands, retail store square footages, SKU counts.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Manpras retail store facade, packaged spice boxes, snack pouches, branding logos.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Operating Business</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">FirstGen Pvt. Ltd.</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/businesses/firstgen</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/businesses/firstgen/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/businesses/firstgen/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">FirstGen Corporate Secretariat</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Parent holding umbrella overview for commercial hospitality and leasing operations; capital structure and physical asset ownership model.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Asset portfolio size, regional footprint in Gujarat and Karnataka.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Corporate visual brand mark, commercial architecture.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Operating Business</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">FirstGen Assets</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/businesses/firstgen-assets</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/businesses/firstgen-assets/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/businesses/firstgen-assets/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Commercial Leasing Desk</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Breakdown of 4 leasing verticals: Commercial office spaces, ground-floor retail showrooms, warehousing &amp; industrial parks, construction equipment &amp; machinery leasing; lease terms and tenant vetting standards.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Total leasable area, occupancy rates, average lease terms.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Commercial building exteriors, warehouse interior bays, machinery fleet.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Operating Business</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">FirstGen Hotels</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/businesses/firstgen-hotels</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/businesses/firstgen-hotels/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/businesses/firstgen-hotels/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Hospitality Operations Desk</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Flight Stays serviced apartments (Kadubeesanahalli, ORR Bengaluru; extended-stay engineering suites, high-speed fibre, housekeeping); Amuktamalyada authentic Telugu vegetarian culinary establishment (crispy gare, steamed upma, rava idli, golden pesarattu, ghee roast dosas, regional meals).</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">36-key residential suites, restaurant seating capacity, distance to tech parks (2km).</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Serviced apartment bedroom/desk photo, traditional South Indian breakfast spread.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Operating Business</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">FirstGen Enterprises</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/businesses/firstgen-enterprises</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/businesses/firstgen-enterprises/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/businesses/firstgen-enterprises/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Retail &amp; Experience Desk</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">The Bluprint by Builders Cafe (cafe, co-working, and building material experience gallery for architects, contractors, and developers); ShubhVista (specialized retail showroom for luxury building materials, architectural hardware, and sanitary fittings).</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Experience gallery square footage, co-working desk capacity, vendor product count.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Cafe co-working interior, architectural material sample gallery, hardware display.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Operating Business</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Indian Brand House</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/businesses/indian-brand-house</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/businesses/indian-brand-house/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/businesses/indian-brand-house/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Creative Director / Agency Desk</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Overview of 3 agency pillars: 1. Brand Strategy &amp; Visual Identity; 2. Packaging &amp; Print Systems; 3. Digital &amp; Performance Marketing; portfolio case studies across FMCG, retail, and industrial manufacturing.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Campaign case study metrics, client industry sectors.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Creative studio desks, packaging prototypes, typography and brand identity boards.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Career Position</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Senior Structural Facade Engineer</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/careers/senior-structural-facade-engineer</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/careers/senior-structural-facade-engineer/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/careers/senior-structural-facade-engineer/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">HRS Aluglaze Engineering HR</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Role summary (wind load calculations, unitised panel engineering), required experience (6-10 years, BE/MTech Structural), software proficiency (AutoCAD, Strand7, RFEM), interview process, compensation range.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">6-10 years experience, Sanand/Ahmedabad location.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">HRS Aluglaze Sanand engineering bay photo.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Career Position</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Facade Estimator &amp; Cost Engineer</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/careers/facade-estimator-cost-engineer</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/careers/facade-estimator-cost-engineer/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/careers/facade-estimator-cost-engineer/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">HRS Aluglaze Commercial HR</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Bill of quantities preparation, aluminium extrusion index pricing, glass procurement tendering, tender bid submission management.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">4-7 years experience, Bodakdev Ahmedabad location.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Corporate office engineering desk photo.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Career Position</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Site Installation Manager</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/careers/site-installation-manager</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/careers/site-installation-manager/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/careers/site-installation-manager/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Geotrix Bengaluru HR</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Crane rigging, tower cradle facade panel installation, site safety supervision, high-rise wind monitoring along Outer Ring Road corridor.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">7-12 years experience, Kadubeesanahalli Bengaluru location.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">High-rise tower construction site photo.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Career Position</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">CNC Machining Center Operator</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/careers/cnc-machining-center-operator</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/careers/cnc-machining-center-operator/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/careers/cnc-machining-center-operator/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Sanand Works Plant HR</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Operation of 5-axis Elumatec CNC milling centers, profile cutting tolerances to 0.5mm, tool calibration, preventive maintenance.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">3-5 years experience, ITI/Diploma Mechanical, Sanand GIDC.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Sanand plant CNC machine bay photo.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Career Position</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Quality Control Chemist &amp; Food Technologist</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/careers/quality-control-chemist-food-technologist</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/careers/quality-control-chemist-food-technologist/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/careers/quality-control-chemist-food-technologist/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Hrishikesh Food Products HR</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Microbiological testing, moisture content analysis, volatile oil retention verification, BRCGS audit documentation adherence at Bavla mill.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">3-6 years experience, BSc/MSc Food Tech/Chemistry, Bavla.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Food quality laboratory testing photo.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Career Position</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Spice Processing Plant Supervisor</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/careers/spice-processing-plant-supervisor</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/careers/spice-processing-plant-supervisor/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/careers/spice-processing-plant-supervisor/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Hrishikesh Food Products HR</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Stone pulverizer milling line supervision, dust extraction monitoring, shift worker allocation, raw material intake logging.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">5-8 years experience, Bavla industrial belt.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Spice milling processing lines photo.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Career Position</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Brand Manager · Consumer Goods</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/careers/brand-manager-consumer-goods</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/careers/brand-manager-consumer-goods/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/careers/brand-manager-consumer-goods/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Consumer Products Marketing HR</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Brand marketing strategy for Manpras and FMCG portfolio (Snackshot, Antrah, Gush); pack design coordination, retailer trade promotions.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">4-7 years FMCG experience, MBA Marketing, Ahmedabad.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Manpras brand design studio photo.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Career Position</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Retail Store Operations Manager · BOGO</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/careers/retail-store-operations-manager-bogo</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/careers/retail-store-operations-manager-bogo/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/careers/retail-store-operations-manager-bogo/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">BOGO Retail HR</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Floor management for 10,000+ sq ft BOGO Square flagship; stock replenishment, POS billing governance, customer service and staff leadership.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">6-10 years retail store management experience, Ahmedabad.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Modern retail store aisle photo.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Career Position</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Serviced Apartment Operations Lead · Flight Stays</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/careers/serviced-apartment-operations-lead</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/careers/serviced-apartment-operations-lead/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/careers/serviced-apartment-operations-lead/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">FirstGen Hospitality HR</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Guest relations for extended-stay corporate engineering teams, housekeeping quality control, vendor maintenance, OTA listing management.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">4-8 years hospitality experience, Kadubeesanahalli Bengaluru.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Flight Stays reception and suite photo.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Career Position</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Civil Project Engineer · Residential</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/careers/civil-project-engineer-residential</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/careers/civil-project-engineer-residential/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/careers/civil-project-engineer-residential/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Hrishikesh Ventures HR</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">RCC frame inspection, concrete slump testing, contractor billing verification, structural schedule tracking for residential towers.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">4-8 years civil construction experience, BE Civil, Ahmedabad.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Hrishikesh Ventures residential tower site photo.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">Career Position</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Brand Identity &amp; Visual Designer</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/careers/brand-identity-visual-designer</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/careers/brand-identity-visual-designer/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/careers/brand-identity-visual-designer/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Indian Brand House HR</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Vector logo design, packaging dieline design, brand identity systems, typography guidelines for FMCG and retail ecosystem brands.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">3-6 years graphic design experience, portfolio required, Ahmedabad.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Creative design studio workstation photo.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">News &amp; Announcements</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">HRS Aluglaze Sanand Line Expansion</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/news/hrs-aluglaze-expands-sanand-production-line</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/news/hrs-aluglaze-expands-sanand-production-line/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/news/hrs-aluglaze-expands-sanand-production-line/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">HRS Aluglaze PR Desk</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Official announcement of second automated unitised panel assembly line installation at Sanand plant; technical tolerances; civil delivery timelines for 3 commercial towers in Ahmedabad and Surat.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Monthly output increase to 18,000 sq m, 0.5mm tolerances.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Sanand plant assembly line photo.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">News &amp; Announcements</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Hrishikesh Ventures H10 Structural Topping Out</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/news/hrishikesh-ventures-tops-out-h10-commercial-centre</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/news/hrishikesh-ventures-tops-out-h10-commercial-centre/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/news/hrishikesh-ventures-tops-out-h10-commercial-centre/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Hrishikesh Ventures PR Desk</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Completion of 14-storey structural topping out of H10 commercial building on SG Highway, Bodakdev; double-glazed facade schedule; tenant handover date mid-2027.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">14 storeys, 180,000 sq ft office area, handover mid-2027.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">H10 structural topping-out photo overlooking SG Highway.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">News &amp; Announcements</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">BOGO Square Flagship Announcement</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/news/bogo-square-flagship-announced-ahmedabad</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/news/bogo-square-flagship-announced-ahmedabad/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/news/bogo-square-flagship-announced-ahmedabad/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">BOGO Retail PR Desk</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Unveiling of BOGO Square inaugural flagship retail destination planned for western Ahmedabad; multi-format layout housing 11 category brands, dining, and fulfillment hub.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">10,000+ sq ft format, western Ahmedabad location.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">BOGO Square architectural 3D exterior render.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">News &amp; Announcements</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">School of Facade Technologies 6th Cohort Graduation</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/news/school-of-facade-technologies-graduates-sixth-cohort</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/news/school-of-facade-technologies-graduates-sixth-cohort/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/news/school-of-facade-technologies-graduates-sixth-cohort/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">School of Facade Technologies Desk</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Certification ceremony for 42 structural facade engineers, supervisors, and fabricators; 5-month intensive curriculum summary; industry placement rate.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">42 graduates certified, 100% industry placement across Gujarat, Maharashtra, Karnataka.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Graduation ceremony and training workshop photo.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">News &amp; Announcements</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">FirstGen Hotels Flight Stays Annex Opening</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/news/firstgen-hotels-opens-flight-stays-annex-bengaluru</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/news/firstgen-hotels-opens-flight-stays-annex-bengaluru/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/news/firstgen-hotels-opens-flight-stays-annex-bengaluru/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">FirstGen Hospitality PR Desk</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Launch of 36-unit serviced residential annex in Kadubeesanahalli near Outer Ring Road tech campuses; corporate extended-stay facilities for visiting engineering consultants.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">36 keys, 2km to major tech parks.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Flight Stays annex building and serviced apartment interior photo.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="1">
+    <Cell ss:StyleID="CategoryCell"><Data ss:Type="String">News &amp; Announcements</Data></Cell>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Hrishikesh Food Products BRCGS Certification</Data></Cell>
+    <Cell ss:StyleID="RouteCell"><Data ss:Type="String">/news/hrishikesh-food-products-attains-brcgs-certification</Data></Cell>
+    <Cell ss:StyleID="HyperlinkCell" ss:HRef="https://subhash-seeni.github.io/HRS-Group-Website/news/hrishikesh-food-products-attains-brcgs-certification/"><Data ss:Type="String">https://subhash-seeni.github.io/HRS-Group-Website/news/hrishikesh-food-products-attains-brcgs-certification/</Data></Cell>
+    <Cell ss:StyleID="OwnerCell"><Data ss:Type="String">Hrishikesh Food Products PR Desk</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Audit confirmation of BRCGS Global Standard for Food Safety certification for Bavla processing and spice milling plant; botanical traceability protocols; expansion into private label export contracts.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">BRCGS Global Food Safety Standard, Bavla Ahmedabad district.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">BRCGS audit inspection at Bavla spice milling bay.</Data></Cell>
+    <Cell ss:StyleID="StatusCell"><Data ss:Type="String">Ready for copy review</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Layout x:Orientation="Landscape"/>
+   </PageSetup>
+   <Selected/>
+   <FreezePanes/>
+   <FrozenNoSplit/>
+   <SplitPane>1</SplitPane>
+   <SplitHorizontal>1</SplitHorizontal>
+   <TopRowBottomPane>1</TopRowBottomPane>
+   <ActivePane>2</ActivePane>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Writing Rules & Banned Words">
+  <Table ss:ExpandedColumnCount="3" x:FullColumns="1" x:FullRows="1" ss:DefaultRowHeight="20">
+   <Column ss:Width="180"/>
+   <Column ss:Width="360"/>
+   <Column ss:Width="340"/>
+   <Row ss:Height="26" ss:StyleID="RulesHeader">
+    <Cell><Data ss:Type="String">Rule Category</Data></Cell>
+    <Cell><Data ss:Type="String">Guideline / Instruction</Data></Cell>
+    <Cell><Data ss:Type="String">Mandatory Standard</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Brand Tone</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Modern, confident, colourful and a little playful, like a contemporary brand site. Never read like a SaaS startup or generic corporate template.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Plain, specific language. No slogans for headings where a clear statement will do.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Case Convention</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Sentence case everywhere across all headings, buttons, tabs, and tables.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">NO uppercase tracked eyebrows. NO Title Case in subheadings.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="RulesBanned"><Data ss:Type="String">STRICTLY BANNED WORDS</Data></Cell>
+    <Cell ss:StyleID="RulesBanned"><Data ss:Type="String">unlock, elevate, empower, seamless, cutting-edge, state-of-the-art, innovative, leverage, robust, holistic, synergy, journey, world-class, next-generation, end-to-end, passionate</Data></Cell>
+    <Cell ss:StyleID="RulesBanned"><Data ss:Type="String">Also banned: &apos;not just X but Y&apos;, &apos;where X meets Y&apos;. These are corporate clichés.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Punctuation</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">NO em dashes (&apos;—&apos;). Use standard commas, colons, or middle dots (&apos;·&apos;). NO exclamation marks (&apos;!&apos;).</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Zero exclamation marks allowed across the entire website.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="PageNameCell"><Data ss:Type="String">Numerals &amp; Facts</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Use tabular lining figures for all numbers, years, metrics, and floor counts.</Data></Cell>
+    <Cell ss:StyleID="WrapTextCell"><Data ss:Type="String">Specific realistic details in Ahmedabad, Gujarat, and Bengaluru. No &apos;lorem ipsum&apos;, &apos;placeholder&apos;, or &apos;TBD&apos;.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="RulesBanned"><Data ss:Type="String">Scope Exclusions</Data></Cell>
+    <Cell ss:StyleID="RulesBanned"><Data ss:Type="String">DO NOT include FirstGen QSR, Quantum Build, or any redevelopment arm.</Data></Cell>
+    <Cell ss:StyleID="RulesBanned"><Data ss:Type="String">DO NOT hardcode a count of companies in any prose copy.</Data></Cell>
+   </Row>
+  </Table>
+ </Worksheet>
+</Workbook>

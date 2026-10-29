@@ -32,7 +32,7 @@ export interface BogoProgram {
   headline: string;
   summary: string;
   pillars: { title: string; desc: string }[];
-  journey?: { step: string; title: string; desc: string }[];
+  phases?: { step: string; title: string; desc: string }[];
   benefits?: { title: string; desc: string }[];
   vision: string;
   logoPath: string;
@@ -138,7 +138,7 @@ export const bogoContent = {
         },
         {
           title: 'Powered by Technology',
-          desc: 'Smart digital solutions enhance convenience, connected experiences, and transparent shopping journeys.',
+          desc: 'Smart digital solutions enhance convenience, connected experiences, and transparent shopping visits.',
         },
         {
           title: 'A Platform for Growth',
@@ -636,7 +636,7 @@ export const bogoContent = {
         },
       ],
       vision:
-        'To build a trusted learning destination that empowers students, teachers, and curious minds through dependable stationery and educational tools.',
+        'To build a trusted learning destination that supports students, teachers, and curious minds through dependable stationery and educational tools.',
       logoPath: '/bogo/logos/bogo-classroom.png',
       imagePath: '/bogo/stores/bogo-classroom-concept.webp',
       caption: 'Concept',
@@ -689,7 +689,7 @@ export const bogoContent = {
           desc: 'Enjoy special member pricing, seasonal previews, and priority checkout.',
         },
       ],
-      journey: [
+      phases: [
         { step: '01', title: 'Join', desc: 'Become a member through a rapid, single-click digital sign-up.' },
         { step: '02', title: 'Engage', desc: 'Shop across BOGO brands and stores while earning tier points.' },
         { step: '03', title: 'Reward', desc: 'Redeem points and access bespoke member coupons on daily staples.' },
@@ -718,7 +718,7 @@ export const bogoContent = {
         { title: 'Evolve', desc: 'Expanding coverage to examine broader retail industry trends and developments.' },
       ],
       // Note: Dates (2027-2028) are plans, not facts, as instructed in brief
-      journey: [
+      phases: [
         { step: '01', title: 'Inform (Planned)', desc: 'Launch digital bulletin sharing updates and stories across the BOGO network.' },
         { step: '02', title: 'Connect (Planned)', desc: 'Foster active community discussions around local producers and sustainable sourcing.' },
         { step: '03', title: 'Engage (Planned 2027)', desc: 'Roll out dedicated communication initiatives for partner brands in the ecosystem.' },

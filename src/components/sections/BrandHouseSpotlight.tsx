@@ -298,7 +298,7 @@ export const BrandHouseSpotlight: React.FC = () => {
               Discuss an enterprise project
             </Button>
             <Button
-              href="/businesses#indian-brand-house"
+              href="/businesses/indian-brand-house"
               variant="secondary"
               className="w-full sm:w-auto justify-center"
             >

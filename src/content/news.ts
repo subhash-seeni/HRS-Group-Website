@@ -7,6 +7,7 @@ export interface NewsArticle {
   location: string;
   summary: string;
   content: string[];
+  image: string;
 }
 
 export const newsArticles: NewsArticle[] = [
@@ -17,6 +18,7 @@ export const newsArticles: NewsArticle[] = [
     sector: 'Built Environment',
     business: 'HRS Aluglaze Ltd',
     location: 'Sanand, Gujarat',
+    image: '/images/hrs-aluglaze/sanand-campus.webp',
     summary:
       'The expansion increases monthly output of unitised facade panels to 18,000 square metres to support commercial high-rise projects in western India.',
     content: [
@@ -32,6 +34,7 @@ export const newsArticles: NewsArticle[] = [
     sector: 'Built Environment',
     business: 'Hrishikesh Ventures',
     location: 'Ahmedabad, Gujarat',
+    image: '/images/hrishikesh-ventures/residential-tower.webp',
     summary:
       'The 14-storey office and retail development on SG Highway reaches its planned structural height ahead of facade installation.',
     content: [
@@ -47,6 +50,7 @@ export const newsArticles: NewsArticle[] = [
     sector: 'Retail',
     business: 'BOGO',
     location: 'Ahmedabad, Gujarat',
+    image: '/bogo/stores/bogo-square-concept.webp',
     summary:
       'The multi-format retail destination will house all eleven category brands, dining venues, and automated inventory systems under one roof.',
     content: [
@@ -62,8 +66,9 @@ export const newsArticles: NewsArticle[] = [
     sector: 'Built Environment',
     business: 'School of Facade Technologies',
     location: 'Ahmedabad, Gujarat',
+    image: '/images/school-of-facade-technologies/workshop-benches.webp',
     summary:
-      'Graduates completed five months of rigorous practical training in sealant chemistry, structural wind loading, and curtain wall installation.',
+      'Graduates completed five months of practical training in sealant chemistry, structural wind loading, and curtain wall installation.',
     content: [
       'The School of Facade Technologies held its annual certification ceremony in Ahmedabad, graduating 42 engineers, site supervisors, and fabricators.',
       'The curriculum covered structural glass engineering, acoustic isolation, seismic displacement, and water penetration testing under simulated wind pressure conditions.',
@@ -77,6 +82,7 @@ export const newsArticles: NewsArticle[] = [
     sector: 'Hospitality & Leasing',
     business: 'FirstGen Hotels',
     location: 'Bengaluru, Karnataka',
+    image: '/images/firstgen/service-apartment.webp',
     summary:
       'The property expands Flight Stays capacity near Outer Ring Road technology parks to accommodate long-term project consultants and relocating executives.',
     content: [
@@ -92,6 +98,7 @@ export const newsArticles: NewsArticle[] = [
     sector: 'Food & Consumer',
     business: 'Hrishikesh Food Products',
     location: 'Bavla, Gujarat',
+    image: '/images/hrishikesh-food-products/whole-spices-stone.webp',
     summary:
       'Audit confirms compliance with international food hygiene, automated metal detection, and botanical traceability standards across spice milling lines.',
     content: [

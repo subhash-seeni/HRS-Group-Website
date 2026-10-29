@@ -1,316 +1,371 @@
-'use client';
-
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, ShieldCheck, MapPin, Award, CheckCircle2, Factory, History } from 'lucide-react';
+import { ArrowRight, MapPin, Factory, ShieldCheck, Award, CheckCircle2 } from 'lucide-react';
 import { Header, Footer } from '@/components/layout';
-import { groupValues, calmFacts, aboutStory } from '@/content/facts';
+import { Section, Button, Breadcrumbs } from '@/components/ui';
+import { aboutContent, milestones, leadership, values } from '@/content/about';
+import { calmFacts } from '@/content/facts';
 import { getAssetUrl } from '@/lib/basePath';
 
-interface LeaderBio {
-  name: string;
-  role: string;
-  focus: string;
-  bio: string;
-  image: string;
-}
-
-const LEADERS: LeaderBio[] = [
-  {
-    name: 'Hrishikesh Sharma',
-    role: 'Managing Director',
-    focus: 'Group Strategy & Capital Allocation',
-    bio: 'Oversees group-wide capital governance, strategic growth corridors, and cross-sector asset development across Gujarat and southern India.',
-    image: '/images/leadership/hrishikesh-sharma.jpg',
+export const metadata: Metadata = {
+  title: 'About the Group · HRS Group',
+  description:
+    'Sixteen years of patient building across Built Environment, Retail, Food & Consumer, Hospitality & Leasing, and Services in Ahmedabad and Bengaluru.',
+  openGraph: {
+    title: 'About the Group · HRS Group',
+    description:
+      'Sixteen years of patient building across Built Environment, Retail, Food & Consumer, Hospitality & Leasing, and Services.',
+    url: 'https://hrsgroup.in/about',
+    siteName: 'HRS Group',
+    locale: 'en_IN',
+    type: 'website',
   },
-  {
-    name: 'Pravin Patel',
-    role: 'Executive Director',
-    focus: 'Sanand Manufacturing & Plant Operations',
-    bio: 'Leads industrial operations at the Sanand automated CNC manufacturing plant, overseeing ISO quality standards, plant capacity, and CNC machining lines.',
-    image: '/images/leadership/pravin-patel.jpg',
-  },
-  {
-    name: 'Rajesh Varma',
-    role: 'Director, Built Environment',
-    focus: 'Facade Engineering & Unitised Systems',
-    bio: 'Directs facade design engineering, unitised curtain wall erection protocols, and structural technical delivery on high-rise envelopes up to 38 storeys.',
-    image: '/images/leadership/rajesh-varma.jpg',
-  },
-  {
-    name: 'Meera Nambiar',
-    role: 'Head of Retail',
-    focus: 'BOGO Ecosystem & Multi-Format Growth',
-    bio: 'Leads commercial architecture, omnichannel customer experience, and destination format expansion for BOGO Square, Bazaar, and Mini footprints.',
-    image: '/images/leadership/meera-nambiar.jpg',
-  },
-  {
-    name: 'Siddharth Rao',
-    role: 'Chief Operating Officer',
-    focus: 'FirstGen Hospitality & Commercial Assets',
-    bio: 'Responsible for commercial office leasing, industrial logistics properties, Flight Stays corporate apartments, and Amuktamalyada dining operations.',
-    image: '/images/leadership/siddharth-rao.jpg',
-  },
-  {
-    name: 'Ananya Sharma',
-    role: 'Director, Consumer Brands',
-    focus: 'FMCG Portfolio & Supply Chain',
-    bio: 'Directs brand positioning, modern trade retail distribution, packaging systems, and product development across 13 dedicated consumer lines.',
-    image: '/images/leadership/ananya-sharma.jpg',
-  },
-  {
-    name: 'Mihir Dave',
-    role: 'Principal Academic Director',
-    focus: 'School of Facade Technologies',
-    bio: 'Oversees technical curriculum development, site fabricator vocational benchmarks, and architectural fenestration workshops for engineering institutions.',
-    image: '/images/leadership/mihir-dave.jpg',
-  },
-];
-
-const TIMELINE = [
-  {
-    year: '2012',
-    title: 'Founding of HRS Group in Ahmedabad',
-    detail: 'Inception of HRS Aluglaze in Ahmedabad by Rupesh Shah and Hrishikesh Shah, pioneering engineered architectural aluminium fenestration.',
-  },
-  {
-    year: '2015',
-    title: 'Real Estate Expansion under Hrishikesh Ventures',
-    detail: 'Launched planned residential developments and integrated commercial centers across key growth nodes in western Ahmedabad.',
-  },
-  {
-    year: '2018',
-    title: 'Bavla Botanical & Spice Milling Campus',
-    detail: 'Commissioned a dedicated low-temperature stone milling facility in Bavla to process single-origin clean spices and seasonal blends.',
-  },
-  {
-    year: '2020',
-    title: 'Acquisition of Geotrix in Bengaluru',
-    detail: 'Established direct Southern India facade engineering and site installation capabilities across Karnataka, Tamil Nadu, and Telangana.',
-  },
-  {
-    year: '2022',
-    title: 'School of Facade Technologies Academy',
-    detail: 'Founded dedicated technical institute to bridge structural engineering theory and hands-on site installation mastery.',
-  },
-  {
-    year: '2024',
-    title: 'Launch of FirstGen & BOGO Retail Ecosystem',
-    detail: 'Unified commercial asset management under FirstGen and unveiled BOGO multi-format retail destinations across Gujarat.',
-  },
-];
+};
 
 export default function AboutPage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    name: 'About HRS Group',
+    description:
+      'History, leadership, operating values, and manufacturing milestones of HRS Group.',
+    url: 'https://hrsgroup.in/about',
+    mainEntity: {
+      '@type': 'Organization',
+      name: 'HRS Group',
+      foundingDate: '2012',
+      foundingLocation: 'Ahmedabad, Gujarat, India',
+    },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <Header />
 
-      <main className="min-h-screen bg-[var(--paper)] text-[var(--ink)] pt-28 pb-32">
-        {/* Breadcrumb & Intro Banner */}
-        <section className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 mb-12 sm:mb-16">
-          <div className="flex items-center gap-3 mb-4 text-xs font-semibold text-neutral-500">
-            <Link href="/" className="inline-flex items-center gap-1.5 hover:text-[var(--ink)] transition-colors">
-              <ArrowLeft className="h-3.5 w-3.5" />
-              <span>HRS Group Home</span>
-            </Link>
-            <span>/</span>
-            <span className="text-[var(--hrs-orange)]">Group Heritage & Governance</span>
-          </div>
+      <main className="relative min-h-screen">
+        {/* 1. Split Hero with Photo Collage: Surface Paper */}
+        <Section surface="paper" className="pt-28 md:pt-36 pb-16 md:pb-24">
+          <div className="max-w-7xl mx-auto">
+            <Breadcrumbs
+              items={[{ label: 'About the group' }]}
+              backLink={{ label: 'Home', href: '/' }}
+              className="mb-8"
+            />
 
-          <div className="border-b border-[var(--ink)]/15 pb-12">
-            <span className="text-xs font-semibold text-[var(--hrs-orange)] block mb-3">
-              Corporate Heritage • Ahmedabad & Bengaluru
-            </span>
-            <h1 className="font-['Bricolage_Grotesque'] text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-[var(--ink)] max-w-4xl leading-[1.02]">
-              Built with patience, engineered for generational scale.
-            </h1>
-            <p className="mt-6 text-base sm:text-xl text-neutral-700 max-w-3xl leading-relaxed">
-              Headquartered in Bodakdev, Ahmedabad, HRS Group builds and operates foundational enterprises in the physical economy: high-rise architectural facades, residential communities, modern retail, spice milling, and hospitality stays.
-            </p>
-          </div>
-        </section>
+            <div className="grid grid-cols-12 gap-8 lg:gap-16 items-center">
+              {/* Left Column: Heading & Hook */}
+              <div className="col-span-12 lg:col-span-7 space-y-6">
+                <span className="text-xs font-semibold text-[var(--hrs-orange)] block">
+                  Corporate Heritage & Governance
+                </span>
 
-        {/* Asymmetric Heritage Photography & Story */}
-        <section className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 mb-20">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            <div className="lg:col-span-6 space-y-6">
-              <h2 className="font-['Bricolage_Grotesque'] text-3xl sm:text-4xl font-extrabold text-[var(--ink)] tracking-tight">
-                Our origins in Gujarat’s industrial heartland
-              </h2>
-              {aboutStory.map((paragraph, idx) => (
-                <p key={idx} className="text-sm sm:text-base text-neutral-700 leading-relaxed">
-                  {paragraph}
+                <h1 className="font-['Bricolage_Grotesque'] text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-[var(--ink)] leading-[1.05]">
+                  Built in Ahmedabad, <em>engineered</em> for durability
+                </h1>
+
+                <p className="mt-6 text-lg sm:text-2xl text-neutral-700 leading-relaxed font-sans max-w-2xl">
+                  {aboutContent.subhead}
                 </p>
-              ))}
-            </div>
 
-            <div className="lg:col-span-6 grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <div className="relative aspect-[3/4] overflow-hidden border border-neutral-300 bg-neutral-200">
+                <div className="mt-8 flex flex-wrap gap-4 pt-2">
+                  <Button href="#history" variant="primary">
+                    Our 16-year history
+                  </Button>
+                  <Button href="#leadership" variant="secondary">
+                    Executive leadership
+                  </Button>
+                  <Button href="#values" variant="secondary">
+                    Six operating values
+                  </Button>
+                </div>
+              </div>
+
+              {/* Right Column: 3-Photo Visual Collage */}
+              <div className="col-span-12 lg:col-span-5 grid grid-cols-2 gap-3 sm:gap-4">
+                <div className="aspect-[3/4] w-full overflow-hidden border border-neutral-300 shadow-md bg-neutral-200">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={getAssetUrl('/images/group/ahmedabad-skyline.webp')}
-                    alt="Ahmedabad corporate base"
-                    className="h-full w-full object-cover"
+                    alt="Ahmedabad Commercial Skyline"
+                    className="h-full w-full object-cover grayscale contrast-110"
+                    loading="eager"
                   />
                 </div>
-                <span className="text-xs font-semibold text-neutral-600 block">
-                  Ahmedabad, Gujarat • Corporate HQ
-                </span>
-              </div>
-
-              <div className="space-y-2 pt-8">
-                <div className="relative aspect-[3/4] overflow-hidden border border-neutral-300 bg-neutral-200">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={getAssetUrl('/images/group/corporate-lobby.webp')}
-                    alt="Bodakdev headquarters lobby"
-                    className="h-full w-full object-cover"
-                  />
+                <div className="space-y-3 sm:space-y-4">
+                  <div className="aspect-[4/3] w-full overflow-hidden border border-neutral-300 shadow-md bg-neutral-200">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={getAssetUrl('/images/hrs-aluglaze/sanand-campus.webp')}
+                      alt="Sanand Facade Plant"
+                      className="h-full w-full object-cover"
+                      loading="eager"
+                    />
+                  </div>
+                  <div className="aspect-[4/3] w-full overflow-hidden border border-neutral-300 shadow-md bg-neutral-200">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={getAssetUrl('/images/group/corporate-lobby.webp')}
+                      alt="HRS House Corporate Lobby"
+                      className="h-full w-full object-cover grayscale contrast-110"
+                      loading="eager"
+                    />
+                  </div>
                 </div>
-                <span className="text-xs font-semibold text-neutral-600 block">
-                  Bodakdev Campus • Operations
-                </span>
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* Operating Scale Key Facts */}
-        <section className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 mb-24">
-          <div className="bg-[var(--ink)] text-white p-8 sm:p-12 lg:p-14 border border-white/10">
-            <span className="text-xs font-semibold text-[var(--hrs-orange)] block mb-6">
-              Verified Operational Scale
-            </span>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {/* Quick Operational Figures Strip */}
+            <div className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-[var(--ink)]/15 pt-8">
               {calmFacts.map((fact) => (
-                <div key={fact.label} className="space-y-1.5 border-t border-white/15 pt-4">
-                  <span className="font-['Bricolage_Grotesque'] text-4xl sm:text-5xl font-extrabold text-white tabular-nums block">
+                <div key={fact.label} className="p-4 bg-white/70 border border-neutral-200/80">
+                  <div className="font-['Bricolage_Grotesque'] text-3xl sm:text-4xl font-extrabold text-[var(--ink)] tabular-nums">
                     {fact.metric}
-                  </span>
-                  <h3 className="text-xs font-bold text-neutral-300">
+                  </div>
+                  <span className="text-xs font-bold text-neutral-800 block mt-1">
                     {fact.label}
-                  </h3>
-                  <p className="text-[11px] text-neutral-400 leading-snug">
+                  </span>
+                  <p className="text-[11px] text-neutral-600 mt-1 line-clamp-2">
                     {fact.detail}
                   </p>
                 </div>
               ))}
             </div>
           </div>
-        </section>
+        </Section>
 
-        {/* Historical Chronology (2012-Present) */}
-        <section className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 mb-24">
-          <div className="mb-10 border-b border-[var(--ink)]/15 pb-6">
+        {/* 2. Group Narrative & 16-Year Heritage: Surface White */}
+        <Section surface="white" id="history">
+          <div className="grid grid-cols-12 gap-8 md:gap-16 items-start">
+            <div className="col-span-12 lg:col-span-5 sticky top-28 space-y-6">
+              <span className="text-xs font-semibold text-[var(--hrs-orange)] block">
+                Origin & Discipline
+              </span>
+              <h2 className="font-['Bricolage_Grotesque'] text-3xl sm:text-5xl font-extrabold tracking-tight text-[var(--ink)]">
+                Sixteen years of patient building
+              </h2>
+              <p className="text-base text-neutral-700 leading-relaxed">
+                Founded on engineering rigour in Ahmedabad, expanding through Bengaluru, and maintaining disciplined capital reinvestment.
+              </p>
+
+              <div className="border border-neutral-200 bg-[var(--paper)] p-6 space-y-3">
+                <span className="text-xs font-bold text-[var(--hrs-orange)] block">
+                  Parent Enterprise Governance
+                </span>
+                <p className="text-xs sm:text-sm text-neutral-700 leading-relaxed m-0">
+                  HRS Group operates as a central holding enterprise providing capital allocation, statutory compliance, and operational standards. Each operating entity maintains autonomous technical leadership and direct accountability to partners.
+                </p>
+              </div>
+            </div>
+
+            <div className="col-span-12 lg:col-span-7 space-y-8 text-base sm:text-lg text-neutral-800 leading-relaxed font-sans">
+              {aboutContent.story.map((paragraph, index) => (
+                <p key={index} className="m-0">
+                  {paragraph}
+                </p>
+              ))}
+
+              {/* Physical Facilities Visual Trio */}
+              <div className="pt-8 border-t border-[var(--ink)]/15 grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div className="border border-neutral-200 p-4 bg-[var(--paper)]">
+                  <div className="aspect-[4/3] w-full overflow-hidden bg-neutral-200 mb-3">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={getAssetUrl('/images/hrs-aluglaze/sanand-campus.webp')}
+                      alt="Sanand Automated Plant"
+                      className="h-full w-full object-cover grayscale contrast-110"
+                      loading="lazy"
+                    />
+                  </div>
+                  <span className="text-xs font-bold text-[var(--ink)] block">Sanand Works</span>
+                  <p className="text-[11px] text-neutral-600 mt-1">
+                    120,000 sq ft CNC facade machining and silicone structural glazing bays.
+                  </p>
+                </div>
+
+                <div className="border border-neutral-200 p-4 bg-[var(--paper)]">
+                  <div className="aspect-[4/3] w-full overflow-hidden bg-neutral-200 mb-3">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={getAssetUrl('/images/hrishikesh-food-products/whole-spices-stone.webp')}
+                      alt="Bavla Botanical Campus"
+                      className="h-full w-full object-cover grayscale contrast-110"
+                      loading="lazy"
+                    />
+                  </div>
+                  <span className="text-xs font-bold text-[var(--ink)] block">Bavla Campus</span>
+                  <p className="text-[11px] text-neutral-600 mt-1">
+                    Low-temperature stone spice milling lines and analytical assay laboratories.
+                  </p>
+                </div>
+
+                <div className="border border-neutral-200 p-4 bg-[var(--paper)]">
+                  <div className="aspect-[4/3] w-full overflow-hidden bg-neutral-200 mb-3">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={getAssetUrl('/images/geotrix/window-frames-section.webp')}
+                      alt="Bengaluru Southern Hub"
+                      className="h-full w-full object-cover grayscale contrast-110"
+                      loading="lazy"
+                    />
+                  </div>
+                  <span className="text-xs font-bold text-[var(--ink)] block">Bengaluru Hub</span>
+                  <p className="text-[11px] text-neutral-600 mt-1">
+                    Geotrix site operations and Flight Stays serviced accommodation.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Section>
+
+        {/* 3. Six Foundational Operating Values (Visual 6-Pack): Surface Paper */}
+        <Section surface="paper" id="values">
+          <div className="mb-12 border-b border-[var(--ink)]/15 pb-6 max-w-3xl">
             <span className="text-xs font-semibold text-[var(--hrs-orange)] block mb-2">
-              Chronology of enterprise
+              Foundational Ethos
             </span>
-            <h2 className="font-['Bricolage_Grotesque'] text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[var(--ink)]">
+            <h2 className="font-['Bricolage_Grotesque'] text-3xl sm:text-5xl font-extrabold tracking-tight text-[var(--ink)]">
+              Six values governed in daily practice
+            </h2>
+            <p className="mt-3 text-base text-neutral-700">
+              Not slogans on a wall, but operational checkpoints enforced across fabrication bays, job sites, and client contracts.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {values.map((val) => (
+              <div
+                key={val.name}
+                className="border border-neutral-200 bg-white p-8 flex flex-col justify-between hover:border-[var(--ink)] transition-colors shadow-2xs"
+              >
+                <div>
+                  <span className="font-['Bricolage_Grotesque'] text-4xl sm:text-5xl font-extrabold text-[var(--hrs-orange)] tabular-nums block mb-4">
+                    {val.number}
+                  </span>
+                  <h3 className="font-['Bricolage_Grotesque'] text-2xl font-bold text-[var(--ink)]">
+                    {val.name}
+                  </h3>
+                  <p className="mt-3 text-xs sm:text-sm text-neutral-600 leading-relaxed">
+                    {val.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        {/* 4. Milestones Timeline: Surface Ink */}
+        <Section surface="ink" id="milestones">
+          <div className="mb-12 border-b border-white/15 pb-6">
+            <span className="text-xs font-semibold text-[var(--hrs-orange)] block mb-2">
+              Chronology
+            </span>
+            <h2 className="font-['Bricolage_Grotesque'] text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
               Milestones from 2012 to present
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {TIMELINE.map((item) => (
+            {milestones.map((m) => (
               <div
-                key={item.year}
-                className="border border-[var(--ink)]/15 bg-white p-6 flex flex-col justify-between space-y-4 hover:border-[var(--ink)] transition-colors"
+                key={m.year}
+                className="border border-white/15 bg-white/5 p-6 flex flex-col justify-between hover:border-white transition-colors"
               >
                 <div>
                   <span className="font-['Bricolage_Grotesque'] text-4xl font-extrabold text-[var(--hrs-orange)] tabular-nums block mb-2">
-                    {item.year}
+                    {m.year}
                   </span>
-                  <h3 className="font-['Bricolage_Grotesque'] text-lg font-bold text-[var(--ink)]">
-                    {item.title}
+                  <h3 className="font-['Bricolage_Grotesque'] text-xl font-bold text-white mb-2">
+                    {m.title}
                   </h3>
+                  <p className="text-xs text-neutral-300 leading-relaxed">
+                    {m.detail}
+                  </p>
                 </div>
-                <p className="text-xs text-neutral-600 leading-relaxed pt-3 border-t border-neutral-100">
-                  {item.detail}
-                </p>
               </div>
             ))}
           </div>
-        </section>
+        </Section>
 
-        {/* Leadership Directory & Biographies */}
-        <section className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 mb-24">
-          <div className="mb-10 border-b border-[var(--ink)]/15 pb-6">
+        {/* 5. Executive Leadership Gallery (7 Directors): Surface Paper */}
+        <Section surface="paper" id="leadership">
+          <div className="mb-12 border-b border-[var(--ink)]/15 pb-6">
             <span className="text-xs font-semibold text-[var(--hrs-orange)] block mb-2">
-              Executive Governance
+              Corporate Governance
             </span>
-            <h2 className="font-['Bricolage_Grotesque'] text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[var(--ink)]">
-              Leadership & sector directors
+            <h2 className="font-['Bricolage_Grotesque'] text-3xl sm:text-5xl font-extrabold tracking-tight text-[var(--ink)]">
+              Executive leadership & sector directors
             </h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {LEADERS.map((leader) => (
-              <div
+            {leadership.map((leader) => (
+              <article
                 key={leader.name}
-                className="group border border-[var(--ink)]/15 bg-white p-5 flex flex-col justify-between hover:border-[var(--ink)] hover:shadow-sm transition-all"
+                className="border border-neutral-200 bg-white overflow-hidden flex flex-col justify-between hover:border-[var(--ink)] hover:shadow-md transition-all"
               >
                 <div>
-                  <div className="relative aspect-[3/4] overflow-hidden border border-neutral-200 bg-neutral-100 mb-4">
+                  <div className="relative aspect-[4/5] w-full overflow-hidden bg-neutral-200">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={getAssetUrl(leader.image)}
                       alt={leader.name}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="h-full w-full object-cover grayscale contrast-110"
+                      loading="lazy"
                     />
                   </div>
 
-                  <h3 className="font-['Bricolage_Grotesque'] text-lg font-bold text-[var(--ink)] group-hover:text-[var(--hrs-orange)] transition-colors">
-                    {leader.name}
-                  </h3>
-                  <p className="text-xs font-semibold text-neutral-700 mt-0.5">
-                    {leader.role}
-                  </p>
-                  <span className="text-[11px] font-semibold text-[var(--hrs-orange)] block mt-1">
-                    {leader.focus}
-                  </span>
-
-                  <p className="text-xs text-neutral-600 leading-relaxed mt-3 pt-3 border-t border-neutral-100">
-                    {leader.bio}
-                  </p>
+                  <div className="p-5">
+                    <span className="text-[11px] font-bold text-[var(--hrs-orange)] block">
+                      {leader.focus}
+                    </span>
+                    <h3 className="font-['Bricolage_Grotesque'] text-xl font-bold text-[var(--ink)] mt-1">
+                      {leader.name}
+                    </h3>
+                    <p className="text-xs font-semibold text-neutral-800 mt-0.5">
+                      {leader.role}
+                    </p>
+                    <p className="text-xs text-neutral-600 leading-relaxed mt-3 pt-3 border-t border-neutral-100">
+                      {leader.bio}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
-        </section>
+        </Section>
 
-        {/* Six Values with Concrete Governance Proof */}
-        <section className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
-          <div className="mb-8 border-b border-[var(--ink)]/15 pb-6">
-            <span className="text-xs font-semibold text-[var(--hrs-orange)] block mb-2">
-              Ethos & Operating Principles
-            </span>
-            <h2 className="font-['Bricolage_Grotesque'] text-3xl sm:text-4xl font-extrabold tracking-tight text-[var(--ink)]">
-              Six foundational values in practice
-            </h2>
-          </div>
+        {/* 6. Bottom Prompt: Surface Orange */}
+        <Section surface="orange">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
+            <div className="max-w-2xl">
+              <span className="text-xs font-semibold text-[var(--ink)] block mb-2">
+                Operational Reach
+              </span>
+              <h2 className="font-['Bricolage_Grotesque'] text-3xl sm:text-5xl font-extrabold tracking-tight text-[var(--ink)]">
+                Explore our operating businesses
+              </h2>
+              <p className="mt-3 text-base text-[var(--ink)]/85">
+                Review specific engineering capabilities, residential developments, or contact our commercial desks in Ahmedabad and Bengaluru.
+              </p>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {groupValues.map((val, idx) => (
-              <div
-                key={val.name}
-                className="border border-[var(--ink)]/15 bg-white p-6 space-y-3"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-bold text-[var(--hrs-orange)] tabular-nums">
-                    0{idx + 1}
-                  </span>
-                  <h3 className="font-['Bricolage_Grotesque'] text-xl font-bold text-[var(--ink)]">
-                    {val.name}
-                  </h3>
-                </div>
-                <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
-                  {val.description}
-                </p>
-              </div>
-            ))}
+            <div className="flex flex-wrap gap-4 shrink-0">
+              <Button href="/businesses" variant="primary">
+                View all businesses
+              </Button>
+              <Button href="/contact" variant="outline">
+                Contact corporate desk
+              </Button>
+            </div>
           </div>
-        </section>
+        </Section>
       </main>
 
       <Footer />

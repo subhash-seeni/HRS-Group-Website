@@ -17,11 +17,11 @@ const FirstGenSpotlight = dynamic(() => import('@/components/sections/FirstGenSp
 const BrandHouseSpotlight = dynamic(() => import('@/components/sections/BrandHouseSpotlight'));
 
 export const metadata: Metadata = {
-  title: 'HRS Group • Built Environment, Retail, Food & Hospitality',
+  title: 'HRS Group · Built Environment, Retail, Food & Hospitality',
   description:
     'Headquartered in Ahmedabad, Gujarat, HRS Group builds foundational businesses across Built Environment, Retail, Food & Consumer, Hospitality & Leasing, and Services.',
   openGraph: {
-    title: 'HRS Group • Built Environment, Retail, Food & Hospitality',
+    title: 'HRS Group · Built Environment, Retail, Food & Hospitality',
     description:
       'Headquartered in Ahmedabad, Gujarat, HRS Group builds foundational businesses across Built Environment, Retail, Food & Consumer, Hospitality & Leasing, and Services.',
     url: 'https://hrsgroup.in',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'HRS Group • Built Environment, Retail, Food & Hospitality',
+    title: 'HRS Group · Built Environment, Retail, Food & Hospitality',
     description:
       'Headquartered in Ahmedabad, Gujarat, HRS Group builds foundational businesses across Built Environment, Retail, Food & Consumer, Hospitality & Leasing, and Services.',
   },

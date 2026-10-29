@@ -233,7 +233,7 @@ export const FirstGenSpotlight: React.FC = () => {
             <span className="text-white font-medium">FirstGen Pvt. Ltd.</span> acts as corporate parent; public operations trade under their respective division names.
           </div>
           <Button
-            href="/businesses#firstgen"
+            href="/businesses/firstgen"
             variant="orange"
             className="w-full sm:w-auto justify-center"
           >

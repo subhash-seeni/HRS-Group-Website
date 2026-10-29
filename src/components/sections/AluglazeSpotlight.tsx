@@ -305,7 +305,7 @@ export const AluglazeSpotlight: React.FC = () => {
             </a>
 
             <Link
-              href="/businesses#hrs-aluglaze"
+              href="/businesses/hrs-aluglaze"
               className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-white/70 hover:text-white transition-colors underline underline-offset-4"
             >
               <span>Group directory</span>
